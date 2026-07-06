@@ -12,7 +12,7 @@ import { services } from '../../content/services';
 
 <Section id="services" bg="canvas">
   <Container size="xl">
-    <div class="mx-auto max-w-3xl text-center">
+    <div class="mx-auto max-w-3xl text-center" data-reveal>
       <h2 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
         What we build
       </h2>
@@ -22,7 +22,7 @@ import { services } from '../../content/services';
       </p>
     </div>
 
-    <div class="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div class="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-reveal>
       {
         services.map((service) => (
           <a
