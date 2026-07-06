@@ -207,7 +207,6 @@ export default function AuditRequestForm({
         ? 'border-danger focus:border-danger focus:ring-3 focus:ring-danger/10'
         : 'border-line hover:border-line-strong focus:border-brand focus:ring-3 focus:ring-brand/10'
     }`;
-
   const labelClass = 'mb-1.5 block text-sm font-medium text-ink-2';
   const errorClass = 'mt-1.5 flex items-center gap-1 text-xs text-danger';
   const requiredMark = <span className="text-danger">*</span>;
@@ -235,7 +234,7 @@ export default function AuditRequestForm({
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelClass}>
-            {t.nameLabel} <span className="text-danger">*</span>
+            {t.nameLabel} {requiredMark}
           </label>
           <input
             id="name"
@@ -256,7 +255,7 @@ export default function AuditRequestForm({
 
         <div>
           <label htmlFor="email" className={labelClass}>
-            {t.emailLabel} <span className="text-danger">*</span>
+            {t.emailLabel} {requiredMark}
           </label>
           <input
             id="email"
@@ -279,7 +278,7 @@ export default function AuditRequestForm({
       {/* Project type (required, select) */}
       <div>
         <label htmlFor="projectType" className={labelClass}>
-          {t.projectTypeLabel} <span className="text-danger">*</span>
+          {t.projectTypeLabel} {requiredMark}
         </label>
         <select
           id="projectType"
@@ -307,7 +306,7 @@ export default function AuditRequestForm({
       {/* Message (required) */}
       <div>
         <label htmlFor="message" className={labelClass}>
-          {t.messageLabel} <span className="text-danger">*</span>
+          {t.messageLabel} {requiredMark}
         </label>
         <textarea
           id="message"

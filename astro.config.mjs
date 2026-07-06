@@ -2,20 +2,18 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
-import cloudflare from '@astrojs/cloudflare';
+import node from '@astrojs/node';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
   // Static-first: every page is prerendered to a static asset.
   // Only `src/pages/api/audit-request.ts` sets `export const prerender = false`
-  // so it runs on the Cloudflare Workers runtime. This keeps HTML served from
-  // edge cache (perf pitch), lets `public/_headers` apply to all pages, and
-  // keeps the sitemap complete.
+  // so it runs on the Node server (Cloud Run). This keeps HTML served as
+  // static assets (perf pitch) and the sitemap complete.
   output: 'static',
-  adapter: cloudflare({
-    // Transform images at build time only; avoids runtime Cloudflare Images cost.
-    imageService: 'compile',
+  adapter: node({
+    mode: 'standalone',
   }),
   site: 'https://web-dev-studio.com',
   integrations: [
@@ -40,10 +38,9 @@ export default defineConfig({
   },
   // Type-safe environment variables via astro:env.
   // Server secrets are read via `import { X } from 'astro:env/server'`
-  // — never `import.meta.env` for runtime secrets on Cloudflare.
+  // — never `import.meta.env` for runtime secrets.
   env: {
     schema: {
-      // Server-side secrets (not exposed to client)
       WEBHOOK_URL: {
         type: 'string',
         context: 'server',
@@ -62,7 +59,6 @@ export default defineConfig({
         access: 'secret',
         optional: true,
       },
-      // Client-exposed (must be access: 'public' for client context)
       PUBLIC_TURNSTILE_SITE_KEY: {
         type: 'string',
         context: 'client',

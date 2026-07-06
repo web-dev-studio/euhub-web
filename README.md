@@ -6,7 +6,7 @@ the EUHUB engineering ecosystem. Fast, secure, conversion-focused, GDPR-aware.
 ## Stack
 
 - **Astro 7** — static-first, `output: "static"`, one dynamic API route
-- **Cloudflare Workers** — deployment via `@astrojs/cloudflare` v14 (not Pages)
+- **GCP Cloud Run** — deployment via `@astrojs/node` (standalone mode)
 - **React 19** — islands only (form, hero interactive elements)
 - **TypeScript** — strict mode
 - **Tailwind CSS v4** — via `@tailwindcss/vite`
@@ -19,7 +19,7 @@ the EUHUB engineering ecosystem. Fast, secure, conversion-focused, GDPR-aware.
 
 ```bash
 bun install          # install dependencies
-npm run dev          # start dev server (uses workerd runtime)
+npm run dev          # start dev server
 npm run build        # build to ./dist/
 npm run preview      # preview the built site locally
 npm run check        # type checking (astro check)
@@ -28,8 +28,8 @@ npm run format       # format with Prettier
 
 ## Environment variables
 
-Copy `.env.example` to `.env` for local development. On Cloudflare, set
-secrets via `wrangler secret put <KEY>` or the dashboard.
+Copy `.env.example` to `.env` for local development. On GCP Cloud Run,
+secrets are stored in GCP Secret Manager and mounted as env vars at runtime.
 
 | Variable                    | Context       | Purpose                           |
 | --------------------------- | ------------- | --------------------------------- |
@@ -51,17 +51,16 @@ secrets via `wrangler secret put <KEY>` or the dashboard.
 
 Every page is prerendered to a static asset. Only
 `src/pages/api/audit-request.ts` sets `export const prerender = false` so it
-runs on the Cloudflare Workers runtime. This keeps:
+runs on the Node server (Cloud Run). This keeps:
 
-- HTML served from edge cache (performance)
-- `public/_headers` applying to all pages (security headers)
+- HTML served as static assets (performance)
 - Sitemap complete (all routes included)
 
 ### Secrets
 
-Server-side secrets are read via `astro:env/server` (type-safe, Cloudflare
-compatible). Never use `import.meta.env` for runtime secrets — they're inlined
-at build time and won't exist in the Cloudflare Workers environment.
+Server-side secrets are read via `astro:env/server` (type-safe). Never use
+`import.meta.env` for runtime secrets — they're inlined at build time and
+won't exist in the Cloud Run environment.
 
 ### Contact form
 
@@ -69,7 +68,7 @@ at build time and won't exist in the Cloudflare Workers environment.
 - Honeypot + Cloudflare Turnstile (client widget + server-side verification)
 - Webhook POST with 8s timeout (AbortController), non-2xx handling
 - `mailto:` fallback in the error state
-- Rate limiting: Cloudflare WAF rule (primary) + in-memory counter (secondary)
+- Rate limiting: in-memory counter (per-instance)
 - Dev mode: returns success with console warning if `WEBHOOK_URL` is unset
 
 ### Analytics
@@ -81,32 +80,65 @@ at build time and won't exist in the Cloudflare Workers environment.
 
 ### Security headers
 
-- `public/_headers` applies to static assets (HTML, CSS, JS, images)
-- API endpoint sets headers on the Response object directly
+- Set via Astro middleware (`src/middleware.ts`) on all responses
 - CSP includes Turnstile and Umami domains — update if using a custom Umami domain
 - HSTS intentionally omitted until the canonical domain is live on HTTPS
 - `X-Frame-Options: DENY` (or CSP `frame-ancestors 'none'`)
 
 ## Deployment
 
-### Cloudflare Workers
+### GCP Cloud Run (via GitHub Actions)
+
+The deploy workflow (`.github/workflows/deploy.yml`) runs on push to `main`:
+
+1. Quality gates (format, typecheck, build, content guard)
+2. i18n translation completeness check (when SK content changes)
+3. Build Docker container (multi-stage: Bun+Node build, Node slim runtime)
+4. Push to GCP Artifact Registry
+5. Deploy to Cloud Run with secrets from GCP Secret Manager
+
+**Required GitHub secrets** (in `prod` environment):
+
+| Secret                            | Purpose                                                 |
+| --------------------------------- | ------------------------------------------------------- |
+| `GCP_WIF_PROVIDER`                | Workload Identity Federation provider URL               |
+| `GCP_SA_EMAIL`                    | GCP service account email for auth                      |
+| `GCP_PROJECT_ID`                  | GCP project ID                                          |
+| `GAR_LOCATION`                    | Artifact Registry location (e.g. `europe-west1`)        |
+| `GAR_REPOSITORY`                  | Artifact Registry repository name                       |
+| `CR_SERVICE_NAME`                 | Cloud Run service name                                  |
+| `CR_LOCATION`                     | Cloud Run region (e.g. `europe-west1`)                  |
+| `PUBLIC_TURNSTILE_SITE_KEY`       | Turnstile site key (client)                             |
+| `PUBLIC_UMAMI_SCRIPT_URL`         | Umami script URL (client)                               |
+| `PUBLIC_UMAMI_WEBSITE_ID`         | Umami website ID (client)                               |
+| `GCP_WEBHOOK_URL_SECRET`          | GCP Secret Manager secret name for WEBHOOK_URL          |
+| `GCP_WEBHOOK_TOKEN_SECRET`        | GCP Secret Manager secret name for WEBHOOK_TOKEN        |
+| `GCP_TURNSTILE_SECRET_KEY_SECRET` | GCP Secret Manager secret name for TURNSTILE_SECRET_KEY |
+
+**GCP Secret Manager secrets** (must be created before first deploy):
+
+```bash
+gcloud secrets create WEBHOOK_URL --replication-policy=automatic
+echo -n "your-webhook-url" | gcloud secrets versions add WEBHOOK_URL
+
+gcloud secrets create WEBHOOK_TOKEN --replication-policy=automatic
+echo -n "your-token" | gcloud secrets versions add WEBHOOK_TOKEN
+
+gcloud secrets create TURNSTILE_SECRET_KEY --replication-policy=automatic
+echo -n "your-secret" | gcloud secrets versions add TURNSTILE_SECRET_KEY
+```
+
+### Manual deploy (without GitHub Actions)
 
 ```bash
 npm run build
-npx wrangler deploy
+docker build -t euhub-web-dev-studio .
+docker run -p 8080:8080 \
+  -e WEBHOOK_URL=... \
+  -e TURNSTILE_SECRET_KEY=... \
+  -e PUBLIC_TURNSTILE_SITE_KEY=... \
+  euhub-web-dev-studio
 ```
-
-Or set up GitHub Actions for automatic deployment on push to `main`.
-
-### Rate limiting (Cloudflare WAF)
-
-Configure a WAF rate-limiting rule in the Cloudflare dashboard:
-
-- **Target:** `/api/audit-request`
-- **Condition:** requests from a single IP exceed 10 per 60s
-- **Action:** block for 300s
-
-This is edge-enforced before the Worker runs.
 
 ## Performance targets
 

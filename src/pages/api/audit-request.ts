@@ -10,13 +10,14 @@ import {
  * Audit Request API endpoint.
  *
  * Per plan v3:
- *  - prerender = false → runs on Cloudflare Workers (workerd runtime)
+ *  - prerender = false → runs on the Node server (Cloud Run)
  *  - Web-API only: fetch, AbortController, Request/Response
  *  - Validates input with shared Zod schema
  *  - Verifies Cloudflare Turnstile token server-side
  *  - POSTs to WEBHOOK_URL with timeout handling
  *  - No leaking of webhook internals to the user
- *  - Security headers on the Response (not covered by _headers for Worker responses)
+ *  - Security headers are applied globally by src/middleware.ts; this
+ *    endpoint does not set its own copy
  *  - Dev mode: returns success with console warning if WEBHOOK_URL is unset
  */
 
@@ -47,9 +48,15 @@ const TURNSTILE_VERIFY_URL =
 // Webhook timeout (ms)
 const WEBHOOK_TIMEOUT_MS = 8000;
 
-// Rate limiting: simple in-memory counter (per-isolate)
-// NOTE: This is a best-effort layer. The primary rate limiting is a
-// Cloudflare WAF rule scoped to /api/audit-request (configured in dashboard).
+// Rate limiting: in-memory counter, per Cloud Run container instance.
+// NOTE: this is NOT a distributed rate limiter. Cloud Run can run up to
+// --max-instances concurrent instances (each with its own independent Map),
+// and --min-instances=0 means the Map resets whenever the service scales to
+// zero. Treat this as a cheap last-resort backstop, not the real control —
+// the actual rate-limiting layer belongs in front of Cloud Run (e.g. a
+// Cloud Armor security policy on the load balancer/serverless NEG scoped to
+// this path), which is not yet configured. TODO: add a Cloud Armor rate
+// limit rule before relying on this endpoint to resist abuse at scale.
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 10;
@@ -66,21 +73,20 @@ function checkRateLimit(ip: string): boolean {
 }
 
 function getClientIp(request: Request): string {
-  const cfConnectingIp = request.headers.get('cf-connecting-ip');
-  if (cfConnectingIp) return cfConnectingIp;
+  // Cloud Run's load balancer sets x-forwarded-for; there is no Cloudflare
+  // in front of this service anymore, so cf-connecting-ip is never present.
   const xForwardedFor = request.headers.get('x-forwarded-for');
   if (xForwardedFor) return xForwardedFor.split(',')[0]!.trim();
   return 'unknown';
 }
 
 function jsonResponse(body: Record<string, unknown>, status: number): Response {
+  // Security headers (CSP, X-Frame-Options, etc.) are applied globally by
+  // src/middleware.ts — this response only needs Content-Type here.
   return new Response(JSON.stringify(body), {
     status,
     headers: {
       'Content-Type': 'application/json',
-      'X-Content-Type-Options': 'nosniff',
-      'Referrer-Policy': 'strict-origin-when-cross-origin',
-      'X-Frame-Options': 'DENY',
     },
   });
 }

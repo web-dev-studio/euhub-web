@@ -32,12 +32,20 @@ npm run format:check   # check only
 
 ### Architecture decisions
 
-- `output: "static"` — every page is prerendered; only `src/pages/api/audit-request.ts` sets `prerender = false` (runs on Cloudflare Workers).
-- Cloudflare Workers deployment (not Pages — the `@astrojs/cloudflare` adapter removed Pages support in v14).
-- Secrets via `astro:env` or `Astro.locals.runtime.env` — never `import.meta.env` for runtime secrets.
+- `output: "static"` — every page is prerendered; only `src/pages/api/audit-request.ts` sets `prerender = false` (runs on the Node server).
+- GCP Cloud Run deployment via `@astrojs/node` adapter (standalone mode).
+- Secrets via `astro:env` (`access: "secret"`) — never `import.meta.env` for runtime secrets.
 - `PUBLIC_` prefix required for client-exposed env vars (Turnstile site key, Umami).
 - Inter self-hosted via Fontsource (no Google Fonts CDN — GDPR exposure).
 - No MDX, no GSAP-global, no 3D. React islands only where interactivity is necessary.
+- Security headers via Astro middleware (`src/middleware.ts`), not a static `_headers` file.
+
+### CI/CD
+
+- **CI** (`ci.yml`): runs on PRs — format, typecheck, build, Lighthouse, Playwright smoke.
+- **Deploy** (`deploy.yml`): runs on push to main — quality gates + i18n check + build container + deploy to Cloud Run.
+- Uses Workload Identity Federation (no long-lived service account keys).
+- Secrets stored in GitHub `prod` environment + GCP Secret Manager.
 
 ## Documentation
 
