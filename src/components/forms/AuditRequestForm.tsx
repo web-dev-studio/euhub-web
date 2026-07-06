@@ -178,11 +178,11 @@ export default function AuditRequestForm({
   // Success state
   if (state === 'success') {
     return (
-      <div className="text-center py-8">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-ok/10 text-ok">
+      <div className="py-10 text-center">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-ok/10 text-ok ring-4 ring-ok/5">
           <svg
-            width="28"
-            height="28"
+            width="32"
+            height="32"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -193,19 +193,24 @@ export default function AuditRequestForm({
             <path d="M20 6L9 17l-5-5" />
           </svg>
         </div>
-        <h3 className="mt-4 text-xl font-bold text-ink">{t.successTitle}</h3>
-        <p className="mt-2 text-sm text-ink-3">{t.successMessage}</p>
+        <h3 className="mt-5 text-xl font-bold text-ink">{t.successTitle}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-ink-3">
+          {t.successMessage}
+        </p>
       </div>
     );
   }
 
   const inputClass = (field: string) =>
-    `w-full rounded-md border bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-ink-4 transition-colors focus:outline-2 focus:outline-brand ${
-      errors[field] ? 'border-danger' : 'border-line'
+    `w-full rounded-lg border bg-surface px-4 py-3 text-sm text-ink placeholder:text-ink-4 transition-all duration-200 ${
+      errors[field]
+        ? 'border-danger focus:border-danger focus:ring-3 focus:ring-danger/10'
+        : 'border-line hover:border-line-strong focus:border-brand focus:ring-3 focus:ring-brand/10'
     }`;
 
-  const labelClass = 'block text-sm font-medium text-ink-2';
-  const errorClass = 'mt-1 text-xs text-danger';
+  const labelClass = 'mb-1.5 block text-sm font-medium text-ink-2';
+  const errorClass = 'mt-1.5 flex items-center gap-1 text-xs text-danger';
+  const requiredMark = <span className="text-danger">*</span>;
 
   return (
     <form
@@ -441,9 +446,27 @@ export default function AuditRequestForm({
 
       {/* Error state with mailto fallback */}
       {state === 'error' && (
-        <div className="rounded-lg border border-danger/20 bg-danger/5 p-4">
-          <p className="text-sm text-danger">{errorMessage}</p>
-          <p className="mt-2 text-sm text-ink-2">
+        <div className="flex flex-col gap-2 rounded-xl border border-danger/20 bg-danger/5 p-4">
+          <div className="flex items-start gap-2.5">
+            <svg
+              className="mt-0.5 shrink-0 text-danger"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8v4M12 16h.01" />
+            </svg>
+            <p className="text-sm leading-relaxed text-danger">
+              {errorMessage}
+            </p>
+          </div>
+          <div className="flex items-center gap-1.5 pl-7 text-sm text-ink-2">
             {t.errorFallback}{' '}
             <a
               href={`mailto:${contactEmail}?subject=Web%20Audit%20Request`}
@@ -452,7 +475,7 @@ export default function AuditRequestForm({
             >
               {contactEmail}
             </a>
-          </p>
+          </div>
         </div>
       )}
 
@@ -460,7 +483,7 @@ export default function AuditRequestForm({
       <button
         type="submit"
         disabled={state === 'submitting'}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand px-6 py-3 text-base font-medium text-white transition-all hover:bg-brand-2 disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3.5 text-base font-semibold text-white shadow-card transition-all duration-200 hover:bg-brand-2 hover:shadow-panel disabled:opacity-60 disabled:pointer-events-none"
       >
         {state === 'submitting' ? t.submittingButton : t.submitButton}
         {state !== 'submitting' && (

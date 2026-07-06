@@ -148,10 +148,52 @@ html.theme-ready *::after {
 }
 
 /* Visible focus for keyboard users */
-:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+:where(a, button, select, summary, [tabindex]):focus-visible {
   outline: 2px solid var(--color-brand);
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+/* Form fields — modern focus ring, no default browser outline */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px rgb(27 77 255 / 0.12);
+}
+
+/* Select — custom arrow, consistent appearance */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a94a6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 12px;
+  padding-right: 2rem;
+}
+
+/* Dark mode focus ring */
+.dark input:focus-visible,
+.dark textarea:focus-visible,
+.dark select:focus-visible {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px rgb(59 109 255 / 0.15);
+}
+
+/* Autofill — override browser yellow/blue background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-ink);
+  -webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset;
+  caret-color: var(--color-ink);
 }
 
 /* Selection */
