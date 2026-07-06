@@ -1,0 +1,9 @@
+# CODEOWNERS — enforces required reviews via branch protection
+# These paths require approval from the named reviewers before merge.
+# Replace the placeholder handles with real GitHub usernames before launch.
+
+# Slovak content requires review from a Slovak speaker
+src/content/sk/**      @slovak-speaker-handle
+
+# Legal content (both locales) requires legal counsel review
+**/legal.ts            @legal-reviewer-handle

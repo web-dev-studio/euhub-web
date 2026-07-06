@@ -38,6 +38,14 @@ jobs:
           PUBLIC_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
           TURNSTILE_SECRET_KEY: 1x0000000000000000000000000000000AA
 
+      - name: Content guard (no TODO/lorem/placeholder in built HTML)
+        run: |
+          if grep -r -l "TODO\|lorem ipsum\|placeholder" dist/client/ 2>/dev/null; then
+            echo "FAIL: forbidden text found in built HTML"
+            exit 1
+          fi
+          echo "Content guard passed."
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         if: always()
@@ -86,6 +94,79 @@ jobs:
         # TODO: Remove || true once scores are verified on the built site.
         # The || true is temporary to allow CI to pass during initial setup.
         # Per DoD: Lighthouse 95+ (0.9 threshold) is a required gate.
+
+  i18n:
+    name: i18n translation completeness + SK smoke
+    runs-on: ubuntu-latest
+    needs: quality
+
+    steps:
+      # fetch-depth: 0 required by dorny/paths-filter on push events
+      # (push events use git diff; shallow checkout has no parent commit)
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            sk: 'src/content/sk/**'
+
+      - uses: oven-sh/setup-bun@v2
+        if: steps.filter.outputs.sk == 'true'
+        with:
+          bun-version: 1.3
+
+      - uses: actions/setup-node@v4
+        if: steps.filter.outputs.sk == 'true'
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        if: steps.filter.outputs.sk == 'true'
+        run: bun install --frozen-lockfile
+
+      - name: Check SK translation completeness
+        if: steps.filter.outputs.sk == 'true'
+        run: bun run scripts/check-translations.ts
+
+      - name: Build
+        if: steps.filter.outputs.sk == 'true'
+        run: bun run build
+        env:
+          PUBLIC_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
+          TURNSTILE_SECRET_KEY: 1x0000000000000000000000000000000AA
+
+      - name: SK smoke tests
+        if: steps.filter.outputs.sk == 'true'
+        run: |
+          npx astro preview --port 4321 &
+          SERVER_PID=$!
+          sleep 3
+
+          # Test: SK homepage loads with correct lang attribute
+          SK_LANG=$(curl -s http://localhost:4321/sk/ | grep -o '<html[^>]*lang="[^"]*"' | head -1)
+          if echo "$SK_LANG" | grep -q 'lang="sk"'; then
+            echo "OK: SK homepage has lang=sk"
+          else
+            echo "FAIL: SK homepage lang attribute wrong: $SK_LANG"
+            kill $SERVER_PID
+            exit 1
+          fi
+
+          # Test: SK legal pages load
+          for page in privacy cookies terms; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:4321/sk/$page/)
+            if [ "$STATUS" != "200" ]; then
+              echo "FAIL: /sk/$page/ returned $STATUS"
+              kill $SERVER_PID
+              exit 1
+            fi
+          done
+
+          echo "SK smoke tests passed."
+          kill $SERVER_PID
 
   playwright:
     name: Playwright smoke test (required gate)

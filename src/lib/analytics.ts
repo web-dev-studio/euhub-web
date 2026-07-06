@@ -25,7 +25,8 @@ export function track(
   props?: Record<string, unknown>,
 ): void {
   if (typeof window !== 'undefined' && window.umami) {
-    window.umami.track(eventName, props);
+    const locale = document.documentElement.lang || 'en';
+    window.umami.track(eventName, { ...props, locale });
   }
 }
 
