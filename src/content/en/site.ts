@@ -16,7 +16,7 @@ const site: SiteContent = {
     { label: 'EUHUB.CO', href: 'https://euhub.co' },
     { label: 'EUHUB AI', href: 'https://euhub-ai.com' },
   ],
-  contactEmail: 'studio@euhub.co',
+  contactEmail: 'hello@euhub-ai.com',
   location: 'Slovakia · European Union',
   seo: {
     title: 'Web Dev Studio by EUHUB',

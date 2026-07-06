@@ -18,8 +18,8 @@ const privacyPolicy: LegalContent = {
     'Tretie strany (processors): Keď odošlete formulár, vaše dáta sa prenášajú do Cloudflare (náš hosting provider, EU edge) a do webhook destinácie, ktorá smeruje submission do našich interných systémov. Analytické dáta spracováva Umami Cloud (EU/Frankfurt). Každý processor operuje pod GDPR-compatible podmienkami.',
     'Právný základ: Form submissions spracovávame podľa článku 6(1)(b) GDPR (nevyhnutné na kroky pred zmluvou na vašu žiadosť). Analytické dáta spracovávame podľa článku 6(1)(f) GDPR (oprávnený záujem na pochopení používania webu).',
     'Uchovávanie: Form submissions sa uchovávajú až 12 mesiacov, ak nevznikne projekt, a počas trvania klientskeho vzťahu plus 3 roky, ak projekt vznikne. Analytické dáta sa uchovávajú v agregovanej forme bez individuálnej identifikácie.',
-    'Vaše práva: Máte právo na prístup, opravu, vymazanie, obmedzenie alebo namietanie spracovania vašich osobných údajov. Máte tiež právo na prenosnosť dát a právo podať sťažnosť dohliadaciemu orgánu. Na uplatnenie práva nám napíšte na studio@euhub.co.',
-    'Kontakt: Pre otázky ohľadom ochrany osobných údajov napíšte na studio@euhub.co. Sídlime na Slovensku, v Európskej únie.',
+    'Vaše práva: Máte právo na prístup, opravu, vymazanie, obmedzenie alebo namietanie spracovania vašich osobných údajov. Máte tiež právo na prenosnosť dát a právo podať sťažnosť dohliadaciemu orgánu. Na uplatnenie práva nám napíšte na hello@euhub-ai.com.',
+    'Kontakt: Pre otázky ohľadom ochrany osobných údajov napíšte na hello@euhub-ai.com. Sídlime na Slovensku, v Európskej únie.',
   ],
 };
 
@@ -46,7 +46,7 @@ const terms: LegalContent = {
     'Bez záruky: Tento web je poskytovaný „tak ako je" bez akejkoľvek záruky. Negarantujeme, že web bude bez chýb, bez prerušenia alebo vhodný na konkrétny účel.',
     'Zodpovednosť: V rozsahu povolenom zákonom je naša zodpovednosť za akúkoľvek stratu z používania tohto webu obmedzená na sumu, ktorú ste nám zaplatili za používanie, čo je nula.',
     'Príslušný zákon: Tieto podmienky sa riadia zákonmi Slovenskej republiky. Spory budú riešené na slovenských súdoch, ak nie ste spotrebiteľ oprávnený podať konanie v krajine vášho bydliska.',
-    'Kontakt: Pre otázky ohľadom týchto podmienok napíšte na studio@euhub.co.',
+    'Kontakt: Pre otázky ohľadom týchto podmienok napíšte na hello@euhub-ai.com.',
   ],
 };
 
