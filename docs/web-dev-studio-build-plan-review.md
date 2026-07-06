@@ -12,11 +12,11 @@ The build plan is strong from an engineering structure perspective, but weaker f
 
 ### Score
 
-| Area | Rating | Comment |
-|---|---:|---|
-| Engineering structure | 8/10 | Clean, logical, mostly production-minded |
-| Business/conversion strategy | 6.5/10 | Not enough focus on lead quality, buyer objections, and conversion events |
-| Production readiness | 7/10 | Good foundation, but missing security headers, CI details, legal pages, analytics, and Definition of Done |
+| Area                         | Rating | Comment                                                                                                   |
+| ---------------------------- | -----: | --------------------------------------------------------------------------------------------------------- |
+| Engineering structure        |   8/10 | Clean, logical, mostly production-minded                                                                  |
+| Business/conversion strategy | 6.5/10 | Not enough focus on lead quality, buyer objections, and conversion events                                 |
+| Production readiness         |   7/10 | Good foundation, but missing security headers, CI details, legal pages, analytics, and Definition of Done |
 
 ### Summary
 
@@ -133,9 +133,11 @@ Define the visitor journey:
 7. CTA section offers a low-friction first step: Request Web Audit.
 
 Primary conversion event:
+
 - Submitted audit request form
 
 Secondary conversion events:
+
 - Clicked EUHUB AI
 - Clicked email
 - Clicked service card
@@ -196,6 +198,7 @@ If the project includes an API endpoint, it is not purely static anymore. That i
 
 ```md
 Astro output mode:
+
 - Use `output: "server"` or hybrid rendering depending on final route requirements.
 - Confirm Cloudflare adapter compatibility with the API endpoint.
 - Avoid Node-only APIs in server code because Cloudflare runtime is Web API based.
@@ -206,6 +209,7 @@ Astro output mode:
 
 ```md
 Webhook requirements:
+
 - Timeout handling
 - Non-2xx response handling
 - Structured error messages
@@ -241,6 +245,7 @@ Original fields:
 
 ```md
 Fields:
+
 - Name
 - Company
 - Work email
@@ -318,6 +323,7 @@ For Cloudflare Pages, the obvious production choice is Cloudflare Turnstile.
 
 ```md
 Spam protection:
+
 - Honeypot field
 - Cloudflare Turnstile
 - Server-side Turnstile verification
@@ -351,6 +357,7 @@ This can work, but it risks unnecessary bundle weight and complexity.
 
 ```md
 Animation dependency rule:
+
 - Use CSS transitions by default.
 - Use Motion only for React island microinteractions.
 - Use GSAP only if the process timeline or hero animation cannot be implemented cleanly with CSS/Motion.
@@ -386,6 +393,7 @@ Astro is useful because it ships less JavaScript by default. Do not accidentally
 
 ```md
 React island usage rules:
+
 - Hero interactive visual: React island allowed
 - Contact form: React island allowed
 - FAQ accordion: preferably native HTML/details or tiny vanilla component
@@ -520,6 +528,7 @@ That is not ideal. Mildly hypocritical, even.
 
 ```md
 Analytics:
+
 - Privacy-friendly analytics preferred
 - Track form submit success/failure
 - Track CTA clicks
@@ -571,6 +580,7 @@ But the plan does not confirm whether these pages exist.
 
 ```md
 Legal pages:
+
 - `/privacy/`
 - `/cookies/`
 - `/terms/`
@@ -584,6 +594,7 @@ Add TODO markers where legal review is needed.
 
 ```md
 Cookie banner:
+
 - Only required if non-essential cookies/tracking are used.
 - If using privacy-friendly cookieless analytics, document that.
 - Do not add a cookie banner unnecessarily.
@@ -610,6 +621,7 @@ A production site needs basic security headers.
 
 ```md
 Security headers:
+
 - Content-Security-Policy
 - X-Content-Type-Options
 - Referrer-Policy
@@ -629,6 +641,7 @@ The plan mentions linting and checks, but CI is not explicit enough.
 
 ```md
 CI checks:
+
 - Install dependencies from lockfile
 - Format check
 - Lint
@@ -641,6 +654,7 @@ CI checks:
 
 ```md
 Optional:
+
 - Playwright smoke test
 - Lighthouse CI
 - Link checker
@@ -874,15 +888,15 @@ Nice to have:
 
 The website itself becomes proof of the studio’s competence.
 
-| Claim | Site must prove |
-|---|---|
-| Fast websites | Lighthouse and perceived speed must be excellent |
-| Secure systems | Headers, validation, spam protection |
-| API integrations | Contact form webhook must be real and clean |
-| AI-ready | Architecture and service copy must explain actual use cases |
-| GDPR-aware | Analytics, cookies, and legal handling must be serious |
-| Premium design | No generic template smell |
-| Engineering-led | Codebase must be clean and maintainable |
+| Claim            | Site must prove                                             |
+| ---------------- | ----------------------------------------------------------- |
+| Fast websites    | Lighthouse and perceived speed must be excellent            |
+| Secure systems   | Headers, validation, spam protection                        |
+| API integrations | Contact form webhook must be real and clean                 |
+| AI-ready         | Architecture and service copy must explain actual use cases |
+| GDPR-aware       | Analytics, cookies, and legal handling must be serious      |
+| Premium design   | No generic template smell                                   |
+| Engineering-led  | Codebase must be clean and maintainable                     |
 
 If the site is slow, vague, overanimated, full of placeholders, or legally sloppy, it undermines the entire offer.
 

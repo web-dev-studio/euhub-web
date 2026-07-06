@@ -8,26 +8,26 @@ This plan is the source of truth. The site is a **proof-of-competence artifact**
 
 ## Resolved decisions
 
-| Fork | Choice |
-|---|---|
-| Framework | Astro (latest stable, pinned) + React islands + TypeScript strict |
-| Styling | Tailwind CSS v4 (Vite plugin) |
-| Animation | CSS by default → Motion for React islands → GSAP only if a section truly requires it (lazy-loaded per-section) |
-| 3D (Three/Spline/R3F) | Not included |
-| Package manager | Bun (`bun.lockb`) |
-| Runtime floor | Node 22 LTS documented in `.nvmrc` |
-| Deployment | Cloudflare Pages (`@astrojs/cloudflare`) |
-| Astro output mode | `output: "server"` — API route requires it; Web-API-only in server code (no Node APIs) |
-| Contact form backend | Astro server endpoint → env-driven webhook, with timeout / non-2xx / structured errors / no internal leaking |
-| Spam protection | Honeypot + Cloudflare Turnstile (client + server-side verification) + IP/UA rate-limit strategy |
-| Analytics | Umami (cookieless → no consent banner); event layer as a thin adapter |
-| i18n | EN canonical and published; SK **not exposed** until real copy exists; switch shows "SK — Coming soon" |
-| Theme | Light theme only |
-| Case studies | Renamed to **Example Project Scenarios**, clearly labelled as examples |
-| Primary CTA | "Request Web Audit" |
-| Secondary CTA | "See What We Build" / "View Services" |
-| Tertiary CTA | "Explore EUHUB AI" |
-| Sections | 13 (prompt's 12 + Engagement Models) |
+| Fork                  | Choice                                                                                                         |
+| --------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Framework             | Astro (latest stable, pinned) + React islands + TypeScript strict                                              |
+| Styling               | Tailwind CSS v4 (Vite plugin)                                                                                  |
+| Animation             | CSS by default → Motion for React islands → GSAP only if a section truly requires it (lazy-loaded per-section) |
+| 3D (Three/Spline/R3F) | Not included                                                                                                   |
+| Package manager       | Bun (`bun.lockb`)                                                                                              |
+| Runtime floor         | Node 22 LTS documented in `.nvmrc`                                                                             |
+| Deployment            | Cloudflare Pages (`@astrojs/cloudflare`)                                                                       |
+| Astro output mode     | `output: "server"` — API route requires it; Web-API-only in server code (no Node APIs)                         |
+| Contact form backend  | Astro server endpoint → env-driven webhook, with timeout / non-2xx / structured errors / no internal leaking   |
+| Spam protection       | Honeypot + Cloudflare Turnstile (client + server-side verification) + IP/UA rate-limit strategy                |
+| Analytics             | Umami (cookieless → no consent banner); event layer as a thin adapter                                          |
+| i18n                  | EN canonical and published; SK **not exposed** until real copy exists; switch shows "SK — Coming soon"         |
+| Theme                 | Light theme only                                                                                               |
+| Case studies          | Renamed to **Example Project Scenarios**, clearly labelled as examples                                         |
+| Primary CTA           | "Request Web Audit"                                                                                            |
+| Secondary CTA         | "See What We Build" / "View Services"                                                                          |
+| Tertiary CTA          | "Explore EUHUB AI"                                                                                             |
+| Sections              | 13 (prompt's 12 + Engagement Models)                                                                           |
 
 ## Stack & integrations
 
@@ -91,7 +91,9 @@ README.md
 ## Phase order (content drives layout)
 
 ### Phase 0 — Business & conversion architecture
+
 Define before any code:
+
 - **Personas**: Founder/owner, Operations manager, Marketing manager, Technical decision-maker
 - **Conversion path**: Visitor → Audit request → Qualification → Discovery call → Proposal
 - **Offer hierarchy**: Technical Web Audit → Landing Page → Business Website → Website Redesign → Custom Web App → Client Portal → Internal Dashboard → AI Interface → API/CRM/ERP Integration → Maintenance/DevOps Retainer
@@ -112,6 +114,7 @@ Define before any code:
   12. Footer — legal + ecosystem links
 
 ### Phase 1 — Technical scaffolding
+
 - `bun create astro@latest` (minimal, TS strict)
 - Add integrations: `@astrojs/react`, `@astrojs/sitemap`, `@astrojs/cloudflare`
 - Tailwind v4 via Vite plugin + base tokens (color/type — non-layout, safe to define early)
@@ -130,6 +133,7 @@ Define before any code:
   ```
 
 ### Phase 2 — Content model & copy (real EN, prompt's tone)
+
 - `content/site.ts` — nav, SEO meta, contact, EN locale canonical
 - `content/services.ts` — 7 services
 - `content/process.ts` — 5 steps + deliverables
@@ -143,12 +147,14 @@ Define before any code:
 - Tone: direct, premium, technical, no clichés, no lorem ipsum, no fake claims
 
 ### Phase 3 — Design system
+
 - Tailwind tokens: warm-white/off-white surfaces, EU-tech blue + cyan/violet accent, green/amber for status only
 - Strong modern sans-serif type scale
 - UI primitives: `Button`, `Card`, `GlassPanel`, `Container`, `Section`, `Badge`, `Icon`
 - Layout shell: sticky `Header` (nav + primary CTA + EN/SK switch where SK = "Coming soon"), `Footer`, skip-to-content link, focus-visible styles, `prefers-reduced-motion` hooks
 
 ### Phase 4 — Core layout & 13 sections
+
 1. **Header** — wordmark, nav (Services, Work, Process, Tech Stack, FAQ, Contact), CTA, EN/SK switch (SK disabled), EUHUB.CO / EUHUB AI links
 2. **Hero** — headline + subheadline, primary/secondary CTA, trust line, browser mockup with floating API/AI/dashboard/performance cards (Motion island)
 3. **Problem** — "Your website is probably not the real problem. The system behind it is."
@@ -164,6 +170,7 @@ Define before any code:
 13. **Footer** — wordmark, description, nav, ecosystem links, contact email, location (Slovakia/EU), Privacy/Cookie/Terms, copyright
 
 **React island rules (strict):**
+
 - Hero interactive visual: React island ✓
 - Contact form: React island ✓
 - FAQ accordion: native `<details>`, no React
@@ -171,6 +178,7 @@ Define before any code:
 - Header mobile menu: minimal client script, React only if justified
 
 ### Phase 5 — Contact form & backend
+
 - **Fields**: Name, Company, Work email, Current website, Company size, Project type (enum), Main problem, Budget range (enum), Timeline (enum), Decision role (enum), Message
 - Project type enum: Technical Web Audit, Landing Page, Business Website, Website Redesign, Custom Web Application, Client Portal, Internal Dashboard, AI-integrated Web Interface, API/CRM/ERP Integration, Maintenance/DevOps, Not sure yet
 - Budget enum: < €2,500 / €2,500–€5,000 / €5,000–€10,000 / €10,000–€25,000 / €25,000+ / Not sure yet
@@ -189,6 +197,7 @@ Define before any code:
 - Clear integration placeholder if `WEBHOOK_URL` unset (dev mode returns success with a logged warning)
 
 ### Phase 6 — SEO, metadata & legal pages
+
 - Per-page `<head>`: title, description, OG title/desc, OG image, Twitter/X card, canonical
 - JSON-LD: `Organization` + `ProfessionalService`
 - `sitemap.xml` (`@astrojs/sitemap`), `robots.txt`
@@ -198,6 +207,7 @@ Define before any code:
 - Cookie banner: **not added** — Umami is cookieless; document this decision in README. Banner only added if a later tool requires non-essential cookies.
 
 ### Phase 7 — Animation & interaction
+
 - CSS transitions by default
 - Motion islands: hero floating cards, animated counters (visibility-triggered), example-scenario cards
 - GSAP ScrollTrigger: only if process timeline needs advanced control; lazy-loaded on that section only; never global
@@ -205,6 +215,7 @@ Define before any code:
 - No heavy animation on mobile; no scroll hijacking; no parallax overload
 
 ### Phase 8 — Analytics, security, performance, accessibility
+
 - **Analytics (Umami, cookieless)**:
   - `lib/analytics.ts` thin adapter wrapping Umami's `data-umami-event` / script
   - Events: cta_primary_click, cta_secondary_click, audit_form_start, audit_form_submit_success, audit_form_submit_error, service_card_click, faq_open, ecosystem_link_click, email_click, scroll_50, scroll_90
@@ -223,6 +234,7 @@ Define before any code:
 - **Target Lighthouse**: Performance 95+, Accessibility 95+, Best Practices 95+, SEO 95+ (mobile + desktop)
 
 ### Phase 9 — Docs, CI, deployment, QA
+
 - **CI** (`.github/workflows/ci.yml`):
   - `bun install --frozen-lockfile`
   - `bun run format:check`
@@ -257,6 +269,7 @@ Define before any code:
 - [ ] CI workflow green on main
 
 ## Implementation rules (from prompt + review)
+
 - No bloated animation; no unnecessary dependencies (no MDX, no GSAP-global, no 3D)
 - No lorem ipsum; no fake customer results; no fake case studies
 - Light theme only; no dark cyberpunk
@@ -270,6 +283,7 @@ Define before any code:
 ## Open items blocking production polish
 
 **Required before launch:**
+
 - Real contact email
 - Legal company name + registration details (if needed) + VAT ID (if needed)
 - Privacy/Cookie/Terms content (or legal review sign-off on placeholders)
@@ -284,6 +298,7 @@ Define before any code:
 - Real examples or permission to publish (to replace Example Scenarios)
 
 **Nice to have:**
+
 - Real client logos / testimonials / performance screenshots
 - Real audit sample PDF
 - Calendly/booking integration

@@ -1,0 +1,143 @@
+---
+/**
+ * BaseLayout — HTML shell for Web Dev Studio by EUHUB.
+ * Light theme, EN canonical, Inter via Fontsource (self-hosted, no Google Fonts).
+ * SEO metadata, OG/Twitter, JSON-LD, Umami, skip link, and global styles.
+ *
+ * Props:
+ *  - title:       <title> text (suffixed with brand)
+ *  - description: meta description
+ *  - path:        canonical path (e.g. "/"); full URL derived from astro.site
+ *  - noindex:     set true on legal placeholder pages during review
+ *  - ogImage:     path to OG image (defaults to /og.png)
+ */
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  noindex?: boolean;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description,
+  path,
+  noindex = false,
+  ogImage = '/og.png',
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL('https://web-dev-studio.com');
+const canonical = new URL(path, siteUrl).href;
+const ogImageUrl = new URL(ogImage, siteUrl).href;
+const fullTitle =
+  title === 'Web Dev Studio by EUHUB'
+    ? title
+    : `${title} — Web Dev Studio by EUHUB`;
+
+// Umami (cookieless, EU/Frankfurt). PUBLIC_ env vars are safe to inline.
+const umamiScript = import.meta.env.PUBLIC_UMAMI_SCRIPT_URL;
+const umamiId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+
+// JSON-LD: Organization + ProfessionalService (combined in one graph)
+// Global styles — Tailwind v4 + Inter via Fontsource (self-hosted)
+import '../styles/global.css';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      name: 'Web Dev Studio by EUHUB',
+      url: siteUrl.href,
+      parentOrganization: {
+        '@type': 'Organization',
+        name: 'EUHUB.CO',
+        url: 'https://euhub.co',
+      },
+      areaServed: 'EU',
+      knowsAbout: [
+        'Web development',
+        'Web applications',
+        'AI-integrated interfaces',
+        'API integration',
+        'DevOps',
+      ],
+    },
+    {
+      '@type': 'ProfessionalService',
+      name: 'Web Dev Studio by EUHUB',
+      url: siteUrl.href,
+      areaServed: 'EU',
+      serviceType: 'Web development, web applications, AI-ready interfaces',
+      offers: {
+        '@type': 'Offer',
+        itemOffered: 'Technical Web Audit',
+      },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    {/* Canonical + robots */}
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    {/* Primary meta */}
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+
+    {/* Open Graph */}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Web Dev Studio by EUHUB" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="en_EU" />
+
+    {/* Twitter / X */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    {/* JSON-LD structured data */}
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
+    />
+
+    {/* Umami — cookieless analytics (EU/Frankfurt). Loaded with defer. */}
+    {
+      umamiScript && umamiId && (
+      <script
+        is:inline
+        src={umamiScript}
+        data-website-id={umamiId}
+        defer
+      />
+      )
+    }
+
+    {/* Global styles are imported in the frontmatter (Tailwind v4 + Inter) */}
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:shadow-card focus:ring-2 focus:ring-brand"
+    >
+      Skip to content
+    </a>
+    <slot />
+  </body>
+</html>

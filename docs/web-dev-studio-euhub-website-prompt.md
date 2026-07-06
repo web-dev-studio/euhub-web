@@ -49,12 +49,12 @@ Use stronger, business-oriented language:
 
 ## Recommended Domain Structure
 
-| Purpose | Domain |
-|---|---|
-| Main public landing page | `web-dev-studio.com` |
-| EUHUB AI ecosystem subdomain | `studio.euhub-ai.com` |
-| Corporate ecosystem reference page | `euhub.co/web-dev-studio` |
-| Optional AI-related service page | `euhub-ai.com/custom-web-apps` or `euhub-ai.com/web-studio` |
+| Purpose                            | Domain                                                      |
+| ---------------------------------- | ----------------------------------------------------------- |
+| Main public landing page           | `web-dev-studio.com`                                        |
+| EUHUB AI ecosystem subdomain       | `studio.euhub-ai.com`                                       |
+| Corporate ecosystem reference page | `euhub.co/web-dev-studio`                                   |
+| Optional AI-related service page   | `euhub-ai.com/custom-web-apps` or `euhub-ai.com/web-studio` |
 
 Recommended structure:
 

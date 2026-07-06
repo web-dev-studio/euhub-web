@@ -1,0 +1,109 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+
+/* ===========================================================================
+   Web Dev Studio by EUHUB — Design tokens (Tailwind v4 @theme)
+   Light theme. Warm-white surfaces, EU-tech blue + cyan/violet accent,
+   green/amber reserved for status/data indicators only.
+   =========================================================================== */
+@theme {
+  /* Surfaces */
+  --color-canvas: #f7f8fa;
+  --color-surface: #ffffff;
+  --color-surface-2: #f1f3f7;
+  --color-surface-3: #e9edf3;
+
+  /* Ink / text */
+  --color-ink: #0b1220;
+  --color-ink-2: #2a3343;
+  --color-ink-3: #5a6678;
+  --color-ink-4: #8a94a6;
+
+  /* Borders / lines */
+  --color-line: #e2e7ee;
+  --color-line-strong: #cfd6e0;
+
+  /* Primary — EU-tech blue */
+  --color-brand: #1b4dff;
+  --color-brand-2: #0b3adf;
+  --color-brand-soft: #e8efff;
+
+  /* Accents */
+  --color-cyan: #06b6d4;
+  --color-violet: #7c5cff;
+
+  /* Status (data indicators only, per prompt) */
+  --color-ok: #16a34a;
+  --color-warn: #d97706;
+  --color-danger: #dc2626;
+
+  /* Typography */
+  --font-sans:
+    'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono:
+    ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* Shadow — soft, premium SaaS */
+  --shadow-card:
+    0 1px 2px rgb(11 18 32 / 0.04), 0 8px 24px -12px rgb(11 18 32 / 0.12);
+  --shadow-panel:
+    0 1px 0 rgb(11 18 32 / 0.04), 0 24px 48px -24px rgb(11 18 32 / 0.18);
+}
+
+/* ===========================================================================
+   Base
+   =========================================================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Visible focus for keyboard users */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--color-brand);
+  color: #fff;
+}
+
+/* Utility: thin grid overlay for technical backgrounds */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}

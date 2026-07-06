@@ -1,0 +1,18 @@
+# ===========================================================================
+# Cloudflare static-asset headers.
+# NOTE: These apply ONLY to static assets (HTML pages, JS, CSS, images).
+# Headers on Worker-generated responses (e.g. /api/audit-request) must be set
+# on the Response object inside the endpoint itself.
+# HSTS is intentionally omitted until the canonical domain is live on HTTPS
+# with a valid cert. Add post-launch as a separate decision.
+# ===========================================================================
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Long-cache for hashed build assets
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

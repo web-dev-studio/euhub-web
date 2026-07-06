@@ -7,7 +7,7 @@ Context: v2 claims all 17 points from `web-dev-studio-build-plan-review.md` were
 
 ## Executive verdict
 
-v2 is a real improvement over v1: Phase 0 conversion architecture, Definition of Done, security headers, Turnstile, and the Engagement Models section all landed. The engineering *structure* is good.
+v2 is a real improvement over v1: Phase 0 conversion architecture, Definition of Done, security headers, Turnstile, and the Engagement Models section all landed. The engineering _structure_ is good.
 
 But there's one architecture decision — `output: "server"` — that quietly breaks three things the plan cares about (performance, the security-headers file, the sitemap), a couple of Cloudflare env-var footguns that would ship a form that silently drops every lead, and several spots where the sales copy argues with itself (a "low-friction" 11-field form, a "Work" nav item pointing at fictional examples, four different taxonomies of the same service catalog).
 
@@ -77,7 +77,7 @@ A control that's been disabled since launch day announces "unfinished" indefinit
 
 ### B6. Four taxonomies of the same service catalog
 
-Services (7 cards), Offer hierarchy (10 items), Project-type form enum (11 items), and Engagement Models (6 items) all slice the same underlying list of things-you-can-buy in different ways. Engagement Models in particular duplicates Services instead of describing *how you buy* (fixed-price audit → fixed-scope project → monthly retainer, each with a price orientation). Four near-identical lists reads as inconsistency, not thoroughness.
+Services (7 cards), Offer hierarchy (10 items), Project-type form enum (11 items), and Engagement Models (6 items) all slice the same underlying list of things-you-can-buy in different ways. Engagement Models in particular duplicates Services instead of describing _how you buy_ (fixed-price audit → fixed-scope project → monthly retainer, each with a price orientation). Four near-identical lists reads as inconsistency, not thoroughness.
 
 ### B7. Ecosystem section is an exit ramp right before the form
 
