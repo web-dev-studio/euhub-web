@@ -14,33 +14,36 @@ import SelfReferentialProof from '../components/sections/SelfReferentialProof.as
 import Cta from '../components/sections/Cta.astro';
 import Ecosystem from '../components/sections/Ecosystem.astro';
 import Faq from '../components/sections/Faq.astro';
-import { site } from '../content/site';
+import { getContent } from '../lib/i18n';
+
+const locale = 'en' as const;
+const { site } = getContent(locale).site;
 
 const title = site.seo.title;
 const description = site.seo.description;
 ---
 
-<BaseLayout title={title} description={description} path="/">
-  <Header />
+<BaseLayout title={title} description={description} path="/" locale={locale}>
+  <Header locale={locale} />
   <main id="main">
     {
       /* Conversion path: Hero → Problem → Services → Differentiation → Process → Tech Stack → Examples → Pricing → Proof → CTA → Ecosystem → FAQ */
     }
-    <Hero />
-    <Problem />
-    <Services />
-    <Differentiation />
-    <Process />
-    <TechStack />
-    <ExampleScenarios />
-    <EngagementModels />
-    <SelfReferentialProof />
-    <Cta />
+    <Hero locale={locale} />
+    <Problem locale={locale} />
+    <Services locale={locale} />
+    <Differentiation locale={locale} />
+    <Process locale={locale} />
+    <TechStack locale={locale} />
+    <ExampleScenarios locale={locale} />
+    <EngagementModels locale={locale} />
+    <SelfReferentialProof locale={locale} />
+    <Cta locale={locale} />
     {
       /* Ecosystem is below CTA per Fable B7 — don't create an exit ramp before the form */
     }
-    <Ecosystem />
-    <Faq />
+    <Ecosystem locale={locale} />
+    <Faq locale={locale} />
   </main>
-  <Footer />
+  <Footer locale={locale} />
 </BaseLayout>

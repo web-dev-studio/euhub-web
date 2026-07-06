@@ -8,11 +8,16 @@ import Section from '../ui/Section.astro';
 import Badge from '../ui/Badge.astro';
 import Icon from '../ui/Icon.astro';
 import Button from '../ui/Button.astro';
-import {
-  engagementModels,
-  pricingOrientationCopy,
-} from '../../content/engagement-models';
-import { primaryCta } from '../../content/site';
+import { getContent } from '../../lib/i18n';
+import type { Locale } from '../../content/types';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const { engagementModels, pricingOrientationCopy } =
+  getContent(locale).engagement;
+const { primaryCta } = getContent(locale).site;
 ---
 
 <Section id="pricing" bg="surface-2">

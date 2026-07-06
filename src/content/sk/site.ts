@@ -1,0 +1,53 @@
+import type { SiteContent, NavItem } from '../types';
+
+const site: SiteContent = {
+  wordmark: 'Web Dev Studio',
+  tagline: 'by EUHUB',
+  nav: [
+    { label: 'Služby', href: '#services' },
+    { label: 'Príklady', href: '#examples' },
+    { label: 'Proces', href: '#process' },
+    { label: 'Technológie', href: '#tech-stack' },
+    { label: 'Cenník', href: '#pricing' },
+    { label: 'FAQ', href: '#faq' },
+    { label: 'Kontakt', href: '#contact' },
+  ],
+  ecosystemLinks: [
+    { label: 'EUHUB.CO', href: 'https://euhub.co' },
+    { label: 'EUHUB AI', href: 'https://euhub-ai.com' },
+  ],
+  contactEmail: 'studio@euhub.co',
+  location: 'Slovensko · Európska únia',
+  seo: {
+    title: 'Web Dev Studio by EUHUB',
+    description:
+      'Staviame rýchle, bezpečné, konverzné webové platformy, webové aplikácie a AI-ready rozhrania pre európske firmy. Engineering-led, GDPR-aware, dlhodobo udržiavané.',
+    ogImage: '/sk/og.png',
+  },
+};
+
+const primaryCta: NavItem = {
+  label: 'Vyžiadať web audit',
+  href: '#contact',
+};
+
+const secondaryCta: NavItem = {
+  label: 'Zobraziť služby',
+  href: '#services',
+};
+
+const tertiaryCta: NavItem = {
+  label: 'Preskúmať EUHUB AI',
+  href: 'https://euhub-ai.com',
+};
+
+const trustLine =
+  'Sídlo na Slovensku. Postavené pre firmy v EÚ. GDPR-aware v základe.';
+
+export const siteBundle = {
+  site,
+  primaryCta,
+  secondaryCta,
+  tertiaryCta,
+  trustLine,
+};

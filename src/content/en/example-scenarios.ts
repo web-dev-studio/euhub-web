@@ -1,11 +1,6 @@
-import type { ExampleScenario } from './types';
+import type { ExampleScenario } from '../types';
 
-/**
- * Example project scenarios — NOT real client work.
- * Clearly labelled as realistic examples until replaced by real case studies.
- * Per plan v3: do not call these "case studies" until based on real work.
- */
-export const exampleScenarios: ExampleScenario[] = [
+const exampleScenarios: ExampleScenario[] = [
   {
     id: 'logistics',
     sector: 'Logistics company',
@@ -40,3 +35,5 @@ export const exampleScenarios: ExampleScenario[] = [
     isExample: true,
   },
 ];
+
+export const exampleScenariosBundle = { exampleScenarios };

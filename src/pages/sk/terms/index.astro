@@ -1,0 +1,9 @@
+---
+import LegalLayout from '../../../layouts/LegalLayout.astro';
+import { getContent } from '../../../lib/i18n';
+
+const locale = 'sk' as const;
+const { terms } = getContent(locale).legal;
+---
+
+<LegalLayout content={terms} path="/sk/terms/" locale={locale} />

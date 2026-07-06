@@ -34,7 +34,8 @@ real effort in mind.
 Plan §6, guard condition 5 and the sample script:
 
 ```js
-if (document.referrer && new URL(document.referrer).origin === location.origin) return;
+if (document.referrer && new URL(document.referrer).origin === location.origin)
+  return;
 ```
 
 `document.referrer` is falsy-but-not-undefined in the most common real case:
@@ -50,7 +51,7 @@ Trace it against the whole IIFE, which is wrapped in one `try { ... } catch
 **every** guard check below it, including the one meant to fire. Nothing
 in the current five conditions throws for a truly empty referrer (the `&&`
 protects it) — but the ecosystem links in `Header.astro` use `rel="noopener"`
-only, not `noreferrer`, so a click from `euhub.co` or `euhub-ai.com` *does*
+only, not `noreferrer`, so a click from `euhub.co` or `euhub-ai.com` _does_
 pass a referrer. That's the intended case for condition 5 to correctly allow
 through (same-origin only blocks internal navigation). It works today. What
 doesn't get tested by the plan at all: **`document.referrer` is empty for
@@ -86,7 +87,7 @@ import { site, primaryCta } from '../../content/site';
 
 There's no single object to swap for `getContent(locale).site`. To make
 `getContent()` work as sketched, every content file needs to be restructured
-into one exported bundle object *first* (own refactor, not free), and then
+into one exported bundle object _first_ (own refactor, not free), and then
 every consuming component needs every one of its named imports rewritten —
 `Header.astro` alone touches `site` and `primaryCta` from two different
 conceptual groups. That's not "one import line," it's a rewrite of every
@@ -106,8 +107,8 @@ import { sk } from './src/content/sk/site';
 ```
 
 `src/content/site.ts` has no `en` or `sk` default export — see A2. This
-isn't just cosmetic: the actual completeness checker has to enumerate *every
-named export* in *every* content file and recursively diff each pair, which
+isn't just cosmetic: the actual completeness checker has to enumerate _every
+named export_ in _every_ content file and recursively diff each pair, which
 is a meaningfully bigger script than "recursively compare keys" on one
 object. Write this after the content-file restructure in A2 lands, not
 before, or the two pieces of work will be designed against different
@@ -149,7 +150,7 @@ I read `src/pages/api/audit-request.ts`: there is no live webhook. When
 documented dev-mode fallback), the endpoint returns a canned dev success and
 logs a warning. R4 frames the enum-ID migration as a breaking change to
 coordinate with an existing integration partner. There isn't one yet — this
-is actually the *easiest possible moment* to change the schema, because
+is actually the _easiest possible moment_ to change the schema, because
 nothing downstream depends on the current English-string enum values. Don't
 build the backwards-compat dual-field payload (`projectTypeId` +
 `projectTypeLabel`) to protect an integration that doesn't exist; just ship
@@ -263,7 +264,7 @@ per plan.
 1. Simplify or properly test the auto-redirect referrer guard (A1) and add
    the "direct navigation, empty referrer, Slovak browser" case to the DoD
    checklist explicitly.
-2. Restructure content files into locale-nested bundles *before* writing
+2. Restructure content files into locale-nested bundles _before_ writing
    `getContent()` or `check-translations.ts` against them (A2, A3) — do this
    as its own visible step in Phase i18n-1, not folded into "minimal refactor."
 3. Fix `en_EU`/`en-EU` → a real locale code while touching those lines for

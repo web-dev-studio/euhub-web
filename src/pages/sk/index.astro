@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import Hero from '../../components/sections/Hero.astro';
+import Problem from '../../components/sections/Problem.astro';
+import Services from '../../components/sections/Services.astro';
+import Differentiation from '../../components/sections/Differentiation.astro';
+import Process from '../../components/sections/Process.astro';
+import TechStack from '../../components/sections/TechStack.astro';
+import ExampleScenarios from '../../components/sections/ExampleScenarios.astro';
+import EngagementModels from '../../components/sections/EngagementModels.astro';
+import SelfReferentialProof from '../../components/sections/SelfReferentialProof.astro';
+import Cta from '../../components/sections/Cta.astro';
+import Ecosystem from '../../components/sections/Ecosystem.astro';
+import Faq from '../../components/sections/Faq.astro';
+import { getContent } from '../../lib/i18n';
+
+const locale = 'sk' as const;
+const { site } = getContent(locale).site;
+
+const title = site.seo.title;
+const description = site.seo.description;
+---
+
+<BaseLayout title={title} description={description} path="/sk/" locale={locale}>
+  <Header locale={locale} />
+  <main id="main">
+    <Hero locale={locale} />
+    <Problem locale={locale} />
+    <Services locale={locale} />
+    <Differentiation locale={locale} />
+    <Process locale={locale} />
+    <TechStack locale={locale} />
+    <ExampleScenarios locale={locale} />
+    <EngagementModels locale={locale} />
+    <SelfReferentialProof locale={locale} />
+    <Cta locale={locale} />
+    <Ecosystem locale={locale} />
+    <Faq locale={locale} />
+  </main>
+  <Footer locale={locale} />
+</BaseLayout>

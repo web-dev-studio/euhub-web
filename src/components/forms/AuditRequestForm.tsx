@@ -6,12 +6,16 @@ import {
   timelines,
   decisionRoles,
   requiredFields,
+  getValidationMessage,
   type AuditRequestInput,
 } from '../../lib/validation';
+import { getFormTranslations } from '../../lib/translations';
+import type { Locale } from '../../content/types';
 
 interface Props {
   turnstileSiteKey?: string;
   contactEmail: string;
+  locale?: Locale;
 }
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
@@ -36,6 +40,7 @@ interface FieldError {
 export default function AuditRequestForm({
   turnstileSiteKey,
   contactEmail,
+  locale = 'en',
 }: Props) {
   const [state, setState] = useState<FormState>('idle');
   const [errors, setErrors] = useState<FieldError>({});
@@ -44,6 +49,7 @@ export default function AuditRequestForm({
   const [formStarted, setFormStarted] = useState(false);
   const turnstileRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const t = getFormTranslations(locale);
 
   // Load Turnstile script if site key is provided
   useEffect(() => {
@@ -77,6 +83,7 @@ export default function AuditRequestForm({
           callback: (token: string) => setTurnstileToken(token),
           'error-callback': () => setTurnstileToken(''),
           theme: 'light',
+          language: locale,
         });
       } else {
         setTimeout(tryRender, 200);
@@ -125,7 +132,7 @@ export default function AuditRequestForm({
       for (const issue of result.error.issues) {
         const field = issue.path[0] as string;
         if (!fieldErrors[field]) {
-          fieldErrors[field] = issue.message;
+          fieldErrors[field] = getValidationMessage(issue.message, locale);
         }
       }
       setErrors(fieldErrors);
@@ -152,10 +159,7 @@ export default function AuditRequestForm({
       } else {
         const body = await response.json().catch(() => ({}));
         setState('error');
-        setErrorMessage(
-          body.message ??
-            'Something went wrong. Please try again or email us directly.',
-        );
+        setErrorMessage(body.message ?? t.errorMessage);
         const umami = (
           window as unknown as { umami?: { track: (n: string) => void } }
         ).umami;
@@ -163,7 +167,7 @@ export default function AuditRequestForm({
       }
     } catch {
       setState('error');
-      setErrorMessage('Network error. Please try again or email us directly.');
+      setErrorMessage(t.networkError);
       const umami = (
         window as unknown as { umami?: { track: (n: string) => void } }
       ).umami;
@@ -189,11 +193,8 @@ export default function AuditRequestForm({
             <path d="M20 6L9 17l-5-5" />
           </svg>
         </div>
-        <h3 className="mt-4 text-xl font-bold text-ink">Request received</h3>
-        <p className="mt-2 text-sm text-ink-3">
-          We'll review your submission and get back to you within 1 business
-          day.
-        </p>
+        <h3 className="mt-4 text-xl font-bold text-ink">{t.successTitle}</h3>
+        <p className="mt-2 text-sm text-ink-3">{t.successMessage}</p>
       </div>
     );
   }
@@ -215,7 +216,7 @@ export default function AuditRequestForm({
     >
       {/* Honeypot — hidden from users, visible to bots */}
       <div className="absolute -left-[9999px]" aria-hidden="true">
-        <label htmlFor="companyUrl">Website URL (leave empty)</label>
+        <label htmlFor="companyUrl">{t.honeypotLabel}</label>
         <input
           id="companyUrl"
           name="companyUrl"
@@ -229,7 +230,7 @@ export default function AuditRequestForm({
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelClass}>
-            Name <span className="text-danger">*</span>
+            {t.nameLabel} <span className="text-danger">*</span>
           </label>
           <input
             id="name"
@@ -250,7 +251,7 @@ export default function AuditRequestForm({
 
         <div>
           <label htmlFor="email" className={labelClass}>
-            Work email <span className="text-danger">*</span>
+            {t.emailLabel} <span className="text-danger">*</span>
           </label>
           <input
             id="email"
@@ -273,7 +274,7 @@ export default function AuditRequestForm({
       {/* Project type (required, select) */}
       <div>
         <label htmlFor="projectType" className={labelClass}>
-          Project type <span className="text-danger">*</span>
+          {t.projectTypeLabel} <span className="text-danger">*</span>
         </label>
         <select
           id="projectType"
@@ -285,11 +286,11 @@ export default function AuditRequestForm({
           defaultValue=""
         >
           <option value="" disabled>
-            Select a project type
+            {t.selectProjectType}
           </option>
-          {projectTypes.map((t) => (
-            <option key={t} value={t}>
-              {t}
+          {projectTypes.map((p) => (
+            <option key={p.id} value={p.id}>
+              {p.label[locale]}
             </option>
           ))}
         </select>
@@ -301,7 +302,7 @@ export default function AuditRequestForm({
       {/* Message (required) */}
       <div>
         <label htmlFor="message" className={labelClass}>
-          What do you need? <span className="text-danger">*</span>
+          {t.messageLabel} <span className="text-danger">*</span>
         </label>
         <textarea
           id="message"
@@ -310,7 +311,7 @@ export default function AuditRequestForm({
           className={inputClass('message')}
           onFocus={trackFormStart}
           required
-          placeholder="Tell us about your project, current situation, and what you're trying to achieve."
+          placeholder={t.messagePlaceholder}
           aria-invalid={!!errors.message}
         />
         {errors.message && <p className={errorClass}>{errors.message}</p>}
@@ -319,14 +320,14 @@ export default function AuditRequestForm({
       {/* Optional fields */}
       <div className="border-t border-line pt-4">
         <p className="text-xs font-medium uppercase tracking-wider text-ink-4">
-          Optional — helps us prepare for your audit
+          {t.optionalHeader}
         </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="company" className={labelClass}>
-            Company
+            {t.companyLabel}
           </label>
           <input
             id="company"
@@ -338,13 +339,13 @@ export default function AuditRequestForm({
 
         <div>
           <label htmlFor="website" className={labelClass}>
-            Current website
+            {t.websiteLabel}
           </label>
           <input
             id="website"
             name="website"
             type="url"
-            placeholder="https://"
+            placeholder={t.websitePlaceholder}
             className={inputClass('website')}
           />
           {errors.website && <p className={errorClass}>{errors.website}</p>}
@@ -354,7 +355,7 @@ export default function AuditRequestForm({
       <div className="grid gap-4 sm:grid-cols-3">
         <div>
           <label htmlFor="budget" className={labelClass}>
-            Budget range
+            {t.budgetLabel}
           </label>
           <select
             id="budget"
@@ -362,10 +363,10 @@ export default function AuditRequestForm({
             className={inputClass('budget')}
             defaultValue=""
           >
-            <option value="">Select…</option>
+            <option value="">{t.selectPlaceholder}</option>
             {budgetRanges.map((b) => (
-              <option key={b} value={b}>
-                {b}
+              <option key={b.id} value={b.id}>
+                {b.label[locale]}
               </option>
             ))}
           </select>
@@ -373,7 +374,7 @@ export default function AuditRequestForm({
 
         <div>
           <label htmlFor="timeline" className={labelClass}>
-            Timeline
+            {t.timelineLabel}
           </label>
           <select
             id="timeline"
@@ -381,10 +382,10 @@ export default function AuditRequestForm({
             className={inputClass('timeline')}
             defaultValue=""
           >
-            <option value="">Select…</option>
-            {timelines.map((t) => (
-              <option key={t} value={t}>
-                {t}
+            <option value="">{t.selectPlaceholder}</option>
+            {timelines.map((tl) => (
+              <option key={tl.id} value={tl.id}>
+                {tl.label[locale]}
               </option>
             ))}
           </select>
@@ -392,7 +393,7 @@ export default function AuditRequestForm({
 
         <div>
           <label htmlFor="decisionRole" className={labelClass}>
-            Your role
+            {t.decisionRoleLabel}
           </label>
           <select
             id="decisionRole"
@@ -400,10 +401,10 @@ export default function AuditRequestForm({
             className={inputClass('decisionRole')}
             defaultValue=""
           >
-            <option value="">Select…</option>
+            <option value="">{t.selectPlaceholder}</option>
             {decisionRoles.map((r) => (
-              <option key={r} value={r}>
-                {r}
+              <option key={r.id} value={r.id}>
+                {r.label[locale]}
               </option>
             ))}
           </select>
@@ -412,20 +413,20 @@ export default function AuditRequestForm({
 
       <div>
         <label htmlFor="companySize" className={labelClass}>
-          Company size
+          {t.companySizeLabel}
         </label>
         <input
           id="companySize"
           name="companySize"
           type="text"
-          placeholder="e.g. 10–50 employees"
+          placeholder={t.companySizePlaceholder}
           className={inputClass('companySize')}
         />
       </div>
 
       <div>
         <label htmlFor="mainProblem" className={labelClass}>
-          Main problem you're trying to solve
+          {t.mainProblemLabel}
         </label>
         <textarea
           id="mainProblem"
@@ -443,7 +444,7 @@ export default function AuditRequestForm({
         <div className="rounded-lg border border-danger/20 bg-danger/5 p-4">
           <p className="text-sm text-danger">{errorMessage}</p>
           <p className="mt-2 text-sm text-ink-2">
-            You can also email us directly:{' '}
+            {t.errorFallback}{' '}
             <a
               href={`mailto:${contactEmail}?subject=Web%20Audit%20Request`}
               className="font-medium text-brand hover:underline"
@@ -461,7 +462,7 @@ export default function AuditRequestForm({
         disabled={state === 'submitting'}
         className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand px-6 py-3 text-base font-medium text-white transition-all hover:bg-brand-2 disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
       >
-        {state === 'submitting' ? 'Sending…' : 'Request Web Audit'}
+        {state === 'submitting' ? t.submittingButton : t.submitButton}
         {state !== 'submitting' && (
           <svg
             width="18"

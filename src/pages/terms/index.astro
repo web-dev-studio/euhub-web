@@ -1,6 +1,9 @@
 ---
 import LegalLayout from '../../layouts/LegalLayout.astro';
-import { terms } from '../../content/legal';
+import { getContent } from '../../lib/i18n';
+
+const locale = 'en' as const;
+const { terms } = getContent(locale).legal;
 ---
 
-<LegalLayout content={terms} path="/terms/" />
+<LegalLayout content={terms} path="/terms/" locale={locale} />

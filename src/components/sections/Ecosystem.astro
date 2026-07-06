@@ -7,7 +7,14 @@
 import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
 import Icon from '../ui/Icon.astro';
-import { ecosystem } from '../../content/ecosystem';
+import { getContent } from '../../lib/i18n';
+import type { Locale } from '../../content/types';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const { ecosystem } = getContent(locale).ecosystem;
 ---
 
 <Section id="ecosystem" bg="surface-2">

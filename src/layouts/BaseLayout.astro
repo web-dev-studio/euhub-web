@@ -1,20 +1,25 @@
 ---
 /**
  * BaseLayout — HTML shell for Web Dev Studio by EUHUB.
- * Light theme, EN canonical, Inter via Fontsource (self-hosted, no Google Fonts).
+ * Inter via Fontsource (self-hosted, no Google Fonts).
  * SEO metadata, OG/Twitter, JSON-LD, Umami, skip link, and global styles.
  *
  * Props:
  *  - title:       <title> text (suffixed with brand)
  *  - description: meta description
  *  - path:        canonical path (e.g. "/"); full URL derived from astro.site
+ *  - locale:      'en' | 'sk' — sets <html lang>, og:locale, hreflang alternates
  *  - noindex:     set true on legal placeholder pages during review
- *  - ogImage:     path to OG image (defaults to /og.png)
+ *  - ogImage:     path to OG image (defaults to /og.png or /sk/og.png)
  */
+import type { Locale } from '../content/types';
+import { getAlternatePath } from '../lib/i18n';
+
 interface Props {
   title: string;
   description: string;
   path: string;
+  locale?: Locale;
   noindex?: boolean;
   ogImage?: string;
 }
@@ -23,8 +28,9 @@ const {
   title,
   description,
   path,
+  locale = 'en',
   noindex = false,
-  ogImage = '/og.png',
+  ogImage = locale === 'sk' ? '/sk/og.png' : '/og.png',
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL('https://web-dev-studio.com');
@@ -34,6 +40,14 @@ const fullTitle =
   title === 'Web Dev Studio by EUHUB'
     ? title
     : `${title} — Web Dev Studio by EUHUB`;
+
+// hreflang alternate URLs
+const alternateEn = new URL(getAlternatePath(new URL(path, siteUrl), 'en'), siteUrl).href;
+const alternateSk = new URL(getAlternatePath(new URL(path, siteUrl), 'sk'), siteUrl).href;
+
+// Locale-specific metadata
+const htmlLang = locale;
+const ogLocale = locale === 'sk' ? 'sk_SK' : 'en_GB';
 
 // Umami (cookieless, EU/Frankfurt). PUBLIC_ env vars are safe to inline.
 const umamiScript = import.meta.env.PUBLIC_UMAMI_SCRIPT_URL;
@@ -50,6 +64,7 @@ const jsonLd = {
       '@type': 'Organization',
       name: 'Web Dev Studio by EUHUB',
       url: siteUrl.href,
+      inLanguage: locale,
       parentOrganization: {
         '@type': 'Organization',
         name: 'EUHUB.CO',
@@ -80,7 +95,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang={htmlLang} dir="ltr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -113,9 +128,38 @@ const jsonLd = {
       })();
     </script>
 
+    {/* Auto-redirect Slovak browsers to /sk/ (EN pages only) */}
+    {locale === 'en' && (
+      <script is:inline>
+        (function () {
+          try {
+            if (location.pathname.startsWith('/sk/')) return;
+            if (localStorage.getItem('i18n-choice')) return;
+            if (new URLSearchParams(location.search).has('no-redirect')) return;
+            var langs = navigator.languages || [navigator.language];
+            var isSk = langs.some(function (l) {
+              return l.toLowerCase().startsWith('sk');
+            });
+            if (isSk) {
+              localStorage.setItem('i18n-choice', 'sk');
+              var skPath = '/sk' + location.pathname + location.search + location.hash;
+              location.replace(skPath);
+            }
+          } catch (e) {
+            /* ignore */
+          }
+        })();
+      </script>
+    )}
+
     {/* Canonical + robots */}
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    {/* hreflang alternate links */}
+    <link rel="alternate" hreflang="en" href={alternateEn} />
+    <link rel="alternate" hreflang="sk" href={alternateSk} />
+    <link rel="alternate" hreflang="x-default" href={alternateEn} />
 
     {/* Primary meta */}
     <title>{fullTitle}</title>
@@ -128,7 +172,7 @@ const jsonLd = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:locale" content="en_EU" />
+    <meta property="og:locale" content={ogLocale} />
 
     {/* Twitter / X */}
     <meta name="twitter:card" content="summary_large_image" />

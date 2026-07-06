@@ -1,10 +1,6 @@
-import type { EngagementModel } from './types';
+import type { EngagementModel } from '../types';
 
-/**
- * Engagement models describe HOW you buy, not another list of services.
- * Per plan v3 / Fable review B6: pricing shapes, not a fourth service catalog.
- */
-export const engagementModels: EngagementModel[] = [
+const engagementModels: EngagementModel[] = [
   {
     id: 'audit',
     shape: 'Technical Web Audit',
@@ -31,5 +27,10 @@ export const engagementModels: EngagementModel[] = [
   },
 ];
 
-export const pricingOrientationCopy =
+const pricingOrientationCopy =
   'We price based on scope, integrations, timeline, and long-term maintenance requirements. Most serious projects start with a technical audit or discovery phase.';
+
+export const engagementModelsBundle = {
+  engagementModels,
+  pricingOrientationCopy,
+};

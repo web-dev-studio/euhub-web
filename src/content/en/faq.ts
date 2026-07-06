@@ -1,6 +1,6 @@
-import type { FaqItem } from './types';
+import type { FaqItem } from '../types';
 
-export const faq: FaqItem[] = [
+const faq: FaqItem[] = [
   {
     question: 'Do you only build websites?',
     answer:
@@ -62,3 +62,5 @@ export const faq: FaqItem[] = [
       'Yes. Maintenance and DevOps retainers cover monitoring, security patching, backups, performance tracking, and new features as your business evolves. A website that nobody maintains becomes a liability.',
   },
 ];
+
+export const faqBundle = { faq };

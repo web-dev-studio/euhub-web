@@ -6,23 +6,23 @@ Reviewers: Codex + Claude Fable 5 (this plan will be grilled before implementati
 
 ## Resolved decisions
 
-| Fork | Choice |
-|---|---|
-| URL structure | `/sk/` prefix for SK, EN stays at root (`prefixDefaultLocale: false`) |
+| Fork               | Choice                                                                  |
+| ------------------ | ----------------------------------------------------------------------- |
+| URL structure      | `/sk/` prefix for SK, EN stays at root (`prefixDefaultLocale: false`)   |
 | Translation source | AI-generated Slovak, no human review (user choice — risk flagged below) |
-| Auto-redirect | Client-side script auto-redirects Slovak browsers to `/sk/` |
-| Form enum values | Stable IDs + translated display labels; webhook receives IDs |
-| SK scope | Full SK: homepage, 404, privacy, cookies, terms |
+| Auto-redirect      | Client-side script auto-redirects Slovak browsers to `/sk/`             |
+| Form enum values   | Stable IDs + translated display labels; webhook receives IDs            |
+| SK scope           | Full SK: homepage, 404, privacy, cookies, terms                         |
 
 ## Risk register (must be addressed before launch)
 
-| # | Risk | Severity | Mitigation |
-|---|---|---|---|
-| R1 | AI Slovak copy may be grammatically incorrect, wrong register (vykanie), or off-tone | **High** | DoD gate: SK copy reviewed by a Slovak speaker before `/sk/` goes live. AI draft is a starting point, not a finish line. |
-| R2 | AI-translated legal pages (privacy/cookies/terms) are a legal liability under Slovak law | **Critical** | DoD gate: SK legal pages reviewed by Slovak legal counsel. Launch blocked until sign-off. EN legal pages already require this; SK is no different. |
-| R3 | Client-side auto-redirect can cause loops, break deep links, or confuse search engines | Medium | Strict guard conditions (see §6). `hreflang` + canonical tags are the primary SEO signal; JS redirect is a UX enhancement for human visitors. |
-| R4 | Form enum refactor (strings → IDs) breaks the webhook contract | Medium | Webhook recipient notified before deploy. Payload includes both `projectTypeId` and `projectTypeLabel` (EN) for backwards compatibility. |
-| R5 | Partial translations create "SEO litter" (Fable B5) | Medium | SK routes are only added when 100% of in-scope content is translated. No fallback to EN on missing strings — if a string is missing, the build fails. |
+| #   | Risk                                                                                     | Severity     | Mitigation                                                                                                                                            |
+| --- | ---------------------------------------------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| R1  | AI Slovak copy may be grammatically incorrect, wrong register (vykanie), or off-tone     | **High**     | DoD gate: SK copy reviewed by a Slovak speaker before `/sk/` goes live. AI draft is a starting point, not a finish line.                              |
+| R2  | AI-translated legal pages (privacy/cookies/terms) are a legal liability under Slovak law | **Critical** | DoD gate: SK legal pages reviewed by Slovak legal counsel. Launch blocked until sign-off. EN legal pages already require this; SK is no different.    |
+| R3  | Client-side auto-redirect can cause loops, break deep links, or confuse search engines   | Medium       | Strict guard conditions (see §6). `hreflang` + canonical tags are the primary SEO signal; JS redirect is a UX enhancement for human visitors.         |
+| R4  | Form enum refactor (strings → IDs) breaks the webhook contract                           | Medium       | Webhook recipient notified before deploy. Payload includes both `projectTypeId` and `projectTypeLabel` (EN) for backwards compatibility.              |
+| R5  | Partial translations create "SEO litter" (Fable B5)                                      | Medium       | SK routes are only added when 100% of in-scope content is translated. No fallback to EN on missing strings — if a string is missing, the build fails. |
 
 ---
 
@@ -87,8 +87,10 @@ import * as sk from '../content/sk/site';
 
 export function getContent(locale: Locale) {
   switch (locale) {
-    case 'sk': return skBundle;
-    default: return enBundle;
+    case 'sk':
+      return skBundle;
+    default:
+      return enBundle;
   }
 }
 
@@ -117,18 +119,18 @@ export const defaultLocale = 'en';
 
 ### 2.1 Route map
 
-| Route | Locale | Page file |
-|---|---|---|
-| `/` | EN | `src/pages/index.astro` (existing, refactored) |
-| `/sk/` | SK | `src/pages/sk/index.astro` (new) |
-| `/privacy/` | EN | `src/pages/privacy/index.astro` (existing) |
-| `/sk/privacy/` | SK | `src/pages/sk/privacy/index.astro` (new) |
-| `/cookies/` | EN | `src/pages/cookies/index.astro` (existing) |
-| `/sk/cookies/` | SK | `src/pages/sk/cookies/index.astro` (new) |
-| `/terms/` | EN | `src/pages/terms/index.astro` (existing) |
-| `/sk/terms/` | SK | `src/pages/sk/terms/index.astro` (new) |
-| `/404` | EN | `src/pages/404.astro` (existing) |
-| `/sk/404` | SK | `src/pages/sk/404.astro` (new) |
+| Route                | Locale          | Page file                                                                   |
+| -------------------- | --------------- | --------------------------------------------------------------------------- |
+| `/`                  | EN              | `src/pages/index.astro` (existing, refactored)                              |
+| `/sk/`               | SK              | `src/pages/sk/index.astro` (new)                                            |
+| `/privacy/`          | EN              | `src/pages/privacy/index.astro` (existing)                                  |
+| `/sk/privacy/`       | SK              | `src/pages/sk/privacy/index.astro` (new)                                    |
+| `/cookies/`          | EN              | `src/pages/cookies/index.astro` (existing)                                  |
+| `/sk/cookies/`       | SK              | `src/pages/sk/cookies/index.astro` (new)                                    |
+| `/terms/`            | EN              | `src/pages/terms/index.astro` (existing)                                    |
+| `/sk/terms/`         | SK              | `src/pages/sk/terms/index.astro` (new)                                      |
+| `/404`               | EN              | `src/pages/404.astro` (existing)                                            |
+| `/sk/404`            | SK              | `src/pages/sk/404.astro` (new)                                              |
 | `/api/audit-request` | locale-agnostic | `src/pages/api/audit-request.ts` (refactored to accept `locale` in payload) |
 
 ### 2.2 Page pattern
@@ -159,6 +161,7 @@ const description = content.site.seo.description;
 ```
 
 **Alternative considered:** a single `[locale]/index.astro` dynamic route. Rejected because:
+
 - `prefixDefaultLocale: false` means EN is at root, not `/en/` — a dynamic route can't cleanly handle this asymmetry
 - Static file-per-locale is more explicit and easier to audit
 - Legal pages have different structures per locale (SK legal review may require different content, not just translation)
@@ -180,7 +183,9 @@ import { services } from '../../content/services';
 import { getContent } from '../../lib/i18n';
 import type { Locale } from '../../content/types';
 
-interface Props { locale?: Locale; }
+interface Props {
+  locale?: Locale;
+}
 const { locale = 'en' } = Astro.props;
 const { services } = getContent(locale);
 ---
@@ -209,6 +214,7 @@ const { services } = getContent(locale);
 ### 3.3 BaseLayout refactor
 
 Add `locale` prop:
+
 - `<html lang={locale}>` (currently hardcoded `en`)
 - `<meta property="og:locale" content={locale === 'sk' ? 'sk_SK' : 'en_EU'}>`
 - Canonical URL reflects the locale path
@@ -227,12 +233,15 @@ Add `locale` prop:
 ```ts
 // lib/validation.ts
 export const projectTypes = [
-  { id: 'audit', label: { en: 'Technical Web Audit', sk: 'Technický web audit' } },
+  {
+    id: 'audit',
+    label: { en: 'Technical Web Audit', sk: 'Technický web audit' },
+  },
   { id: 'landing-page', label: { en: 'Landing Page', sk: 'Landing Page' } },
   // ...
 ] as const;
 
-export const projectTypeIds = projectTypes.map(p => p.id) as const;
+export const projectTypeIds = projectTypes.map((p) => p.id) as const;
 
 export const auditRequestSchema = z.object({
   // ... validates against projectTypeIds (stable IDs)
@@ -249,7 +258,7 @@ The React form receives `locale` prop and renders localized labels from the enum
 {
   "projectTypeId": "audit",
   "projectTypeLabel": "Technical Web Audit",
-  "locale": "sk",
+  "locale": "sk"
   // ... other fields
 }
 ```
@@ -306,16 +315,30 @@ Every page declares alternate links to both locales:
 ```
 
 Legal pages declare their specific alternates:
+
 ```html
 <!-- on /privacy/ -->
-<link rel="alternate" hreflang="en" href="https://web-dev-studio.com/privacy/" />
-<link rel="alternate" hreflang="sk" href="https://web-dev-studio.com/sk/privacy/" />
-<link rel="alternate" hreflang="x-default" href="https://web-dev-studio.com/privacy/" />
+<link
+  rel="alternate"
+  hreflang="en"
+  href="https://web-dev-studio.com/privacy/"
+/>
+<link
+  rel="alternate"
+  hreflang="sk"
+  href="https://web-dev-studio.com/sk/privacy/"
+/>
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href="https://web-dev-studio.com/privacy/"
+/>
 ```
 
 ### 5.2 Canonical
 
 Each page's canonical points to itself (not to the other locale):
+
 - `/` → `canonical: https://web-dev-studio.com/`
 - `/sk/` → `canonical: https://web-dev-studio.com/sk/`
 
@@ -340,6 +363,7 @@ This generates `<xhtml:link rel="alternate" hreflang="..." />` entries in the si
 ### 5.4 JSON-LD
 
 Add `inLanguage` to the Organization/ProfessionalService schema on each page:
+
 ```json
 { "@type": "Organization", "inLanguage": "sk", ... }
 ```
@@ -347,15 +371,21 @@ Add `inLanguage` to the Organization/ProfessionalService schema on each page:
 ### 5.5 og:locale
 
 ```html
-<meta property="og:locale" content="sk_SK" />  <!-- on SK pages -->
-<meta property="og:locale" content="en_EU" />  <!-- on EN pages -->
+<meta property="og:locale" content="sk_SK" />
+<!-- on SK pages -->
+<meta property="og:locale" content="en_EU" />
+<!-- on EN pages -->
 ```
 
 ### 5.6 `<html lang>`
 
 ```html
-<html lang="sk">  <!-- SK pages -->
-<html lang="en">  <!-- EN pages -->
+<html lang="sk">
+  <!-- SK pages -->
+  <html lang="en">
+    <!-- EN pages -->
+  </html>
+</html>
 ```
 
 ---
@@ -385,15 +415,23 @@ An inline script on the EN root pages (`/`, `/privacy/`, `/cookies/`, `/terms/`,
     if (location.pathname.startsWith('/sk/')) return;
     if (localStorage.getItem('i18n-choice')) return;
     if (new URLSearchParams(location.search).has('no-redirect')) return;
-    if (document.referrer && new URL(document.referrer).origin === location.origin) return;
+    if (
+      document.referrer &&
+      new URL(document.referrer).origin === location.origin
+    )
+      return;
     var langs = navigator.languages || [navigator.language];
-    var isSk = langs.some(function (l) { return l.toLowerCase().startsWith('sk'); });
+    var isSk = langs.some(function (l) {
+      return l.toLowerCase().startsWith('sk');
+    });
     if (isSk) {
       localStorage.setItem('i18n-choice', 'sk');
       var skPath = '/sk' + location.pathname + location.search + location.hash;
       location.replace(skPath);
     }
-  } catch (e) { /* ignore */ }
+  } catch (e) {
+    /* ignore */
+  }
 })();
 ```
 
@@ -499,6 +537,7 @@ import { sk } from './src/content/sk/site';
 ```
 
 If a string is missing, the build fails with a clear message:
+
 ```
 [i18n] Missing SK translation for: services[2].includes[1]
 ```
@@ -510,6 +549,7 @@ This prevents the "half-empty translated pages are SEO litter" problem (Fable B5
 ## 12. Implementation phases
 
 ### Phase i18n-1 — Infrastructure
+
 - Update `astro.config.mjs` with i18n config
 - Update `types.ts` (`Locale = 'en' | 'sk'`)
 - Create `lib/i18n.ts` (getContent, getLocaleFromUrl, getAlternatePath)
@@ -519,29 +559,34 @@ This prevents the "half-empty translated pages are SEO litter" problem (Fable B5
 - Create `src/content/sk/` directory (files start as copies of EN for structure)
 
 ### Phase i18n-2 — Component refactor
+
 - Add `locale` prop to BaseLayout, Header, Footer, all 13 sections, LegalLayout, 404
 - Replace direct content imports with `getContent(locale)` calls
 - Refactor AuditRequestForm.tsx to accept `locale` prop and use localized strings
 - Refactor API endpoint to accept `locale` in payload and return localized errors
 
 ### Phase i18n-3 — SK page routes
+
 - Create `src/pages/sk/index.astro`, `src/pages/sk/privacy/index.astro`, etc.
 - Create `src/pages/sk/404.astro`
 - Each SK page passes `locale="sk"` to layout and components
 
 ### Phase i18n-4 — Slovak translation
+
 - AI-generate Slovak translations for all content files
 - AI-generate Slovak form UI strings
 - AI-generate Slovak legal content
 - Run translation completeness check (build must pass)
 
 ### Phase i18n-5 — Language switch + auto-redirect
+
 - Create `LanguageSwitch.astro`
 - Wire into Header (next to ThemeToggle) and Footer
 - Add auto-redirect inline script to EN pages
 - Add `localStorage('i18n-choice')` persistence on explicit switch
 
 ### Phase i18n-6 — SEO
+
 - hreflang alternate links in BaseLayout
 - Sitemap i18n config
 - JSON-LD `inLanguage` per locale
@@ -549,12 +594,14 @@ This prevents the "half-empty translated pages are SEO litter" problem (Fable B5
 - `<html lang>` per locale
 
 ### Phase i18n-7 — Analytics + CI
+
 - Add `locale` dimension to Umami events
 - Translation completeness build check
 - CI guard for SK pages (no TODO/lorem/placeholder)
 - Playwright smoke test: visit `/sk/`, verify `<html lang="sk">`, verify form renders in Slovak
 
 ### Phase i18n-8 — Review gates (DoD)
+
 - [ ] Slovak speaker reviews all SK copy (tone, grammar, vykanie)
 - [ ] Slovak legal counsel reviews SK legal pages
 - [ ] Webhook recipient confirms enum ID migration
@@ -569,6 +616,7 @@ This prevents the "half-empty translated pages are SEO litter" problem (Fable B5
 ## 13. Files created/modified
 
 ### New files
+
 ```
 src/content/sk/site.ts
 src/content/sk/services.ts
@@ -591,6 +639,7 @@ scripts/check-translations.ts
 ```
 
 ### Modified files
+
 ```
 astro.config.mjs              # i18n config + sitemap i18n
 src/content/types.ts          # Locale type
@@ -630,12 +679,14 @@ public/_headers               # no change (same origin)
 ## 15. Open items before SK launch
 
 **Required:**
+
 - Slovak speaker to review AI-generated copy (R1)
 - Slovak legal counsel to review SK legal pages (R2)
 - Webhook recipient to confirm enum ID migration (R4)
 - Umami Cloud: confirm `locale` dimension doesn't require a plan upgrade
 
 **Nice to have:**
+
 - SK-specific OG image (`/sk/og.png` with Slovak text)
 - SK-specific favicon (if branding differs)
 - Google Search Console property for `/sk/` subpath

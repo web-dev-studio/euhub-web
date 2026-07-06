@@ -1,6 +1,9 @@
 ---
 import LegalLayout from '../../layouts/LegalLayout.astro';
-import { privacyPolicy } from '../../content/legal';
+import { getContent } from '../../lib/i18n';
+
+const locale = 'en' as const;
+const { privacyPolicy } = getContent(locale).legal;
 ---
 
-<LegalLayout content={privacyPolicy} path="/privacy/" />
+<LegalLayout content={privacyPolicy} path="/privacy/" locale={locale} />

@@ -1,6 +1,6 @@
-import type { EcosystemBrand } from './types';
+import type { EcosystemBrand } from '../types';
 
-export const ecosystem: EcosystemBrand[] = [
+const ecosystem: EcosystemBrand[] = [
   {
     id: 'web-dev-studio',
     name: 'Web Dev Studio',
@@ -34,3 +34,5 @@ export const ecosystem: EcosystemBrand[] = [
     url: 'https://euhub.sk',
   },
 ];
+
+export const ecosystemBundle = { ecosystem };

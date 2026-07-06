@@ -18,7 +18,23 @@ export default defineConfig({
     imageService: 'compile',
   }),
   site: 'https://web-dev-studio.com',
-  integrations: [react(), sitemap()],
+  integrations: [
+    react(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: { en: 'en-GB', sk: 'sk-SK' },
+      },
+    }),
+  ],
+  i18n: {
+    locales: ['en', 'sk'],
+    defaultLocale: 'en',
+    routing: {
+      prefixDefaultLocale: false,
+      redirectToDefaultLocale: false,
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },

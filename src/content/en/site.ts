@@ -1,6 +1,6 @@
-import type { SiteContent } from './types';
+import type { SiteContent, NavItem } from '../types';
 
-export const site: SiteContent = {
+const site: SiteContent = {
   wordmark: 'Web Dev Studio',
   tagline: 'by EUHUB',
   nav: [
@@ -26,24 +26,28 @@ export const site: SiteContent = {
   },
 };
 
-/** Primary CTA — used across header, hero, and CTA section */
-export const primaryCta = {
+const primaryCta: NavItem = {
   label: 'Request Web Audit',
   href: '#contact',
 };
 
-/** Secondary CTA — hero only */
-export const secondaryCta = {
+const secondaryCta: NavItem = {
   label: 'View Services',
   href: '#services',
 };
 
-/** Tertiary CTA — ecosystem section */
-export const tertiaryCta = {
+const tertiaryCta: NavItem = {
   label: 'Explore EUHUB AI',
   href: 'https://euhub-ai.com',
 };
 
-/** Trust line — hero */
-export const trustLine =
+const trustLine =
   'Based in Slovakia. Built for EU businesses. GDPR-aware by default.';
+
+export const siteBundle = {
+  site,
+  primaryCta,
+  secondaryCta,
+  tertiaryCta,
+  trustLine,
+};

@@ -1,6 +1,6 @@
-import type { TechCategory } from './types';
+import type { TechCategory } from '../types';
 
-export const techStack: TechCategory[] = [
+const techStack: TechCategory[] = [
   {
     id: 'frontend',
     title: 'Frontend',
@@ -69,3 +69,5 @@ export const techStack: TechCategory[] = [
     ],
   },
 ];
+
+export const techStackBundle = { techStack };

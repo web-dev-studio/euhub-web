@@ -8,7 +8,14 @@ import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
 import Badge from '../ui/Badge.astro';
 import Icon from '../ui/Icon.astro';
-import { exampleScenarios } from '../../content/example-scenarios';
+import { getContent } from '../../lib/i18n';
+import type { Locale } from '../../content/types';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const { exampleScenarios } = getContent(locale).examples;
 ---
 
 <Section id="examples" bg="canvas">

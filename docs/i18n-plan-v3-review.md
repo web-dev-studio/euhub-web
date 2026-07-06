@@ -20,12 +20,12 @@ implementation-ready.
 
 ## A. Confirmed resolved
 
-| # | v2 finding | v3 resolution | Verified |
-|---|---|---|---|
-| 1 | `glob()` isn't a valid GitHub Actions expression function | Replaced with `dorny/paths-filter@v3`, filter scoped to `src/content/sk/**`, gated on `steps.filter.outputs.sk == 'true'` | Yes — correct, standard usage of the action |
-| 2 | CODEOWNERS-as-enforcement was suggested but not written | `.github/CODEOWNERS` added for `src/content/sk/**` and `**/legal.ts`; placeholder handles explicitly flagged in §15 as needing real GitHub usernames before this is live | Yes — appropriately incomplete (can't know real handles at planning time) but correctly tracked as an open item, not silently assumed |
-| 3 | Issue template needed YAML front matter to appear in GitHub's picker | `name`/`about`/`labels` front matter shown in §12 Phase i18n-8 | Yes |
-| 4 | `en_GB` implies British spelling; worth a copy consistency check | Added as an explicit Phase i18n-6 step and a DoD checklist item, with a concrete fallback (switch to region-neutral `en` if American spelling is found) | Yes |
+| #   | v2 finding                                                           | v3 resolution                                                                                                                                                            | Verified                                                                                                                              |
+| --- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | `glob()` isn't a valid GitHub Actions expression function            | Replaced with `dorny/paths-filter@v3`, filter scoped to `src/content/sk/**`, gated on `steps.filter.outputs.sk == 'true'`                                                | Yes — correct, standard usage of the action                                                                                           |
+| 2   | CODEOWNERS-as-enforcement was suggested but not written              | `.github/CODEOWNERS` added for `src/content/sk/**` and `**/legal.ts`; placeholder handles explicitly flagged in §15 as needing real GitHub usernames before this is live | Yes — appropriately incomplete (can't know real handles at planning time) but correctly tracked as an open item, not silently assumed |
+| 3   | Issue template needed YAML front matter to appear in GitHub's picker | `name`/`about`/`labels` front matter shown in §12 Phase i18n-8                                                                                                           | Yes                                                                                                                                   |
+| 4   | `en_GB` implies British spelling; worth a copy consistency check     | Added as an explicit Phase i18n-6 step and a DoD checklist item, with a concrete fallback (switch to region-neutral `en` if American spelling is found)                  | Yes                                                                                                                                   |
 
 ---
 
@@ -62,8 +62,9 @@ intended.
 the `actions/checkout` step in the job that runs the translation-completeness
 check. This is a one-line change, but the plan's file-modification list
 (§13, `.github/workflows/ci.yml`) currently only mentions "dorny/paths-filter
-+ content guard + SK smoke test" — worth adding "+ fetch-depth on checkout"
-explicitly so it isn't dropped during implementation.
+
+- content guard + SK smoke test" — worth adding "+ fetch-depth on checkout"
+  explicitly so it isn't dropped during implementation.
 
 ---
 

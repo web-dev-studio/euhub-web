@@ -63,23 +63,23 @@ expression functions that don't exist.
 
 Quick pass confirming these aren't just relabeled:
 
-| # | v1 finding | v2 resolution | Verified |
-|---|---|---|---|
-| A1 (orig.) | Redirect referrer guard was dead weight for the primary use case | Guard condition removed; DoD gains an explicit "direct nav, empty referrer, Slovak browser" test case (§12 Phase i18n-8) | Yes — matches the actual gap; loop prevention still covered by the path-prefix + localStorage checks |
-| A2 | `getContent()` design didn't match real per-file named exports | §1.2 makes the bundle-object restructure an explicit, named Phase i18n-1 step, shows the actual before/after shape | Yes |
-| A3 | `check-translations.ts` sample imported a shape that doesn't exist | §10.2 explicitly defers writing it until after the A2 restructure lands | Yes |
-| A4 | "Existing CI grep guard" doesn't exist in `ci.yml` | §10 states this plainly and schedules it as new work in Phase i18n-7, plus ships the EN-only version too | Yes |
-| A5 | `en_EU` / `en-EU` aren't valid locale codes | Both replaced with `en_GB` / `en-GB` throughout | Yes, valid BCP-47/CLDR pair |
-| A6 | Backwards-compat webhook hedge protected a nonexistent integration | Dropped; payload sends `projectTypeId` only | Yes |
-| B2 | No mobile-header room for a third control | Language switch moved into the mobile menu panel; sticky row keeps just ThemeToggle + hamburger | Yes |
-| B3 | Turnstile widget language not wired to locale | `language: locale` added to the render call | Yes |
-| B4 | Both locales' form strings ship to every client bundle | Stated explicitly as an accepted 2-locale tradeoff, with a revisit condition | Yes — this is exactly "name the tradeoff instead of absorbing it silently" |
-| C1 | Redundant `Astro.currentLocale ?? getLocaleFromUrl()` fallback | Fallback dropped; direct `getContent(Astro.currentLocale)` | Yes |
-| C2 | DoD gates had no owner or enforcement mechanism | PR template checklist + GitHub issue template added (see residual note below) | Partial — mechanism exists but isn't merge-blocking, see A2 below |
-| D1 | Cross-locale anchor nav not addressed | Explicitly stated: section anchor IDs are locale-invariant | Yes |
-| D2 | SK OG image was "nice to have" despite `og:locale: sk_SK` implying a full card | Promoted to required, DoD checkbox added | Yes |
-| D3 | `lastUpdated` ambiguous between EN/SK legal pages | SK gets its own, independent of EN | Yes |
-| D4 | Umami Cloud "dimension" tier dependency unconfirmed | Switched to event properties (already supported), sidesteps the tier question entirely | Yes — better fix than just "confirm the tier" |
+| #          | v1 finding                                                                     | v2 resolution                                                                                                            | Verified                                                                                             |
+| ---------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| A1 (orig.) | Redirect referrer guard was dead weight for the primary use case               | Guard condition removed; DoD gains an explicit "direct nav, empty referrer, Slovak browser" test case (§12 Phase i18n-8) | Yes — matches the actual gap; loop prevention still covered by the path-prefix + localStorage checks |
+| A2         | `getContent()` design didn't match real per-file named exports                 | §1.2 makes the bundle-object restructure an explicit, named Phase i18n-1 step, shows the actual before/after shape       | Yes                                                                                                  |
+| A3         | `check-translations.ts` sample imported a shape that doesn't exist             | §10.2 explicitly defers writing it until after the A2 restructure lands                                                  | Yes                                                                                                  |
+| A4         | "Existing CI grep guard" doesn't exist in `ci.yml`                             | §10 states this plainly and schedules it as new work in Phase i18n-7, plus ships the EN-only version too                 | Yes                                                                                                  |
+| A5         | `en_EU` / `en-EU` aren't valid locale codes                                    | Both replaced with `en_GB` / `en-GB` throughout                                                                          | Yes, valid BCP-47/CLDR pair                                                                          |
+| A6         | Backwards-compat webhook hedge protected a nonexistent integration             | Dropped; payload sends `projectTypeId` only                                                                              | Yes                                                                                                  |
+| B2         | No mobile-header room for a third control                                      | Language switch moved into the mobile menu panel; sticky row keeps just ThemeToggle + hamburger                          | Yes                                                                                                  |
+| B3         | Turnstile widget language not wired to locale                                  | `language: locale` added to the render call                                                                              | Yes                                                                                                  |
+| B4         | Both locales' form strings ship to every client bundle                         | Stated explicitly as an accepted 2-locale tradeoff, with a revisit condition                                             | Yes — this is exactly "name the tradeoff instead of absorbing it silently"                           |
+| C1         | Redundant `Astro.currentLocale ?? getLocaleFromUrl()` fallback                 | Fallback dropped; direct `getContent(Astro.currentLocale)`                                                               | Yes                                                                                                  |
+| C2         | DoD gates had no owner or enforcement mechanism                                | PR template checklist + GitHub issue template added (see residual note below)                                            | Partial — mechanism exists but isn't merge-blocking, see A2 below                                    |
+| D1         | Cross-locale anchor nav not addressed                                          | Explicitly stated: section anchor IDs are locale-invariant                                                               | Yes                                                                                                  |
+| D2         | SK OG image was "nice to have" despite `og:locale: sk_SK` implying a full card | Promoted to required, DoD checkbox added                                                                                 | Yes                                                                                                  |
+| D3         | `lastUpdated` ambiguous between EN/SK legal pages                              | SK gets its own, independent of EN                                                                                       | Yes                                                                                                  |
+| D4         | Umami Cloud "dimension" tier dependency unconfirmed                            | Switched to event properties (already supported), sidesteps the tier question entirely                                   | Yes — better fix than just "confirm the tier"                                                        |
 
 ---
 

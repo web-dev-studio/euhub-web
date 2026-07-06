@@ -1,10 +1,13 @@
 /**
  * Shared content types for Web Dev Studio by EUHUB.
- * All content is keyed by locale; `en` is canonical and populated.
- * `sk` is NOT routed until real Slovak copy exists (per plan v3).
+ * Content is structured as per-locale bundle objects (src/content/en/, src/content/sk/).
+ * EN is canonical; SK is a full translation.
  */
 
-export type Locale = 'en';
+export type Locale = 'en' | 'sk';
+
+export const locales = ['en', 'sk'] as const;
+export const defaultLocale = 'en';
 
 export interface NavItem {
   label: string;

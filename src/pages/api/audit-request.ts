@@ -1,4 +1,5 @@
-import { auditRequestSchema } from '../../lib/validation';
+import { auditRequestSchema, getValidationMessage } from '../../lib/validation';
+import type { Locale } from '../../content/types';
 import {
   WEBHOOK_URL,
   WEBHOOK_TOKEN,
@@ -20,6 +21,24 @@ import {
  */
 
 export const prerender = false;
+
+// Localized error messages
+const messages = {
+  en: {
+    validation: 'Please check the form fields and try again.',
+    captcha: 'Verification failed. Please try again.',
+    webhook: 'Something went wrong on our end. Please try again or email us.',
+    timeout: 'The request timed out. Please try again or email us directly.',
+    rateLimited: 'Too many requests. Please try again later.',
+  },
+  sk: {
+    validation: 'Skontrolujte polia formulára a skúste to znova.',
+    captcha: 'Overenie zlyhalo. Skúste to znova.',
+    webhook: 'Niečo sa pokazilo. Skúste to znova alebo nám napíšte email.',
+    timeout: 'Požiadavka vypršala. Skúste to znova alebo nám napíšte email.',
+    rateLimited: 'Príliš veľa požiadaviek. Skúste to neskôr.',
+  },
+} as const;
 
 // Cloudflare Turnstile verification endpoint
 const TURNSTILE_VERIFY_URL =
@@ -133,7 +152,7 @@ export async function POST(context: {
     return jsonResponse(
       {
         error: 'rate_limited',
-        message: 'Too many requests. Please try again later.',
+        message: messages.en.rateLimited,
       },
       429,
     );
@@ -153,13 +172,16 @@ export async function POST(context: {
   // Validate with shared Zod schema
   const result = auditRequestSchema.safeParse(body);
   if (!result.success) {
+    // Try to extract locale from raw body for message localization
+    const rawLocale = (body as Record<string, unknown>)?.locale;
+    const locale: Locale = rawLocale === 'sk' ? 'sk' : 'en';
     return jsonResponse(
       {
         error: 'validation_error',
-        message: 'Please check the form fields and try again.',
+        message: messages[locale].validation,
         fields: result.error.issues.map((i) => ({
           field: i.path[0],
-          message: i.message,
+          message: getValidationMessage(i.message, locale),
         })),
       },
       422,
@@ -167,6 +189,7 @@ export async function POST(context: {
   }
 
   const data = result.data;
+  const locale: Locale = data.locale === 'sk' ? 'sk' : 'en';
 
   // Honeypot check (server-side too)
   if (data.companyUrl) {
@@ -190,7 +213,7 @@ export async function POST(context: {
       return jsonResponse(
         {
           error: 'captcha_failed',
-          message: 'Verification failed. Please try again.',
+          message: messages[locale].captcha,
         },
         403,
       );
@@ -248,8 +271,7 @@ export async function POST(context: {
       return jsonResponse(
         {
           error: 'webhook_error',
-          message:
-            'Something went wrong on our end. Please try again or email us.',
+          message: messages[locale].webhook,
         },
         502,
       );
@@ -263,8 +285,7 @@ export async function POST(context: {
       return jsonResponse(
         {
           error: 'webhook_timeout',
-          message:
-            'The request timed out. Please try again or email us directly.',
+          message: messages[locale].timeout,
         },
         504,
       );
@@ -273,8 +294,7 @@ export async function POST(context: {
     return jsonResponse(
       {
         error: 'webhook_error',
-        message:
-          'Something went wrong on our end. Please try again or email us.',
+        message: messages[locale].webhook,
       },
       502,
     );

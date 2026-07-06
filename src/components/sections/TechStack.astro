@@ -6,7 +6,14 @@
 import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
 import Icon from '../ui/Icon.astro';
-import { techStack } from '../../content/tech-stack';
+import { getContent } from '../../lib/i18n';
+import type { Locale } from '../../content/types';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const { techStack } = getContent(locale).techStack;
 ---
 
 <Section id="tech-stack" bg="surface-2">

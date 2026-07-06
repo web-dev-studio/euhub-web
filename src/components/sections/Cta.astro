@@ -9,7 +9,14 @@ import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
 import Icon from '../ui/Icon.astro';
 import AuditRequestForm from '../forms/AuditRequestForm.tsx';
-import { site } from '../../content/site';
+import { getContent } from '../../lib/i18n';
+import type { Locale } from '../../content/types';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const { site } = getContent(locale).site;
 ---
 
 <Section id="contact" bg="surface-2" padding="lg">
@@ -67,6 +74,7 @@ import { site } from '../../content/site';
           <AuditRequestForm
             turnstileSiteKey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
             contactEmail={site.contactEmail}
+            locale={locale}
             client:load
           />
 

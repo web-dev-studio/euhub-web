@@ -1,29 +1,35 @@
 ---
 /**
- * Legal layout — shared by /privacy/, /cookies/, /terms/.
- * Renders legal content from content/legal.ts with proper heading hierarchy.
+ * Legal layout — shared by /privacy/, /cookies/, /terms/ (EN + SK).
+ * Renders legal content with proper heading hierarchy.
  */
 import BaseLayout from './BaseLayout.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import Container from '../components/ui/Container.astro';
-import type { LegalContent } from '../content/types';
+import type { LegalContent, Locale } from '../content/types';
 
 interface Props {
   content: LegalContent;
   path: string;
+  locale?: Locale;
 }
 
-const { content, path } = Astro.props;
+const { content, path, locale = 'en' } = Astro.props;
+
+const backLink = locale === 'sk' ? '/sk/' : '/';
+const backLabel = locale === 'sk' ? '← Späť na domov' : '← Back to home';
+const updatedLabel = locale === 'sk' ? 'Aktualizované:' : 'Last updated:';
 ---
 
 <BaseLayout
   title={content.title}
   description={`${content.title} — Web Dev Studio by EUHUB`}
   path={path}
+  locale={locale}
   noindex={false}
 >
-  <Header />
+  <Header locale={locale} />
   <main id="main">
     <div class="border-b border-line bg-surface-2 py-12">
       <Container size="md">
@@ -31,7 +37,8 @@ const { content, path } = Astro.props;
           {content.title}
         </h1>
         <p class="mt-2 text-sm text-ink-4">
-          Last updated: {content.lastUpdated}
+          {updatedLabel}
+          {content.lastUpdated}
         </p>
       </Container>
     </div>
@@ -49,11 +56,14 @@ const { content, path } = Astro.props;
         }
       </div>
       <div class="mt-12 border-t border-line pt-6">
-        <a href="/" class="text-sm font-medium text-brand hover:underline">
-          ← Back to home
+        <a
+          href={backLink}
+          class="text-sm font-medium text-brand hover:underline"
+        >
+          {backLabel}
         </a>
       </div>
     </Container>
   </main>
-  <Footer />
+  <Footer locale={locale} />
 </BaseLayout>

@@ -4,31 +4,32 @@ Source: i18n-plan-v2.md + Codex review (`docs/i18n-plan-v2-review.md`)
 Status: all 4 Codex points adopted. v2 is superseded.
 
 Review history:
+
 - v1 → Fable 5 review (14 points, all adopted into v2)
 - v2 → Codex review (4 points, all adopted into v3)
 - v3 = implementation-ready
 
 ## Resolved decisions
 
-| Fork | Choice |
-|---|---|
-| URL structure | `/sk/` prefix for SK, EN stays at root (`prefixDefaultLocale: false`) |
-| Translation source | AI-generated Slovak, no human review (user choice — risk flagged in R1/R2) |
-| Auto-redirect | Client-side script auto-redirects Slovak browsers to `/sk/` |
-| Form enum values | Stable IDs + translated display labels; webhook receives IDs only (no backwards-compat hedge — no consumer exists) |
-| SK scope | Full SK: homepage, 404, privacy, cookies, terms |
-| EN og:locale / sitemap | `en_GB` / `en-GB` (valid BCP-47; `en_EU` was invalid) |
-| Missing-translation check scope | Runs only when `src/content/sk/**` files change |
+| Fork                            | Choice                                                                                                             |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| URL structure                   | `/sk/` prefix for SK, EN stays at root (`prefixDefaultLocale: false`)                                              |
+| Translation source              | AI-generated Slovak, no human review (user choice — risk flagged in R1/R2)                                         |
+| Auto-redirect                   | Client-side script auto-redirects Slovak browsers to `/sk/`                                                        |
+| Form enum values                | Stable IDs + translated display labels; webhook receives IDs only (no backwards-compat hedge — no consumer exists) |
+| SK scope                        | Full SK: homepage, 404, privacy, cookies, terms                                                                    |
+| EN og:locale / sitemap          | `en_GB` / `en-GB` (valid BCP-47; `en_EU` was invalid)                                                              |
+| Missing-translation check scope | Runs only when `src/content/sk/**` files change                                                                    |
 
 ## Risk register
 
-| # | Risk | Severity | Mitigation |
-|---|---|---|---|
-| R1 | AI Slovak copy may be grammatically incorrect, wrong register (vykanie), or off-tone | **High** | DoD gate: SK copy reviewed by a Slovak speaker before `/sk/` goes live. Enforced via **CODEOWNERS** (merge-blocking, not just a checklist) + PR template. |
-| R2 | AI-translated legal pages are a legal liability under Slovak law | **Critical** | DoD gate: SK legal pages reviewed by Slovak legal counsel. Enforced via **CODEOWNERS** on `**/legal.ts` (merge-blocking) + GitHub issue template with front matter. SK legal pages get their own `lastUpdated`. |
-| R3 | Client-side auto-redirect can cause loops or confuse search engines | Medium | Strict guard conditions (§6). hreflang + canonical are the primary SEO signal; JS redirect is a UX enhancement. |
-| R4 | ~~Form enum refactor breaks webhook contract~~ | ~~Medium~~ | **Resolved:** no webhook consumer exists. Ship stable IDs cleanly. No dual-field hedge. |
-| R5 | Partial translations create "SEO litter" | Medium | SK routes only added when 100% of in-scope content is translated. Completeness check runs when SK files change. |
+| #   | Risk                                                                                 | Severity     | Mitigation                                                                                                                                                                                                      |
+| --- | ------------------------------------------------------------------------------------ | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| R1  | AI Slovak copy may be grammatically incorrect, wrong register (vykanie), or off-tone | **High**     | DoD gate: SK copy reviewed by a Slovak speaker before `/sk/` goes live. Enforced via **CODEOWNERS** (merge-blocking, not just a checklist) + PR template.                                                       |
+| R2  | AI-translated legal pages are a legal liability under Slovak law                     | **Critical** | DoD gate: SK legal pages reviewed by Slovak legal counsel. Enforced via **CODEOWNERS** on `**/legal.ts` (merge-blocking) + GitHub issue template with front matter. SK legal pages get their own `lastUpdated`. |
+| R3  | Client-side auto-redirect can cause loops or confuse search engines                  | Medium       | Strict guard conditions (§6). hreflang + canonical are the primary SEO signal; JS redirect is a UX enhancement.                                                                                                 |
+| R4  | ~~Form enum refactor breaks webhook contract~~                                       | ~~Medium~~   | **Resolved:** no webhook consumer exists. Ship stable IDs cleanly. No dual-field hedge.                                                                                                                         |
+| R5  | Partial translations create "SEO litter"                                             | Medium       | SK routes only added when 100% of in-scope content is translated. Completeness check runs when SK files change.                                                                                                 |
 
 ---
 
@@ -80,13 +81,14 @@ src/content/
 ```
 
 Each EN file is restructured to export one bundle object:
+
 ```ts
 // src/content/en/site.ts
 export const siteBundle = {
-  site: { /* ... */ },
-  primaryCta: { /* ... */ },
-  secondaryCta: { /* ... */ },
-  tertiaryCta: { /* ... */ },
+  site: {/* ... */},
+  primaryCta: {/* ... */},
+  secondaryCta: {/* ... */},
+  tertiaryCta: {/* ... */},
   trustLine: '/* ... */',
 };
 ```
@@ -100,8 +102,8 @@ import { siteBundle as enSite } from '../content/en/site';
 import { siteBundle as skSite } from '../content/sk/site';
 // ... etc for each content module
 
-const enBundle = { site: enSite, services: enServices, /* ... */ };
-const skBundle = { site: skSite, services: skServices, /* ... */ };
+const enBundle = { site: enSite, services: enServices /* ... */ };
+const skBundle = { site: skSite, services: skServices /* ... */ };
 
 export function getContent(locale: Locale) {
   return locale === 'sk' ? skBundle : enBundle;
@@ -131,18 +133,18 @@ export const defaultLocale = 'en';
 
 ### 2.1 Route map
 
-| Route | Locale | Page file |
-|---|---|---|
-| `/` | EN | `src/pages/index.astro` (refactored) |
-| `/sk/` | SK | `src/pages/sk/index.astro` (new) |
-| `/privacy/` | EN | `src/pages/privacy/index.astro` (refactored) |
-| `/sk/privacy/` | SK | `src/pages/sk/privacy/index.astro` (new) |
-| `/cookies/` | EN | `src/pages/cookies/index.astro` (refactored) |
-| `/sk/cookies/` | SK | `src/pages/sk/cookies/index.astro` (new) |
-| `/terms/` | EN | `src/pages/terms/index.astro` (refactored) |
-| `/sk/terms/` | SK | `src/pages/sk/terms/index.astro` (new) |
-| `/404` | EN | `src/pages/404.astro` (refactored) |
-| `/sk/404` | SK | `src/pages/sk/404.astro` (new) |
+| Route                | Locale          | Page file                                                      |
+| -------------------- | --------------- | -------------------------------------------------------------- |
+| `/`                  | EN              | `src/pages/index.astro` (refactored)                           |
+| `/sk/`               | SK              | `src/pages/sk/index.astro` (new)                               |
+| `/privacy/`          | EN              | `src/pages/privacy/index.astro` (refactored)                   |
+| `/sk/privacy/`       | SK              | `src/pages/sk/privacy/index.astro` (new)                       |
+| `/cookies/`          | EN              | `src/pages/cookies/index.astro` (refactored)                   |
+| `/sk/cookies/`       | SK              | `src/pages/sk/cookies/index.astro` (new)                       |
+| `/terms/`            | EN              | `src/pages/terms/index.astro` (refactored)                     |
+| `/sk/terms/`         | SK              | `src/pages/sk/terms/index.astro` (new)                         |
+| `/404`               | EN              | `src/pages/404.astro` (refactored)                             |
+| `/sk/404`            | SK              | `src/pages/sk/404.astro` (new)                                 |
 | `/api/audit-request` | locale-agnostic | `src/pages/api/audit-request.ts` (accepts `locale` in payload) |
 
 **Section anchor IDs are locale-invariant:** `#services`, `#pricing`, `#faq`, etc. are not translated. This ensures cross-locale anchor nav works (`/sk/#pricing` → `/#pricing`).
@@ -158,7 +160,9 @@ export const defaultLocale = 'en';
 import { getContent } from '../../lib/i18n';
 import type { Locale } from '../../content/types';
 
-interface Props { locale?: Locale; }
+interface Props {
+  locale?: Locale;
+}
 const { locale = 'en' } = Astro.props;
 const { services } = getContent(locale);
 ---
@@ -194,12 +198,15 @@ const { services } = getContent(locale);
 ```ts
 // lib/validation.ts
 export const projectTypes = [
-  { id: 'audit', label: { en: 'Technical Web Audit', sk: 'Technický web audit' } },
+  {
+    id: 'audit',
+    label: { en: 'Technical Web Audit', sk: 'Technický web audit' },
+  },
   { id: 'landing-page', label: { en: 'Landing Page', sk: 'Landing Page' } },
   // ...
 ] as const;
 
-export const projectTypeIds = projectTypes.map(p => p.id) as const;
+export const projectTypeIds = projectTypes.map((p) => p.id) as const;
 
 export const auditRequestSchema = z.object({
   projectType: z.enum(projectTypeIds),
@@ -225,8 +232,20 @@ The form sends `locale` in the payload. The endpoint returns localized error mes
 
 ```ts
 const messages = {
-  en: { validation: '...', captcha: '...', webhook: '...', timeout: '...', rateLimited: '...' },
-  sk: { validation: '...', captcha: '...', webhook: '...', timeout: '...', rateLimited: '...' },
+  en: {
+    validation: '...',
+    captcha: '...',
+    webhook: '...',
+    timeout: '...',
+    rateLimited: '...',
+  },
+  sk: {
+    validation: '...',
+    captcha: '...',
+    webhook: '...',
+    timeout: '...',
+    rateLimited: '...',
+  },
 };
 ```
 
@@ -244,7 +263,7 @@ ts.render(turnstileRef.current, {
   callback: (token: string) => setTurnstileToken(token),
   'error-callback': () => setTurnstileToken(''),
   theme: 'light',
-  language: locale,  // 'en' or 'sk' — explicit, not auto-detect
+  language: locale, // 'en' or 'sk' — explicit, not auto-detect
 });
 ```
 
@@ -286,15 +305,21 @@ integrations: [
 ### 5.5 og:locale
 
 ```html
-<meta property="og:locale" content="en_GB" />  <!-- EN pages -->
-<meta property="og:locale" content="sk_SK" />  <!-- SK pages -->
+<meta property="og:locale" content="en_GB" />
+<!-- EN pages -->
+<meta property="og:locale" content="sk_SK" />
+<!-- SK pages -->
 ```
 
 ### 5.6 `<html lang>`
 
 ```html
-<html lang="en">  <!-- EN pages -->
-<html lang="sk">  <!-- SK pages -->
+<html lang="en">
+  <!-- EN pages -->
+  <html lang="sk">
+    <!-- SK pages -->
+  </html>
+</html>
 ```
 
 ---
@@ -317,13 +342,17 @@ An inline script on EN root pages checks browser language and redirects to `/sk/
     if (localStorage.getItem('i18n-choice')) return;
     if (new URLSearchParams(location.search).has('no-redirect')) return;
     var langs = navigator.languages || [navigator.language];
-    var isSk = langs.some(function (l) { return l.toLowerCase().startsWith('sk'); });
+    var isSk = langs.some(function (l) {
+      return l.toLowerCase().startsWith('sk');
+    });
     if (isSk) {
       localStorage.setItem('i18n-choice', 'sk');
       var skPath = '/sk' + location.pathname + location.search + location.hash;
       location.replace(skPath);
     }
-  } catch (e) { /* ignore */ }
+  } catch (e) {
+    /* ignore */
+  }
 })();
 ```
 
@@ -423,6 +452,7 @@ grep -r -l "TODO\|lorem ipsum\|placeholder" dist/client/ && exit 1 || true
 **Runs only when `src/content/sk/**` files change.** Urgent EN-only fixes can ship without SK blocker. SK drift is caught when SK files are next edited.
 
 If a SK key is missing, the check fails with:
+
 ```
 [i18n] Missing SK translation for: services[2].includes[1]
 ```
@@ -501,11 +531,13 @@ src/content/sk/**      @slovak-speaker-handle
 Branch protection: require review from these owners for matching paths. R1/R2 DoD gates are now enforced by GitHub, not just a template.
 
 **PR template checklist** (`.github/pull_request_template.md`):
+
 - [ ] If SK content changed: Slovak speaker reviewed copy (name: ______)
 - [ ] If SK legal changed: Slovak legal counsel reviewed (issue: #____)
 - [ ] If webhook payload changed: no consumer to coordinate with
 
 **GitHub issue template** (`.github/ISSUE_TEMPLATE/legal-review.md`) — **must include YAML front matter** (Codex C-2):
+
 ```yaml
 ---
 name: Legal content review
@@ -515,6 +547,7 @@ labels: ['legal-review', 'blocked']
 ```
 
 DoD checklist:
+
 - [ ] Slovak speaker reviews all SK copy (tone, grammar, vykanie) — enforced by CODEOWNERS
 - [ ] Slovak legal counsel reviews SK legal pages — enforced by CODEOWNERS + issue template
 - [ ] Auto-redirect tested: direct nav, empty referrer, Slovak browser → `/sk/`
@@ -533,6 +566,7 @@ DoD checklist:
 ## 13. Files created/modified
 
 ### New files
+
 ```
 src/content/sk/site.ts
 src/content/sk/services.ts
@@ -559,6 +593,7 @@ public/sk/og.png
 ```
 
 ### Modified files
+
 ```
 astro.config.mjs              # i18n config + sitemap i18n (en-GB, sk-SK)
 src/content/types.ts          # Locale type
@@ -598,12 +633,14 @@ src/pages/api/audit-request.ts # localized errors, IDs only
 ## 15. Open items before SK launch
 
 **Required:**
+
 - Slovak speaker to review AI-generated copy (R1) — enforced by CODEOWNERS
 - Slovak legal counsel to review SK legal pages (R2) — enforced by CODEOWNERS + issue template
 - SK OG image (`/sk/og.png`)
 - Confirm `@slovak-speaker-handle` and `@legal-reviewer-handle` GitHub usernames for CODEOWNERS
 
 **Nice to have:**
+
 - SK-specific favicon (if branding differs)
 - Google Search Console property for `/sk/` subpath
 - SK backlinks / ecosystem referrals to `/sk/`

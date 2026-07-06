@@ -1,6 +1,6 @@
-import type { Service } from './types';
+import type { Service } from '../types';
 
-export const services: Service[] = [
+const services: Service[] = [
   {
     id: 'business-websites',
     title: 'Modern business websites',
@@ -93,3 +93,5 @@ export const services: Service[] = [
     icon: 'wrench',
   },
 ];
+
+export const servicesBundle = { services };

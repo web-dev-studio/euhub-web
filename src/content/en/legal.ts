@@ -1,21 +1,13 @@
-import type { LegalContent } from './types';
+import type { LegalContent } from '../types';
 
 /**
  * Legal content — INTERIM copy.
- *
- * These pages ship with owner-approved interim content.
- * Per plan v3 / Definition of Done: no bare TODO markers, no lorem ipsum,
- * no placeholder text in the production build. This copy is real and
- * publishable but must be reviewed by legal counsel against the actual
- * deployment (Umami Cloud EU, Cloudflare, webhook host) before launch.
- *
- * A CI guard (Phase 9) will grep the built dist/ for TODO/lorem/placeholder
- * in legal-page HTML and fail the build if found.
+ * Must be reviewed by legal counsel against the actual deployment before launch.
  */
 
 const lastUpdated = '2026-07-06';
 
-export const privacyPolicy: LegalContent = {
+const privacyPolicy: LegalContent = {
   title: 'Privacy Policy',
   lastUpdated,
   body: [
@@ -30,7 +22,7 @@ export const privacyPolicy: LegalContent = {
   ],
 };
 
-export const cookiePolicy: LegalContent = {
+const cookiePolicy: LegalContent = {
   title: 'Cookie Policy',
   lastUpdated,
   body: [
@@ -42,7 +34,7 @@ export const cookiePolicy: LegalContent = {
   ],
 };
 
-export const terms: LegalContent = {
+const terms: LegalContent = {
   title: 'Terms of Service',
   lastUpdated,
   body: [
@@ -56,3 +48,5 @@ export const terms: LegalContent = {
     'Contact: For questions about these terms, write to studio@euhub.co.',
   ],
 };
+
+export const legalBundle = { privacyPolicy, cookiePolicy, terms };

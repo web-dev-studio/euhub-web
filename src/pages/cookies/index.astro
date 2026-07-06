@@ -1,6 +1,9 @@
 ---
 import LegalLayout from '../../layouts/LegalLayout.astro';
-import { cookiePolicy } from '../../content/legal';
+import { getContent } from '../../lib/i18n';
+
+const locale = 'en' as const;
+const { cookiePolicy } = getContent(locale).legal;
 ---
 
-<LegalLayout content={cookiePolicy} path="/cookies/" />
+<LegalLayout content={cookiePolicy} path="/cookies/" locale={locale} />

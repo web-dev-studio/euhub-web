@@ -1,0 +1,58 @@
+---
+/**
+ * LanguageSwitch — EN | SK language toggle.
+ * Links point to the same page in the other locale (via getAlternatePath).
+ * Clicking sets localStorage('i18n-choice') to override auto-detection.
+ *
+ * Placement:
+ *  - Desktop: Header next to ThemeToggle
+ *  - Mobile: inside the mobile menu panel (not the sticky header row)
+ *  - Also in Footer
+ */
+import type { Locale } from '../../content/types';
+import { getAlternatePath } from '../../lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const otherLocale: Locale = locale === 'sk' ? 'en' : 'sk';
+const otherHref = getAlternatePath(Astro.url, otherLocale);
+---
+
+<nav aria-label="Language" class="flex items-center gap-1.5 text-xs">
+  <a
+    href={locale === 'en'
+      ? Astro.url.pathname
+      : getAlternatePath(Astro.url, 'en')}
+    class={`font-medium transition-colors ${locale === 'en' ? 'text-brand' : 'text-ink-3 hover:text-brand'}`}
+    aria-current={locale === 'en' ? 'true' : undefined}
+    data-lang-switch="en"
+  >
+    EN
+  </a>
+  <span aria-hidden="true" class="text-ink-4">|</span>
+  <a
+    href={locale === 'sk' ? Astro.url.pathname : otherHref}
+    class={`font-medium transition-colors ${locale === 'sk' ? 'text-brand' : 'text-ink-3 hover:text-brand'}`}
+    aria-current={locale === 'sk' ? 'true' : undefined}
+    data-lang-switch="sk"
+  >
+    SK
+  </a>
+</nav>
+
+<script is:inline>
+  // Persist language choice to override auto-detection
+  document.querySelectorAll('[data-lang-switch]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      try {
+        var lang = link.getAttribute('data-lang-switch');
+        if (lang) localStorage.setItem('i18n-choice', lang);
+      } catch (e) {
+        /* ignore */
+      }
+    });
+  });
+</script>

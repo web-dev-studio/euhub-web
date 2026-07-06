@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import Container from '../../components/ui/Container.astro';
+import Button from '../../components/ui/Button.astro';
+
+const locale = 'sk' as const;
+---
+
+<BaseLayout
+  title="Stránka nenájdená"
+  description="Stránka, ktorú hľadáte, neexistuje."
+  path="/sk/404"
+  locale={locale}
+  noindex
+>
+  <Header locale={locale} />
+  <main id="main">
+    <Container size="md">
+      <div
+        class="flex min-h-[50vh] flex-col items-center justify-center py-20 text-center"
+      >
+        <div class="text-6xl font-bold text-ink-4">404</div>
+        <h1 class="mt-4 text-2xl font-bold text-ink">
+          Táto stránka neexistuje.
+        </h1>
+        <p class="mt-2 max-w-md text-sm text-ink-3">
+          URL môže byť zlé, alebo sa stránka presunula. Skúste domovskú stránku
+          alebo vyžiadajte web audit.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Button href="/sk/" size="md">Späť na domov</Button>
+          <Button href="/sk/#contact" variant="secondary" size="md">
+            Vyžiadať web audit
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </main>
+  <Footer locale={locale} />
+</BaseLayout>

@@ -1,6 +1,6 @@
-import type { ProcessStep } from './types';
+import type { ProcessStep } from '../types';
 
-export const processSteps: ProcessStep[] = [
+const processSteps: ProcessStep[] = [
   {
     step: 1,
     title: 'Diagnostic',
@@ -61,3 +61,5 @@ export const processSteps: ProcessStep[] = [
     ],
   },
 ];
+
+export const processBundle = { processSteps };
