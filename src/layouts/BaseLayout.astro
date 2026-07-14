@@ -42,8 +42,14 @@ const fullTitle =
     : `${title} — Web Dev Studio by EUHUB`;
 
 // hreflang alternate URLs
-const alternateEn = new URL(getAlternatePath(new URL(path, siteUrl), 'en'), siteUrl).href;
-const alternateSk = new URL(getAlternatePath(new URL(path, siteUrl), 'sk'), siteUrl).href;
+const alternateEn = new URL(
+  getAlternatePath(new URL(path, siteUrl), 'en'),
+  siteUrl,
+).href;
+const alternateSk = new URL(
+  getAlternatePath(new URL(path, siteUrl), 'sk'),
+  siteUrl,
+).href;
 
 // Locale-specific metadata
 const htmlLang = locale;
@@ -128,29 +134,37 @@ const jsonLd = {
       })();
     </script>
 
-    {/* Auto-redirect Slovak browsers to /sk/ (EN pages only) */}
-    {locale === 'en' && (
-      <script is:inline>
-        (function () {
-          try {
-            if (location.pathname.startsWith('/sk/')) return;
-            if (localStorage.getItem('i18n-choice')) return;
-            if (new URLSearchParams(location.search).has('no-redirect')) return;
-            var langs = navigator.languages || [navigator.language];
-            var isSk = langs.some(function (l) {
-              return l.toLowerCase().startsWith('sk');
-            });
-            if (isSk) {
-              localStorage.setItem('i18n-choice', 'sk');
-              var skPath = '/sk' + location.pathname + location.search + location.hash;
-              location.replace(skPath);
-            }
-          } catch (e) {
-            /* ignore */
+    {
+      /*
+      Auto-redirect Slovak browsers to /sk/ (EN pages only). The locale
+      check is done inside the script (via document.documentElement.lang,
+      already set synchronously by the <html lang> attribute above) rather
+      than JSX-gating the <script> tag itself — prettier-plugin-astro can't
+      parse a <script> wrapped in a `{cond && (...)}` expression.
+    */
+    }
+    <script is:inline>
+      (function () {
+        if (document.documentElement.lang !== 'en') return;
+        try {
+          if (location.pathname.startsWith('/sk/')) return;
+          if (localStorage.getItem('i18n-choice')) return;
+          if (new URLSearchParams(location.search).has('no-redirect')) return;
+          var langs = navigator.languages || [navigator.language];
+          var isSk = langs.some(function (l) {
+            return l.toLowerCase().startsWith('sk');
+          });
+          if (isSk) {
+            localStorage.setItem('i18n-choice', 'sk');
+            var skPath =
+              '/sk' + location.pathname + location.search + location.hash;
+            location.replace(skPath);
           }
-        })();
-      </script>
-    )}
+        } catch (e) {
+          /* ignore */
+        }
+      })();
+    </script>
 
     {/* Canonical + robots */}
     <link rel="canonical" href={canonical} />
