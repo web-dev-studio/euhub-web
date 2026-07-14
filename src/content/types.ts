@@ -14,6 +14,11 @@ export interface NavItem {
   href: string;
 }
 
+export interface HeroStat {
+  label: string;
+  value: string;
+}
+
 export interface SiteContent {
   /** Wordmark shown in header/footer */
   wordmark: string;

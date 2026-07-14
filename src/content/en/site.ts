@@ -1,4 +1,4 @@
-import type { SiteContent, NavItem } from '../types';
+import type { SiteContent, NavItem, HeroStat } from '../types';
 
 const site: SiteContent = {
   wordmark: 'Web Dev Studio',
@@ -44,10 +44,18 @@ const tertiaryCta: NavItem = {
 const trustLine =
   'Based in Slovakia. Built for EU businesses. GDPR-aware by default.';
 
+const heroStats: HeroStat[] = [
+  { label: 'Lighthouse', value: '95+ / 100' },
+  { label: 'JS payload', value: '< 50 KB' },
+  { label: 'TTFB', value: '< 100 ms' },
+  { label: 'LCP', value: '< 1.5 s' },
+];
+
 export const siteBundle = {
   site,
   primaryCta,
   secondaryCta,
   tertiaryCta,
   trustLine,
+  heroStats,
 };

@@ -4,12 +4,11 @@
  * a grid-pattern background layer plus a radial-gradient glow layer behind
  * a Container-wrapped intro, no page-level divider under the section.
  *
- * Grow's current hero is a 60/40 two-column grid (copy + a bordered list of
- * 3 stats). Build has no equivalent 3-stat content to put in that column —
- * its old hero visual was a decorative browser-mockup card, not a stats
- * list — so per the redesign brief that column is omitted here rather than
- * inventing numbers; this is a single-column hero. Build's own headline,
- * subheadline, CTAs, and trust line are unchanged.
+ * Two-column grid (copy + a bordered list of stats), matching both grow's
+ * layout and the "Build with EUHUB Landing" design brief's hero — which
+ * pairs the pitch with a small panel of build-quality metrics (Lighthouse,
+ * JS payload, TTFB, LCP) rather than marketing-style stats. Build's own
+ * headline, subheadline, CTAs, and trust line are unchanged.
  */
 import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
@@ -23,7 +22,8 @@ interface Props {
   locale?: Locale;
 }
 const { locale = 'en' } = Astro.props;
-const { primaryCta, secondaryCta, trustLine } = getContent(locale).site;
+const { primaryCta, secondaryCta, trustLine, heroStats } =
+  getContent(locale).site;
 ---
 
 <Section bg="canvas" padding="lg" class="relative overflow-hidden">
@@ -41,8 +41,8 @@ const { primaryCta, secondaryCta, trustLine } = getContent(locale).site;
   >
   </div>
 
-  <Container size="xl" class="relative">
-    <div class="max-w-3xl">
+  <Container size="xl" class="relative grid gap-12 lg:grid-cols-[1.5fr_0.5fr]">
+    <div>
       <Badge variant="brand">
         <Icon name="zap" size={12} />
         Web engineering studio · EUHUB
@@ -88,6 +88,21 @@ const { primaryCta, secondaryCta, trustLine } = getContent(locale).site;
         <Icon name="shield" size={16} class="text-status-success" />
         {trustLine}
       </p>
+    </div>
+
+    <div class="flex flex-col border-l border-(--color-border-subtle) pl-8">
+      {
+        heroStats.map((stat) => (
+          <div class="border-b border-(--color-border-subtle) py-[18px] last:border-b-0">
+            <p class="mb-1.5 font-mono text-[11px] tracking-[0.2em] text-(--color-text-secondary) uppercase">
+              {stat.label}
+            </p>
+            <p class="font-mono text-[19px] font-semibold text-(--color-primary-500)">
+              {stat.value}
+            </p>
+          </div>
+        ))
+      }
     </div>
   </Container>
 </Section>
