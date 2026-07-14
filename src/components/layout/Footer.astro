@@ -24,16 +24,22 @@ const { ecosystem } = getContent(locale).ecosystem;
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-line bg-surface">
+<footer class="border-t border-(--color-border-subtle) bg-surface-raised">
   <Container size="xl">
     <div class="grid gap-12 py-16 md:py-20 lg:grid-cols-4">
       {/* Brand + description */}
       <div class="lg:col-span-1">
-        <div class="flex items-baseline gap-1.5 font-bold text-ink">
+        <div
+          class="flex items-baseline gap-1.5 font-bold text-(--color-text-primary)"
+        >
           <span class="text-lg">{site.wordmark}</span>
-          <span class="text-xs font-medium text-ink-3">{site.tagline}</span>
+          <span class="text-xs font-medium text-(--color-text-secondary)"
+            >{site.tagline}</span
+          >
         </div>
-        <p class="mt-4 max-w-xs text-sm leading-relaxed text-ink-3">
+        <p
+          class="mt-4 max-w-xs text-sm leading-relaxed text-(--color-text-secondary)"
+        >
           Fast, secure, conversion-focused web platforms for European
           businesses. Engineering-led, GDPR-aware, maintained long-term.
         </p>
@@ -41,7 +47,9 @@ const year = new Date().getFullYear();
 
       {/* Navigation */}
       <div>
-        <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-4">
+        <h2
+          class="text-xs font-semibold uppercase tracking-wider text-(--color-text-secondary)"
+        >
           Navigation
         </h2>
         <ul class="mt-4 space-y-3">
@@ -50,7 +58,7 @@ const year = new Date().getFullYear();
               <li>
                 <a
                   href={item.href}
-                  class="text-sm text-ink-2 hover:text-brand transition-colors"
+                  class="text-sm text-(--color-text-secondary) hover:text-primary-500 transition-colors"
                 >
                   {item.label}
                 </a>
@@ -62,7 +70,9 @@ const year = new Date().getFullYear();
 
       {/* EUHUB ecosystem */}
       <div>
-        <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-4">
+        <h2
+          class="text-xs font-semibold uppercase tracking-wider text-(--color-text-secondary)"
+        >
           EUHUB Ecosystem
         </h2>
         <ul class="mt-4 space-y-3">
@@ -73,7 +83,7 @@ const year = new Date().getFullYear();
                   href={brand.url}
                   target="_blank"
                   rel="noopener"
-                  class="flex items-center gap-1.5 text-sm text-ink-2 hover:text-brand transition-colors"
+                  class="flex items-center gap-1.5 text-sm text-(--color-text-secondary) hover:text-primary-500 transition-colors"
                 >
                   {brand.name}
                   <Icon name="external" size={12} />
@@ -86,27 +96,31 @@ const year = new Date().getFullYear();
 
       {/* Contact + legal */}
       <div>
-        <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-4">
+        <h2
+          class="text-xs font-semibold uppercase tracking-wider text-(--color-text-secondary)"
+        >
           Contact
         </h2>
         <ul class="mt-4 space-y-3">
           <li>
             <a
               href={`mailto:${site.contactEmail}`}
-              class="flex items-center gap-2 text-sm text-ink-2 hover:text-brand transition-colors"
+              class="flex items-center gap-2 text-sm text-(--color-text-secondary) hover:text-primary-500 transition-colors"
               data-umami-event="email_click"
             >
               <Icon name="mail" size={16} />
               {site.contactEmail}
             </a>
           </li>
-          <li class="flex items-center gap-2 text-sm text-ink-3">
+          <li
+            class="flex items-center gap-2 text-sm text-(--color-text-secondary)"
+          >
             <Icon name="globe" size={16} />
             {site.location}
           </li>
         </ul>
         <h2
-          class="mt-6 text-xs font-semibold uppercase tracking-wider text-ink-4"
+          class="mt-6 text-xs font-semibold uppercase tracking-wider text-(--color-text-secondary)"
         >
           Legal
         </h2>
@@ -114,7 +128,7 @@ const year = new Date().getFullYear();
           <li>
             <a
               href="/privacy/"
-              class="text-sm text-ink-2 hover:text-brand transition-colors"
+              class="text-sm text-(--color-text-secondary) hover:text-primary-500 transition-colors"
             >
               Privacy Policy
             </a>
@@ -122,7 +136,7 @@ const year = new Date().getFullYear();
           <li>
             <a
               href="/cookies/"
-              class="text-sm text-ink-2 hover:text-brand transition-colors"
+              class="text-sm text-(--color-text-secondary) hover:text-primary-500 transition-colors"
             >
               Cookie Policy
             </a>
@@ -130,7 +144,7 @@ const year = new Date().getFullYear();
           <li>
             <a
               href="/terms/"
-              class="text-sm text-ink-2 hover:text-brand transition-colors"
+              class="text-sm text-(--color-text-secondary) hover:text-primary-500 transition-colors"
             >
               Terms of Service
             </a>
@@ -140,9 +154,9 @@ const year = new Date().getFullYear();
     </div>
 
     {/* Bottom bar */}
-    <div class="border-t border-line py-6">
+    <div class="border-t border-(--color-border-subtle) py-6">
       <div
-        class="flex flex-col items-center justify-between gap-4 text-xs text-ink-4 sm:flex-row"
+        class="flex flex-col items-center justify-between gap-4 text-xs text-(--color-text-secondary) sm:flex-row"
       >
         <p>
           &copy; {year} Web Dev Studio by EUHUB. All rights reserved.

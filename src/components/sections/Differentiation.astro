@@ -13,40 +13,40 @@ const layers = [
     title: 'Visual interface',
     desc: 'UX design, UI patterns, responsive layout, accessibility',
     icon: 'layout',
-    color: 'text-brand',
-    bg: 'bg-brand-soft',
+    color: 'text-primary-500',
+    bg: 'bg-primary-50',
   },
   {
     n: 2,
     title: 'Business logic',
     desc: 'Workflows, rules, validation, user flows, conversion structure',
     icon: 'code',
-    color: 'text-cyan',
-    bg: 'bg-cyan/10',
+    color: 'text-accent-cyan',
+    bg: 'bg-accent-cyan/10',
   },
   {
     n: 3,
     title: 'API integrations',
     desc: 'CRM, ERP, payment, email, logistics, internal databases',
     icon: 'plug',
-    color: 'text-violet',
-    bg: 'bg-violet/10',
+    color: 'text-accent-violet',
+    bg: 'bg-accent-violet/10',
   },
   {
     n: 4,
     title: 'Data and automation',
     desc: 'Analytics, tracking, automation pipelines, AI-ready infrastructure',
     icon: 'zap',
-    color: 'text-warn',
-    bg: 'bg-warn/10',
+    color: 'text-status-warning',
+    bg: 'bg-status-warning-bg',
   },
   {
     n: 5,
     title: 'Hosting, monitoring, security',
     desc: 'CI/CD, uptime, backups, GDPR-aware architecture, EU data residency',
     icon: 'shield',
-    color: 'text-ok',
-    bg: 'bg-ok/10',
+    color: 'text-status-success',
+    bg: 'bg-status-success-bg',
   },
 ];
 ---
@@ -54,10 +54,12 @@ const layers = [
 <Section id="differentiation" bg="surface-2">
   <Container size="xl">
     <div class="mx-auto max-w-3xl text-center" data-reveal>
-      <h2 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+      <h2
+        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+      >
         Design is only the visible layer.
       </h2>
-      <p class="mt-4 text-lg text-ink-3">
+      <p class="mt-4 text-lg text-(--color-text-secondary)">
         A serious website is not a brochure. It is part of your business
         infrastructure. We engineer all five layers, not just the one visitors
         see.
@@ -68,7 +70,7 @@ const layers = [
     <div class="mx-auto mt-16 max-w-2xl space-y-3">
       {
         layers.map((layer) => (
-          <div class="flex items-center gap-4 rounded-lg border border-line bg-surface p-5 shadow-card">
+          <div class="flex items-center gap-4 rounded-lg border border-(--color-border-subtle) bg-surface-raised p-5 shadow-card">
             <div
               class={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg ${layer.bg} ${layer.color}`}
             >
@@ -76,10 +78,16 @@ const layers = [
             </div>
             <div class="flex-1">
               <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-ink-4">L{layer.n}</span>
-                <h3 class="text-base font-semibold text-ink">{layer.title}</h3>
+                <span class="text-xs font-bold text-(--color-text-secondary)">
+                  L{layer.n}
+                </span>
+                <h3 class="text-base font-semibold text-(--color-text-primary)">
+                  {layer.title}
+                </h3>
               </div>
-              <p class="mt-1 text-sm text-ink-3">{layer.desc}</p>
+              <p class="mt-1 text-sm text-(--color-text-secondary)">
+                {layer.desc}
+              </p>
             </div>
           </div>
         ))
@@ -87,9 +95,9 @@ const layers = [
     </div>
 
     <div
-      class="mx-auto mt-12 max-w-2xl rounded-lg border border-brand/20 bg-brand-soft p-6 text-center"
+      class="mx-auto mt-12 max-w-2xl rounded-lg border border-primary-500/20 bg-primary-50 p-6 text-center"
     >
-      <p class="text-lg font-medium text-brand">
+      <p class="text-lg font-medium text-primary-500">
         UX design + front-end engineering + API integration + AI-readiness +
         DevOps. One team, five layers, one system.
       </p>

@@ -24,10 +24,12 @@ const { site } = getContent(locale).site;
     <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
       {/* Copy side */}
       <div>
-        <h2 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+        <h2
+          class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+        >
           Start with a technical web audit.
         </h2>
-        <p class="mt-6 text-lg leading-relaxed text-ink-3">
+        <p class="mt-6 text-lg leading-relaxed text-(--color-text-secondary)">
           We will review your current website, positioning, speed, structure,
           conversion flow, integrations, and technical risks. You get a clear
           list of what to fix, what to rebuild, and what is not worth touching.
@@ -42,21 +44,25 @@ const { site } = getContent(locale).site;
               'Prioritized action list — what to fix, rebuild, or ignore',
             ].map((item) => (
               <div class="flex items-start gap-3">
-                <div class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ok/10 text-ok">
+                <div class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-status-success-bg text-status-success">
                   <Icon name="check" size={14} />
                 </div>
-                <p class="text-sm leading-relaxed text-ink-2">{item}</p>
+                <p class="text-sm leading-relaxed text-(--color-text-secondary)">
+                  {item}
+                </p>
               </div>
             ))
           }
         </div>
 
-        <div class="mt-8 rounded-lg border border-line bg-surface p-5">
-          <p class="text-sm text-ink-3">
+        <div
+          class="mt-8 rounded-lg border border-(--color-border-subtle) bg-surface-raised p-5"
+        >
+          <p class="text-sm text-(--color-text-secondary)">
             Prefer email? Write to us directly at{' '}
             <a
               href={`mailto:${site.contactEmail}`}
-              class="font-medium text-brand hover:underline"
+              class="font-medium text-primary-500 hover:underline"
               data-umami-event="email_click"
             >
               {site.contactEmail}
@@ -69,7 +75,7 @@ const { site } = getContent(locale).site;
       <div class="lg:pl-8">
         <div
           id="audit-form-container"
-          class="rounded-xl border border-line bg-surface p-6 shadow-panel md:p-8"
+          class="rounded-xl border border-(--color-border-subtle) bg-surface-raised p-6 shadow-raised md:p-8"
         >
           <AuditRequestForm
             turnstileSiteKey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
@@ -79,11 +85,11 @@ const { site } = getContent(locale).site;
           />
 
           {/* Privacy notice (Art. 13 point-of-collection) */}
-          <p class="mt-4 text-xs leading-relaxed text-ink-4">
+          <p class="mt-4 text-xs leading-relaxed text-(--color-text-secondary)">
             By submitting this form, you agree that we may process your data to
             respond to your request. We use cookieless analytics and do not sell
             your data. See our{' '}
-            <a href="/privacy/" class="text-brand hover:underline">
+            <a href="/privacy/" class="text-primary-500 hover:underline">
               Privacy Policy
             </a>
             .

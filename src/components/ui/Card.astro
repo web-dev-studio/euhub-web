@@ -1,7 +1,6 @@
 ---
 /**
- * Card — glass-style card with thin border, soft shadow, rounded corners.
- * Premium SaaS aesthetic.
+ * Card — bordered surface with soft shadow, rounded corners.
  */
 interface Props {
   hover?: boolean;
@@ -18,12 +17,12 @@ const padMap = {
 };
 
 const hoverClass = hover
-  ? 'transition-all duration-200 hover:shadow-panel hover:border-line-strong'
+  ? 'transition-all duration-200 hover:shadow-raised hover:border-(--color-border-default)'
   : '';
 ---
 
 <div
-  class={`rounded-lg border border-line bg-surface shadow-card ${padMap[padding]} ${hoverClass} ${className}`}
+  class={`rounded-lg border border-(--color-border-subtle) bg-surface-raised shadow-card ${padMap[padding]} ${hoverClass} ${className}`}
 >
   <slot />
 </div>

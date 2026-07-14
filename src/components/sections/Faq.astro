@@ -20,25 +20,29 @@ const { faq } = getContent(locale).faq;
 <Section id="faq" bg="canvas">
   <Container size="md">
     <div class="mx-auto max-w-3xl text-center" data-reveal>
-      <h2 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+      <h2
+        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+      >
         Frequently asked questions
       </h2>
-      <p class="mt-4 text-lg text-ink-3">Direct answers. No agency-speak.</p>
+      <p class="mt-4 text-lg text-(--color-text-secondary)">
+        Direct answers. No agency-speak.
+      </p>
     </div>
 
     <div class="mt-12 space-y-3">
       {
         faq.map((item) => (
-          <details class="group rounded-lg border border-line bg-surface px-6 py-1 shadow-card">
-            <summary class="flex cursor-pointer items-center justify-between gap-4 py-4 font-medium text-ink marker:content-none">
+          <details class="group rounded-lg border border-(--color-border-subtle) bg-surface-raised px-6 py-1 shadow-card">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 py-4 font-medium text-(--color-text-primary) marker:content-none">
               <span>{item.question}</span>
               <Icon
                 name="arrow-right"
                 size={18}
-                class="shrink-0 text-ink-4 transition-transform group-open:rotate-90"
+                class="shrink-0 text-(--color-text-secondary) transition-transform group-open:rotate-90"
               />
             </summary>
-            <div class="pb-5 text-sm leading-relaxed text-ink-3">
+            <div class="pb-5 text-sm leading-relaxed text-(--color-text-secondary)">
               {item.answer}
             </div>
           </details>

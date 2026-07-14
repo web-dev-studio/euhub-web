@@ -10,10 +10,11 @@ interface Props {
 const { variant = 'default', class: className = '' } = Astro.props;
 
 const variants = {
-  default: 'bg-surface-2 text-ink-3 border border-line',
-  brand: 'bg-brand-soft text-brand border border-brand/20',
-  ok: 'bg-ok/10 text-ok border border-ok/20',
-  warn: 'bg-warn/10 text-warn border border-warn/20',
+  default:
+    'bg-surface-sunken text-(--color-text-secondary) border border-(--color-border-subtle)',
+  brand: 'bg-primary-50 text-primary-500 border border-primary-500/20',
+  ok: 'bg-status-success-bg text-status-success border border-status-success/20',
+  warn: 'bg-status-warning-bg text-status-warning border border-status-warning/20',
 };
 ---
 

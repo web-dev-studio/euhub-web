@@ -15,28 +15,28 @@ const metrics = [
     label: 'Lighthouse score',
     sub: 'Performance, A11y, SEO, Best Practices',
     icon: 'zap',
-    color: 'text-ok',
+    color: 'text-status-success',
   },
   {
     value: '< 50kb',
     label: 'JavaScript payload',
     sub: 'Static-first, React islands only where needed',
     icon: 'code',
-    color: 'text-brand',
+    color: 'text-primary-500',
   },
   {
     value: '< 100ms',
     label: 'TTFB',
     sub: 'Served from GCP Cloud Run',
     icon: 'cloud',
-    color: 'text-cyan',
+    color: 'text-accent-cyan',
   },
   {
     value: '< 1.5s',
     label: 'LCP',
     sub: 'Optimized images, no render-blocking',
     icon: 'clock',
-    color: 'text-violet',
+    color: 'text-accent-violet',
   },
 ];
 ---
@@ -44,10 +44,12 @@ const metrics = [
 <Section id="proof" bg="canvas">
   <Container size="xl">
     <div class="mx-auto max-w-3xl text-center" data-reveal>
-      <h2 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+      <h2
+        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+      >
         This site is the proof.
       </h2>
-      <p class="mt-4 text-lg text-ink-3">
+      <p class="mt-4 text-lg text-(--color-text-secondary)">
         We claim fast, secure, conversion-focused web platforms. This page is
         one. Every metric below is measured on this site, not invented for a
         marketing slide.
@@ -57,21 +59,27 @@ const metrics = [
     <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
         metrics.map((m) => (
-          <div class="rounded-lg border border-line bg-surface p-6 text-center shadow-card">
+          <div class="rounded-lg border border-(--color-border-subtle) bg-surface-raised p-6 text-center shadow-card">
             <div
-              class={`mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-surface-2 ${m.color}`}
+              class={`mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-surface-sunken ${m.color}`}
             >
               <Icon name={m.icon} size={24} />
             </div>
-            <div class="mt-4 text-3xl font-bold text-ink">{m.value}</div>
-            <div class="mt-2 text-sm font-medium text-ink-2">{m.label}</div>
-            <div class="mt-1 text-xs text-ink-3">{m.sub}</div>
+            <div class="mt-4 text-3xl font-bold text-(--color-text-primary)">
+              {m.value}
+            </div>
+            <div class="mt-2 text-sm font-medium text-(--color-text-secondary)">
+              {m.label}
+            </div>
+            <div class="mt-1 text-xs text-(--color-text-secondary)">
+              {m.sub}
+            </div>
           </div>
         ))
       }
     </div>
 
-    <p class="mt-8 text-center text-sm text-ink-4">
+    <p class="mt-8 text-center text-sm text-(--color-text-secondary)">
       Verify it yourself — run Lighthouse on this page. The numbers are real.
     </p>
   </Container>

@@ -20,10 +20,12 @@ const { services } = getContent(locale).services;
 <Section id="services" bg="canvas">
   <Container size="xl">
     <div class="mx-auto max-w-3xl text-center" data-reveal>
-      <h2 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+      <h2
+        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+      >
         What we build
       </h2>
-      <p class="mt-4 text-lg text-ink-3">
+      <p class="mt-4 text-lg text-(--color-text-secondary)">
         Each service is engineered for a specific business need — not a template
         filled with your logo.
       </p>
@@ -39,24 +41,24 @@ const { services } = getContent(locale).services;
             data-umami-service={service.id}
           >
             <Card hover padding="lg" class="h-full">
-              <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-soft text-brand">
+              <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-50 text-primary-500">
                 <Icon name={service.icon} size={24} />
               </div>
-              <h3 class="mt-5 text-lg font-semibold text-ink">
+              <h3 class="mt-5 text-lg font-semibold text-(--color-text-primary)">
                 {service.title}
               </h3>
-              <p class="mt-2 text-sm leading-relaxed text-ink-3">
+              <p class="mt-2 text-sm leading-relaxed text-(--color-text-secondary)">
                 {service.summary}
               </p>
               <ul class="mt-4 space-y-2">
                 {service.includes.map((item) => (
-                  <li class="flex items-center gap-2 text-xs text-ink-3">
-                    <Icon name="check" size={14} class="text-ok" />
+                  <li class="flex items-center gap-2 text-xs text-(--color-text-secondary)">
+                    <Icon name="check" size={14} class="text-status-success" />
                     {item}
                   </li>
                 ))}
               </ul>
-              <div class="mt-5 flex items-center gap-1 text-sm font-medium text-brand opacity-0 transition-opacity group-hover:opacity-100">
+              <div class="mt-5 flex items-center gap-1 text-sm font-medium text-primary-500 opacity-0 transition-opacity group-hover:opacity-100">
                 Request audit
                 <Icon name="arrow-right" size={16} />
               </div>

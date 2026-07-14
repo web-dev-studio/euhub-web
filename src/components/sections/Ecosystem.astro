@@ -20,10 +20,12 @@ const { ecosystem } = getContent(locale).ecosystem;
 <Section id="ecosystem" bg="surface-2">
   <Container size="xl">
     <div class="mx-auto max-w-3xl text-center" data-reveal>
-      <h2 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+      <h2
+        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+      >
         Part of the EUHUB engineering ecosystem
       </h2>
-      <p class="mt-4 text-lg text-ink-3">
+      <p class="mt-4 text-lg text-(--color-text-secondary)">
         Web Dev Studio is the web engineering unit. The wider ecosystem covers
         AI, consulting, and community — so your project has depth behind it.
       </p>
@@ -36,25 +38,27 @@ const { ecosystem } = getContent(locale).ecosystem;
             href={brand.url}
             target="_blank"
             rel="noopener"
-            class="group flex flex-col rounded-lg border border-line bg-surface p-6 shadow-card transition-all hover:shadow-panel hover:border-line-strong"
+            class="group flex flex-col rounded-lg border border-(--color-border-subtle) bg-surface-raised p-6 shadow-card transition-all hover:shadow-raised hover:border-(--color-border-default)"
             data-umami-event="ecosystem_link_click"
             data-umami-brand={brand.id}
           >
             <div class="flex items-center justify-between">
-              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-soft text-brand">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-500">
                 <Icon name="layers" size={20} />
               </div>
               <Icon
                 name="external"
                 size={14}
-                class="text-ink-4 transition-colors group-hover:text-brand"
+                class="text-(--color-text-secondary) transition-colors group-hover:text-primary-500"
               />
             </div>
-            <h3 class="mt-4 text-base font-semibold text-ink">{brand.name}</h3>
-            <div class="mt-1 text-xs font-medium uppercase tracking-wider text-ink-4">
+            <h3 class="mt-4 text-base font-semibold text-(--color-text-primary)">
+              {brand.name}
+            </h3>
+            <div class="mt-1 text-xs font-medium uppercase tracking-wider text-(--color-text-secondary)">
               {brand.role}
             </div>
-            <p class="mt-3 flex-1 text-sm leading-relaxed text-ink-3">
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-(--color-text-secondary)">
               {brand.description}
             </p>
           </a>

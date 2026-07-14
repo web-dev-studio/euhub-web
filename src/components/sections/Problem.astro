@@ -33,16 +33,20 @@ const icons = [
 ];
 ---
 
-<section class="border-b border-line bg-surface-2 py-24 md:py-32">
+<section
+  class="border-b border-(--color-border-subtle) bg-surface-sunken py-24 md:py-32"
+>
   <Container size="lg">
     <div class="mx-auto max-w-3xl text-center" data-reveal>
-      <h2 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+      <h2
+        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+      >
         Your website is probably not the real problem.
       </h2>
-      <p class="mt-4 text-xl font-medium text-brand">
+      <p class="mt-4 text-xl font-medium text-primary-500">
         The system behind it is.
       </p>
-      <p class="mt-6 text-lg leading-relaxed text-ink-3">
+      <p class="mt-6 text-lg leading-relaxed text-(--color-text-secondary)">
         Most companies don't need a redesign. They need a rebuild of the
         structure, integrations, and processes that the website is supposed to
         support. A new coat of paint on a fragile foundation is still a fragile
@@ -53,9 +57,15 @@ const icons = [
     <div class="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
       {
         problems.map((problem, i) => (
-          <div class="flex flex-col gap-3 rounded-lg border border-line bg-surface p-5">
-            <Icon name={icons[i]} size={20} class="text-ink-4" />
-            <p class="text-sm leading-relaxed text-ink-2">{problem}</p>
+          <div class="flex flex-col gap-3 rounded-lg border border-(--color-border-subtle) bg-surface-raised p-5">
+            <Icon
+              name={icons[i]}
+              size={20}
+              class="text-(--color-text-secondary)"
+            />
+            <p class="text-sm leading-relaxed text-(--color-text-secondary)">
+              {problem}
+            </p>
           </div>
         ))
       }

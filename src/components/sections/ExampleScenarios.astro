@@ -22,11 +22,13 @@ const { exampleScenarios } = getContent(locale).examples;
   <Container size="xl">
     <div class="mx-auto max-w-3xl text-center" data-reveal>
       <div class="flex items-center justify-center gap-2">
-        <h2 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+        <h2
+          class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+        >
           Example project scenarios
         </h2>
       </div>
-      <p class="mt-4 text-lg text-ink-3">
+      <p class="mt-4 text-lg text-(--color-text-secondary)">
         Realistic examples of the kinds of problems we solve. Not real client
         names — labelled as examples until we have permission to publish real
         work.
@@ -42,43 +44,43 @@ const { exampleScenarios } = getContent(locale).examples;
     <div class="mt-16 grid gap-6 lg:grid-cols-3">
       {
         exampleScenarios.map((scenario) => (
-          <div class="flex flex-col rounded-lg border border-line bg-surface shadow-card">
+          <div class="flex flex-col rounded-lg border border-(--color-border-subtle) bg-surface-raised shadow-card">
             {/* Header */}
-            <div class="border-b border-line bg-surface-2 px-6 py-4">
-              <h3 class="text-base font-semibold text-ink">
+            <div class="border-b border-(--color-border-subtle) bg-surface-sunken px-6 py-4">
+              <h3 class="text-base font-semibold text-(--color-text-primary)">
                 {scenario.sector}
               </h3>
             </div>
 
             {/* Problem */}
             <div class="px-6 pt-5">
-              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-danger">
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-status-danger">
                 <Icon name="close" size={14} />
                 Problem
               </div>
-              <p class="mt-2 text-sm leading-relaxed text-ink-3">
+              <p class="mt-2 text-sm leading-relaxed text-(--color-text-secondary)">
                 {scenario.problem}
               </p>
             </div>
 
             {/* Solution */}
             <div class="px-6 pt-5">
-              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand">
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary-500">
                 <Icon name="code" size={14} />
                 Solution
               </div>
-              <p class="mt-2 text-sm leading-relaxed text-ink-2">
+              <p class="mt-2 text-sm leading-relaxed text-(--color-text-secondary)">
                 {scenario.solution}
               </p>
             </div>
 
             {/* Result */}
             <div class="mt-auto px-6 pb-6 pt-5">
-              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ok">
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-status-success">
                 <Icon name="check" size={14} />
                 Result
               </div>
-              <p class="mt-2 text-sm leading-relaxed text-ink-2">
+              <p class="mt-2 text-sm leading-relaxed text-(--color-text-secondary)">
                 {scenario.result}
               </p>
             </div>

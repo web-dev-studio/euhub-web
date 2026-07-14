@@ -179,7 +179,7 @@ export default function AuditRequestForm({
   if (state === 'success') {
     return (
       <div className="py-10 text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-ok/10 text-ok ring-4 ring-ok/5">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-status-success-bg text-status-success ring-4 ring-status-success/20">
           <svg
             width="32"
             height="32"
@@ -193,8 +193,10 @@ export default function AuditRequestForm({
             <path d="M20 6L9 17l-5-5" />
           </svg>
         </div>
-        <h3 className="mt-5 text-xl font-bold text-ink">{t.successTitle}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-ink-3">
+        <h3 className="mt-5 text-xl font-bold text-(--color-text-primary)">
+          {t.successTitle}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-(--color-text-secondary)">
           {t.successMessage}
         </p>
       </div>
@@ -202,14 +204,16 @@ export default function AuditRequestForm({
   }
 
   const inputClass = (field: string) =>
-    `w-full rounded-lg border bg-surface px-4 py-3 text-sm text-ink placeholder:text-ink-4 transition-all duration-200 ${
+    `w-full rounded-lg border bg-surface-raised px-4 py-3 text-sm text-(--color-text-primary) placeholder:text-(--color-text-secondary) transition-all duration-200 ${
       errors[field]
-        ? 'border-danger focus:border-danger focus:ring-3 focus:ring-danger/10'
-        : 'border-line hover:border-line-strong focus:border-brand focus:ring-3 focus:ring-brand/10'
+        ? 'border-status-danger focus:border-status-danger focus:ring-3 focus:ring-status-danger/10'
+        : 'border-(--color-border-subtle) hover:border-(--color-border-default) focus:border-primary-500 focus:ring-3 focus:ring-primary-500/10'
     }`;
-  const labelClass = 'mb-1.5 block text-sm font-medium text-ink-2';
-  const errorClass = 'mt-1.5 flex items-center gap-1 text-xs text-danger';
-  const requiredMark = <span className="text-danger">*</span>;
+  const labelClass =
+    'mb-1.5 block text-sm font-medium text-(--color-text-secondary)';
+  const errorClass =
+    'mt-1.5 flex items-center gap-1 text-xs text-status-danger';
+  const requiredMark = <span className="text-status-danger">*</span>;
 
   return (
     <form
@@ -322,8 +326,8 @@ export default function AuditRequestForm({
       </div>
 
       {/* Optional fields */}
-      <div className="border-t border-line pt-4">
-        <p className="text-xs font-medium uppercase tracking-wider text-ink-4">
+      <div className="border-t border-(--color-border-subtle) pt-4">
+        <p className="text-xs font-medium uppercase tracking-wider text-(--color-text-secondary)">
           {t.optionalHeader}
         </p>
       </div>
@@ -445,10 +449,10 @@ export default function AuditRequestForm({
 
       {/* Error state with mailto fallback */}
       {state === 'error' && (
-        <div className="flex flex-col gap-2 rounded-xl border border-danger/20 bg-danger/5 p-4">
+        <div className="flex flex-col gap-2 rounded-xl border border-status-danger/20 bg-status-danger-bg p-4">
           <div className="flex items-start gap-2.5">
             <svg
-              className="mt-0.5 shrink-0 text-danger"
+              className="mt-0.5 shrink-0 text-status-danger"
               width="18"
               height="18"
               viewBox="0 0 24 24"
@@ -461,15 +465,15 @@ export default function AuditRequestForm({
               <circle cx="12" cy="12" r="10" />
               <path d="M12 8v4M12 16h.01" />
             </svg>
-            <p className="text-sm leading-relaxed text-danger">
+            <p className="text-sm leading-relaxed text-status-danger">
               {errorMessage}
             </p>
           </div>
-          <div className="flex items-center gap-1.5 pl-7 text-sm text-ink-2">
+          <div className="flex items-center gap-1.5 pl-7 text-sm text-(--color-text-secondary)">
             {t.errorFallback}{' '}
             <a
               href={`mailto:${contactEmail}?subject=Web%20Audit%20Request`}
-              className="font-medium text-brand hover:underline"
+              className="font-medium text-primary-500 hover:underline"
               data-umami-event="email_click"
             >
               {contactEmail}
@@ -482,7 +486,7 @@ export default function AuditRequestForm({
       <button
         type="submit"
         disabled={state === 'submitting'}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3.5 text-base font-semibold text-white shadow-card transition-all duration-200 hover:bg-brand-2 hover:shadow-panel disabled:opacity-60 disabled:pointer-events-none"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary-500 px-6 py-3.5 text-base font-semibold text-(--color-text-on-primary) shadow-card transition-all duration-200 hover:bg-primary-600 hover:shadow-raised disabled:opacity-60 disabled:pointer-events-none"
       >
         {state === 'submitting' ? t.submittingButton : t.submitButton}
         {state !== 'submitting' && (

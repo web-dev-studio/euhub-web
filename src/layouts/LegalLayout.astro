@@ -31,12 +31,16 @@ const updatedLabel = locale === 'sk' ? 'Aktualizované:' : 'Last updated:';
 >
   <Header locale={locale} />
   <main id="main">
-    <div class="border-b border-line bg-surface-2 py-12">
+    <div
+      class="border-b border-(--color-border-subtle) bg-surface-sunken py-12"
+    >
       <Container size="md">
-        <h1 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+        <h1
+          class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+        >
           {content.title}
         </h1>
-        <p class="mt-2 text-sm text-ink-4">
+        <p class="mt-2 text-sm text-(--color-text-secondary)">
           {updatedLabel}
           {content.lastUpdated}
         </p>
@@ -47,7 +51,7 @@ const updatedLabel = locale === 'sk' ? 'Aktualizované:' : 'Last updated:';
         {
           content.body.map((paragraph, i) => (
             <p
-              class="text-sm leading-relaxed text-ink-2 md:text-base"
+              class="text-sm leading-relaxed text-(--color-text-secondary) md:text-base"
               id={`section-${i}`}
             >
               {paragraph}
@@ -55,10 +59,10 @@ const updatedLabel = locale === 'sk' ? 'Aktualizované:' : 'Last updated:';
           ))
         }
       </div>
-      <div class="mt-12 border-t border-line pt-6">
+      <div class="mt-12 border-t border-(--color-border-subtle) pt-6">
         <a
           href={backLink}
-          class="text-sm font-medium text-brand hover:underline"
+          class="text-sm font-medium text-primary-500 hover:underline"
         >
           {backLabel}
         </a>

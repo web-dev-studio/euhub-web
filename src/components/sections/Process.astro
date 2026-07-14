@@ -19,10 +19,12 @@ const { processSteps } = getContent(locale).process;
 <Section id="process" bg="canvas">
   <Container size="xl">
     <div class="mx-auto max-w-3xl text-center" data-reveal>
-      <h2 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+      <h2
+        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+      >
         From audit to launch without chaos
       </h2>
-      <p class="mt-4 text-lg text-ink-3">
+      <p class="mt-4 text-lg text-(--color-text-secondary)">
         A defined process that reduces risk. You know what happens, when it
         happens, and what you get at each step.
       </p>
@@ -33,7 +35,7 @@ const { processSteps } = getContent(locale).process;
       <div class="relative">
         {/* Vertical line (desktop) */}
         <div
-          class="absolute left-8 top-0 bottom-0 w-px bg-line md:left-1/2"
+          class="absolute left-8 top-0 bottom-0 w-px bg-(--color-border-subtle) md:left-1/2"
           aria-hidden="true"
         >
         </div>
@@ -44,7 +46,7 @@ const { processSteps } = getContent(locale).process;
               class={`relative flex gap-6 pb-12 last:pb-0 md:gap-12 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
             >
               {/* Step number */}
-              <div class="relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-brand bg-surface text-lg font-bold text-brand md:absolute md:left-1/2 md:-translate-x-1/2">
+              <div class="relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-primary-500 bg-surface-raised text-lg font-bold text-primary-500 md:absolute md:left-1/2 md:-translate-x-1/2">
                 {step.step}
               </div>
 
@@ -52,16 +54,22 @@ const { processSteps } = getContent(locale).process;
               <div
                 class={`flex-1 md:w-1/2 ${i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'}`}
               >
-                <h3 class="text-xl font-semibold text-ink">{step.title}</h3>
-                <p class="mt-2 text-sm leading-relaxed text-ink-3">
+                <h3 class="text-xl font-semibold text-(--color-text-primary)">
+                  {step.title}
+                </h3>
+                <p class="mt-2 text-sm leading-relaxed text-(--color-text-secondary)">
                   {step.summary}
                 </p>
                 <div
                   class={`mt-4 flex flex-wrap gap-2 ${i % 2 === 0 ? 'md:justify-end' : ''}`}
                 >
                   {step.deliverables.map((d) => (
-                    <span class="inline-flex items-center gap-1 rounded-full border border-line bg-surface-2 px-3 py-1 text-xs text-ink-3">
-                      <Icon name="check" size={12} class="text-ok" />
+                    <span class="inline-flex items-center gap-1 rounded-full border border-(--color-border-subtle) bg-surface-sunken px-3 py-1 text-xs text-(--color-text-secondary)">
+                      <Icon
+                        name="check"
+                        size={12}
+                        class="text-status-success"
+                      />
                       {d}
                     </span>
                   ))}

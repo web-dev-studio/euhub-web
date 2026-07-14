@@ -1,10 +1,18 @@
 ---
 /**
- * Hero — explains the offer immediately.
- * Headline Option B (strongest for the positioning).
- * Browser mockup visual with floating system cards.
+ * Hero — restyled to match grow (euhub-marketing)'s current hero layout:
+ * a grid-pattern background layer plus a radial-gradient glow layer behind
+ * a Container-wrapped intro, no page-level divider under the section.
+ *
+ * Grow's current hero is a 60/40 two-column grid (copy + a bordered list of
+ * 3 stats). Build has no equivalent 3-stat content to put in that column —
+ * its old hero visual was a decorative browser-mockup card, not a stats
+ * list — so per the redesign brief that column is omitted here rather than
+ * inventing numbers; this is a single-column hero. Build's own headline,
+ * subheadline, CTAs, and trust line are unchanged.
  */
 import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
 import Button from '../ui/Button.astro';
 import Badge from '../ui/Badge.astro';
 import Icon from '../ui/Icon.astro';
@@ -18,194 +26,68 @@ const { locale = 'en' } = Astro.props;
 const { primaryCta, secondaryCta, trustLine } = getContent(locale).site;
 ---
 
-<section class="relative overflow-hidden border-b border-line bg-canvas">
-  {/* Subtle grid background */}
-  <div class="absolute inset-0 bg-grid opacity-40" aria-hidden="true"></div>
-  {/* Gradient fade */}
+<Section bg="canvas" padding="lg" class="relative overflow-hidden">
+  {/* Subtle grid-pattern background layer */}
   <div
-    class="absolute inset-0 bg-gradient-to-b from-canvas/0 via-canvas/50 to-canvas"
     aria-hidden="true"
+    class="bg-grid pointer-events-none absolute inset-0 opacity-40"
+  >
+  </div>
+  {/* Radial-gradient glow layer */}
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0"
+    style="background-image: radial-gradient(circle at 12% 20%, var(--color-primary-glow), transparent 30%), radial-gradient(circle at 88% 8%, var(--color-secondary-glow), transparent 30%);"
   >
   </div>
 
   <Container size="xl" class="relative">
-    <div
-      class="grid gap-12 py-20 md:py-28 lg:grid-cols-2 lg:items-center lg:gap-16"
-    >
-      {/* Copy */}
-      <div>
-        <Badge variant="brand">
-          <Icon name="zap" size={12} />
-          Web engineering studio · EUHUB
-        </Badge>
+    <div class="max-w-3xl">
+      <Badge variant="brand">
+        <Icon name="zap" size={12} />
+        Web engineering studio · EUHUB
+      </Badge>
 
-        <h1
-          class="mt-6 text-4xl font-bold leading-tight tracking-tight text-ink md:text-5xl lg:text-[2.75rem]"
+      <h1
+        class="mt-6 text-4xl font-bold leading-tight tracking-tight text-(--color-text-primary) md:text-5xl lg:text-[2.75rem]"
+      >
+        Premium websites, web apps, and AI-ready interfaces for European
+        businesses.
+      </h1>
+
+      <p
+        class="mt-6 max-w-xl text-lg leading-relaxed text-(--color-text-secondary)"
+      >
+        Web Dev Studio by EUHUB designs and engineers modern websites, landing
+        pages, dashboards, client portals, and AI-integrated web applications
+        with performance, security, and business logic built in from day one.
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Button
+          href={primaryCta.href}
+          size="lg"
+          data-umami-event="cta_primary_click"
         >
-          Premium websites, web apps, and AI-ready interfaces for European
-          businesses.
-        </h1>
-
-        <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-3">
-          Web Dev Studio by EUHUB designs and engineers modern websites, landing
-          pages, dashboards, client portals, and AI-integrated web applications
-          with performance, security, and business logic built in from day one.
-        </p>
-
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button
-            href={primaryCta.href}
-            size="lg"
-            data-umami-event="cta_primary_click"
-          >
-            {primaryCta.label}
-            <Icon name="arrow-right" size={18} />
-          </Button>
-          <Button
-            href={secondaryCta.href}
-            variant="secondary"
-            size="lg"
-            data-umami-event="cta_secondary_click"
-          >
-            {secondaryCta.label}
-          </Button>
-        </div>
-
-        <p class="mt-8 flex items-center gap-2 text-sm text-ink-3">
-          <Icon name="shield" size={16} class="text-ok" />
-          {trustLine}
-        </p>
+          {primaryCta.label}
+          <Icon name="arrow-right" size={18} />
+        </Button>
+        <Button
+          href={secondaryCta.href}
+          variant="secondary"
+          size="lg"
+          data-umami-event="cta_secondary_click"
+        >
+          {secondaryCta.label}
+        </Button>
       </div>
 
-      {/* Browser mockup visual */}
-      <div class="relative lg:pl-8" aria-hidden="true">
-        {/* Browser frame */}
-        <div
-          class="relative rounded-xl border border-line bg-surface shadow-panel"
-        >
-          {/* Browser bar */}
-          <div class="flex items-center gap-2 border-b border-line px-4 py-3">
-            <span class="h-3 w-3 rounded-full bg-danger/30"></span>
-            <span class="h-3 w-3 rounded-full bg-warn/30"></span>
-            <span class="h-3 w-3 rounded-full bg-ok/30"></span>
-            <div
-              class="ml-3 flex-1 rounded-md bg-surface-2 px-3 py-1.5 text-xs text-ink-4"
-            >
-              web-dev-studio.com
-            </div>
-          </div>
-
-          {/* Browser content — system preview */}
-          <div class="space-y-4 p-6">
-            {/* Performance score row */}
-            <div
-              class="flex items-center justify-between rounded-lg border border-line bg-surface-2 px-4 py-3"
-            >
-              <div class="flex items-center gap-3">
-                <div
-                  class="flex h-10 w-10 items-center justify-center rounded-full bg-ok/10 text-ok font-bold text-sm"
-                >
-                  98
-                </div>
-                <div>
-                  <div class="text-xs font-medium text-ink-2">Lighthouse</div>
-                  <div class="text-xs text-ink-4">Performance</div>
-                </div>
-              </div>
-              <div class="flex gap-1.5">
-                <Badge variant="ok">A+ SEO</Badge>
-                <Badge variant="ok">A11y</Badge>
-              </div>
-            </div>
-
-            {/* API + AI cards */}
-            <div class="grid grid-cols-2 gap-4">
-              <div class="rounded-lg border border-line bg-surface p-4">
-                <div
-                  class="flex items-center gap-2 text-xs font-medium text-ink-2"
-                >
-                  <Icon name="plug" size={14} class="text-brand" />
-                  API Integration
-                </div>
-                <div class="mt-3 space-y-2">
-                  <div class="h-1.5 w-full rounded-full bg-surface-2">
-                    <div class="h-1.5 w-3/4 rounded-full bg-brand"></div>
-                  </div>
-                  <div class="h-1.5 w-full rounded-full bg-surface-2">
-                    <div class="h-1.5 w-1/2 rounded-full bg-cyan"></div>
-                  </div>
-                </div>
-                <div class="mt-3 flex items-center gap-1 text-xs text-ok">
-                  <Icon name="check" size={12} />
-                  CRM synced
-                </div>
-              </div>
-
-              <div class="rounded-lg border border-line bg-surface p-4">
-                <div
-                  class="flex items-center gap-2 text-xs font-medium text-ink-2"
-                >
-                  <Icon name="sparkles" size={14} class="text-violet" />
-                  AI Assistant
-                </div>
-                <div class="mt-3 space-y-1.5">
-                  <div
-                    class="rounded-md bg-violet/10 px-2 py-1 text-xs text-violet"
-                  >
-                    RAG query → 2 results
-                  </div>
-                  <div
-                    class="rounded-md bg-surface-2 px-2 py-1 text-xs text-ink-3"
-                  >
-                    Streaming response…
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Dashboard chart */}
-            <div class="rounded-lg border border-line bg-surface p-4">
-              <div class="flex items-center justify-between">
-                <div
-                  class="flex items-center gap-2 text-xs font-medium text-ink-2"
-                >
-                  <Icon name="layout" size={14} class="text-brand" />
-                  Dashboard
-                </div>
-                <span class="text-xs text-ok">+24%</span>
-              </div>
-              <div class="mt-3 flex h-16 items-end gap-1.5">
-                <div class="w-full rounded-t bg-surface-3" style="height: 30%">
-                </div>
-                <div class="w-full rounded-t bg-surface-3" style="height: 45%">
-                </div>
-                <div class="w-full rounded-t bg-surface-3" style="height: 35%">
-                </div>
-                <div class="w-full rounded-t bg-brand/40" style="height: 60%">
-                </div>
-                <div class="w-full rounded-t bg-brand/60" style="height: 75%">
-                </div>
-                <div class="w-full rounded-t bg-brand" style="height: 90%">
-                </div>
-              </div>
-            </div>
-
-            {/* Deployment status */}
-            <div
-              class="flex items-center justify-between rounded-lg border border-line bg-surface-2 px-4 py-2.5"
-            >
-              <div class="flex items-center gap-2 text-xs text-ink-2">
-                <Icon name="cloud" size={14} class="text-brand" />
-                Deploy pipeline
-              </div>
-              <div class="flex items-center gap-1.5 text-xs text-ok">
-                <span class="h-2 w-2 rounded-full bg-ok"></span>
-                Live · EU edge
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <p
+        class="mt-8 flex items-center gap-2 text-sm text-(--color-text-secondary)"
+      >
+        <Icon name="shield" size={16} class="text-status-success" />
+        {trustLine}
+      </p>
     </div>
   </Container>
-</section>
+</Section>

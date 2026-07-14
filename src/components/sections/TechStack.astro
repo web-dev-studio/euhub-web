@@ -19,10 +19,12 @@ const { techStack } = getContent(locale).techStack;
 <Section id="tech-stack" bg="surface-2">
   <Container size="xl">
     <div class="mx-auto max-w-3xl text-center" data-reveal>
-      <h2 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+      <h2
+        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+      >
         Built with modern engineering standards
       </h2>
-      <p class="mt-4 text-lg text-ink-3">
+      <p class="mt-4 text-lg text-(--color-text-secondary)">
         We choose tools based on what your project needs, not what is trending.
         Here is the stack we reach for most often.
       </p>
@@ -31,17 +33,19 @@ const { techStack } = getContent(locale).techStack;
     <div class="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {
         techStack.map((category) => (
-          <div class="rounded-lg border border-line bg-surface p-6 shadow-card">
+          <div class="rounded-lg border border-(--color-border-subtle) bg-surface-raised p-6 shadow-card">
             <div class="flex items-center gap-3">
-              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-soft text-brand">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-500">
                 <Icon name={category.icon} size={20} />
               </div>
-              <h3 class="text-base font-semibold text-ink">{category.title}</h3>
+              <h3 class="text-base font-semibold text-(--color-text-primary)">
+                {category.title}
+              </h3>
             </div>
             <ul class="mt-4 space-y-2">
               {category.items.map((item) => (
-                <li class="flex items-center gap-2 text-sm text-ink-2">
-                  <span class="h-1.5 w-1.5 rounded-full bg-brand" />
+                <li class="flex items-center gap-2 text-sm text-(--color-text-secondary)">
+                  <span class="h-1.5 w-1.5 rounded-full bg-primary-500" />
                   {item}
                 </li>
               ))}

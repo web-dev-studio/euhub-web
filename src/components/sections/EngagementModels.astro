@@ -23,10 +23,12 @@ const { primaryCta } = getContent(locale).site;
 <Section id="pricing" bg="surface-2">
   <Container size="xl">
     <div class="mx-auto max-w-3xl text-center" data-reveal>
-      <h2 class="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+      <h2
+        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+      >
         How you can work with us
       </h2>
-      <p class="mt-4 text-lg text-ink-3">
+      <p class="mt-4 text-lg text-(--color-text-secondary)">
         {pricingOrientationCopy}
       </p>
     </div>
@@ -37,8 +39,8 @@ const { primaryCta } = getContent(locale).site;
           <div
             class={`relative flex flex-col rounded-lg border p-8 shadow-card ${
               i === 1
-                ? 'border-brand bg-surface ring-2 ring-brand/20'
-                : 'border-line bg-surface'
+                ? 'border-primary-500 bg-surface-raised ring-2 ring-primary-500/20'
+                : 'border-(--color-border-subtle) bg-surface-raised'
             }`}
           >
             {i === 1 && (
@@ -47,29 +49,33 @@ const { primaryCta } = getContent(locale).site;
               </div>
             )}
 
-            <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink-4">
+            <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-(--color-text-secondary)">
               <Icon
                 name={i === 0 ? 'search' : i === 1 ? 'layers' : 'refresh'}
                 size={14}
-                class="text-brand"
+                class="text-primary-500"
               />
               {i === 0 ? 'Entry point' : i === 1 ? 'Project' : 'Ongoing'}
             </div>
 
-            <h3 class="mt-4 text-xl font-bold text-ink">{model.shape}</h3>
+            <h3 class="mt-4 text-xl font-bold text-(--color-text-primary)">
+              {model.shape}
+            </h3>
 
-            <p class="mt-3 text-sm leading-relaxed text-ink-3">
+            <p class="mt-3 text-sm leading-relaxed text-(--color-text-secondary)">
               {model.howItWorks}
             </p>
 
-            <div class="mt-6 border-t border-line pt-6">
-              <div class="text-xs font-medium uppercase tracking-wider text-ink-4">
+            <div class="mt-6 border-t border-(--color-border-subtle) pt-6">
+              <div class="text-xs font-medium uppercase tracking-wider text-(--color-text-secondary)">
                 Price orientation
               </div>
-              <div class="mt-1 text-lg font-bold text-brand">
+              <div class="mt-1 text-lg font-bold text-primary-500">
                 {model.priceOrientation}
               </div>
-              <div class="mt-2 text-xs text-ink-3">{model.typicalScope}</div>
+              <div class="mt-2 text-xs text-(--color-text-secondary)">
+                {model.typicalScope}
+              </div>
             </div>
 
             <div class="mt-8">

@@ -26,20 +26,20 @@ const {
 } = Astro.props;
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-md font-medium transition-all duration-200 focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2 disabled:opacity-50 disabled:pointer-events-none';
+  'inline-flex items-center justify-center gap-2 rounded-full font-medium transition-[transform,background-color,border-color] duration-300 ease-(--ease-emphasis) focus-visible:outline-2 focus-visible:outline-(--color-focus-ring) focus-visible:outline-offset-2 disabled:opacity-50 disabled:pointer-events-none';
 
 const variants = {
   primary:
-    'bg-brand text-white hover:bg-brand-2 shadow-card hover:shadow-panel',
+    'bg-primary-500 text-(--color-text-on-primary) shadow-(--shadow-glow-primary) hover:-translate-y-0.5',
   secondary:
-    'bg-surface text-ink border border-line-strong hover:border-brand hover:text-brand',
-  ghost: 'text-ink-2 hover:text-brand',
+    'border border-(--color-text-secondary) text-(--color-text-primary) hover:border-(--color-text-primary)',
+  ghost: 'text-(--color-text-primary) hover:bg-surface-sunken',
 };
 
 const sizes = {
-  sm: 'text-sm px-4 py-2',
-  md: 'text-base px-5 py-2.5',
-  lg: 'text-base px-6 py-3',
+  sm: 'text-sm px-5 py-2',
+  md: 'text-base px-8 py-3.5',
+  lg: 'text-lg px-9 py-4',
 };
 
 const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
