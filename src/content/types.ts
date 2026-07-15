@@ -40,9 +40,18 @@ export interface SiteContent {
   };
 }
 
+export interface ProblemItem {
+  /** Short title (2-4 words) */
+  title: string;
+  /** One-sentence muted body copy */
+  body: string;
+}
+
 export interface Service {
   id: string;
   title: string;
+  /** Short mono index tag rendered as "NN // Tag" (e.g. "Websites") */
+  tag: string;
   /** One-sentence explanation */
   summary: string;
   /** What it includes (bullet points) */
@@ -93,7 +102,11 @@ export interface EcosystemBrand {
   name: string;
   role: string;
   description: string;
-  url: string;
+  /**
+   * Outbound URL. Omitted for the self-referential "This site" card — per
+   * the design brief it must not link out (it already is this page).
+   */
+  url?: string;
 }
 
 export interface LegalContent {

@@ -1,5 +1,7 @@
 import type { EcosystemBrand } from '../types';
 
+const eyebrow = 'Ecosystem';
+
 const ecosystem: EcosystemBrand[] = [
   {
     id: 'web-dev-studio',
@@ -7,7 +9,7 @@ const ecosystem: EcosystemBrand[] = [
     role: 'This site',
     description:
       'Websites, landing pages, portals, and web applications. The web engineering and digital product studio inside EUHUB.',
-    url: 'https://web-dev-studio.com',
+    // No `url` — this card is self-referential (this site) and must not link out.
   },
   {
     id: 'euhub-ai',
@@ -35,4 +37,4 @@ const ecosystem: EcosystemBrand[] = [
   },
 ];
 
-export const ecosystemBundle = { ecosystem };
+export const ecosystemBundle = { eyebrow, ecosystem };

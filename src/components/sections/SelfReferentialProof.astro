@@ -8,33 +8,48 @@
 import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
 import Icon from '../ui/Icon.astro';
+import Eyebrow from '../ui/Eyebrow.astro';
+import type { Locale } from '../../content/types';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+
+/**
+ * No content file backs this section (see src/content/en|sk/*.ts) — the
+ * metrics/copy below match the design spec verbatim and aren't otherwise
+ * localized. This eyebrow is new copy, so it gets a real SK translation
+ * rather than being left English-only.
+ */
+const eyebrowLabel = locale === 'sk' ? 'Dôkaz' : 'Proof';
 
 const metrics = [
   {
     value: '95+',
     label: 'Lighthouse score',
-    sub: 'Performance, A11y, SEO, Best Practices',
+    sub: 'Performance, A11y, SEO, Best Practices.',
     icon: 'zap',
     color: 'text-status-success',
   },
   {
-    value: '< 50kb',
+    value: '< 50 KB',
     label: 'JavaScript payload',
-    sub: 'Static-first, React islands only where needed',
+    sub: 'Static-first, React islands only where needed.',
     icon: 'code',
     color: 'text-primary-500',
   },
   {
-    value: '< 100ms',
+    value: '< 100 ms',
     label: 'TTFB',
-    sub: 'Served from GCP Cloud Run',
+    sub: 'Served from GCP Cloud Run.',
     icon: 'cloud',
     color: 'text-accent-cyan',
   },
   {
-    value: '< 1.5s',
+    value: '< 1.5 s',
     label: 'LCP',
-    sub: 'Optimized images, no render-blocking',
+    sub: 'Optimized images, no render-blocking.',
     icon: 'clock',
     color: 'text-accent-violet',
   },
@@ -44,6 +59,7 @@ const metrics = [
 <Section id="proof" bg="canvas">
   <Container size="xl">
     <div class="mx-auto max-w-3xl text-center" data-reveal>
+      <Eyebrow index={8} label={eyebrowLabel} class="mb-4" />
       <h2
         class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
       >

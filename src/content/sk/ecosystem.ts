@@ -1,5 +1,7 @@
 import type { EcosystemBrand } from '../types';
 
+const eyebrow = 'Ekosystém';
+
 const ecosystem: EcosystemBrand[] = [
   {
     id: 'web-dev-studio',
@@ -7,7 +9,7 @@ const ecosystem: EcosystemBrand[] = [
     role: 'Tento web',
     description:
       'Weby, landing pages, portály a webové aplikácie. Web engineering a digital product studio v rámci EUHUB.',
-    url: 'https://web-dev-studio.com',
+    // Žiadne `url` — táto karta je self-referenčná (tento web) a nesmie viesť von.
   },
   {
     id: 'euhub-ai',
@@ -35,4 +37,4 @@ const ecosystem: EcosystemBrand[] = [
   },
 ];
 
-export const ecosystemBundle = { ecosystem };
+export const ecosystemBundle = { eyebrow, ecosystem };

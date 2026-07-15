@@ -79,15 +79,21 @@ const year = new Date().getFullYear();
           {
             ecosystem.map((brand) => (
               <li>
-                <a
-                  href={brand.url}
-                  target="_blank"
-                  rel="noopener"
-                  class="flex items-center gap-1.5 text-sm text-(--color-text-secondary) hover:text-primary-500 transition-colors"
-                >
-                  {brand.name}
-                  <Icon name="external" size={12} />
-                </a>
+                {brand.url ? (
+                  <a
+                    href={brand.url}
+                    target="_blank"
+                    rel="noopener"
+                    class="flex items-center gap-1.5 text-sm text-(--color-text-secondary) hover:text-primary-500 transition-colors"
+                  >
+                    {brand.name}
+                    <Icon name="external" size={12} />
+                  </a>
+                ) : (
+                  <span class="flex items-center gap-1.5 text-sm text-(--color-text-secondary)">
+                    {brand.name}
+                  </span>
+                )}
               </li>
             ))
           }

@@ -8,6 +8,7 @@ import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
 import Badge from '../ui/Badge.astro';
 import Icon from '../ui/Icon.astro';
+import Eyebrow from '../ui/Eyebrow.astro';
 import { getContent } from '../../lib/i18n';
 import type { Locale } from '../../content/types';
 
@@ -15,12 +16,13 @@ interface Props {
   locale?: Locale;
 }
 const { locale = 'en' } = Astro.props;
-const { exampleScenarios } = getContent(locale).examples;
+const { eyebrow, exampleScenarios } = getContent(locale).examples;
 ---
 
 <Section id="examples" bg="canvas">
   <Container size="xl">
     <div class="mx-auto max-w-3xl text-center" data-reveal>
+      <Eyebrow index={7} label={eyebrow} class="mb-4" />
       <div class="flex items-center justify-center gap-2">
         <h2
           class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
@@ -35,7 +37,7 @@ const { exampleScenarios } = getContent(locale).examples;
       </p>
       <div class="mt-4 flex justify-center">
         <Badge variant="warn">
-          <Icon name="info" size={12} />
+          <Icon name="partial-circle" size={12} />
           Illustrative examples
         </Badge>
       </div>
@@ -65,7 +67,7 @@ const { exampleScenarios } = getContent(locale).examples;
 
             {/* Solution */}
             <div class="px-6 pt-5">
-              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary-500">
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-secondary-500">
                 <Icon name="code" size={14} />
                 Solution
               </div>

@@ -1,5 +1,7 @@
 import type { ExampleScenario } from '../types';
 
+const eyebrow = 'Príklady';
+
 const exampleScenarios: ExampleScenario[] = [
   {
     id: 'logistics',
@@ -36,4 +38,4 @@ const exampleScenarios: ExampleScenario[] = [
   },
 ];
 
-export const exampleScenariosBundle = { exampleScenarios };
+export const exampleScenariosBundle = { eyebrow, exampleScenarios };
