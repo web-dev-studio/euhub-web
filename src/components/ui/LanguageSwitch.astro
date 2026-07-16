@@ -1,8 +1,10 @@
 ---
 /**
- * LanguageSwitch — EN | SK language toggle.
- * Links point to the same page in the other locale (via getAlternatePath).
- * Clicking sets localStorage('i18n-choice') to override auto-detection.
+ * LanguageSwitch — EN | SK language toggle, styled to match grow's/deploy's
+ * pill-group pattern exactly (rounded border + background, active option
+ * highlighted). Links point to the same page in the other locale (via
+ * getAlternatePath). Clicking sets localStorage('i18n-choice') to override
+ * auto-detection.
  *
  * Placement:
  *  - Desktop: Header next to ThemeSelector
@@ -17,42 +19,61 @@ interface Props {
 }
 
 const { locale = 'en' } = Astro.props;
-const otherLocale: Locale = locale === 'sk' ? 'en' : 'sk';
-const otherHref = getAlternatePath(Astro.url, otherLocale);
+
+/**
+ * Language names are locale-invariant literal text (a language's own name
+ * doesn't translate), so these are static labels, not content-bundle
+ * strings — same convention as grow's/deploy's LanguageSwitch.
+ */
+const options: { code: Locale; label: string; name: string }[] = [
+  { code: 'en', label: 'EN', name: 'English' },
+  { code: 'sk', label: 'SK', name: 'Slovenčina' },
+];
 ---
 
-<nav aria-label="Language" class="flex items-center gap-1.5 text-xs">
-  <a
-    href={locale === 'en'
-      ? Astro.url.pathname
-      : getAlternatePath(Astro.url, 'en')}
-    class={`font-medium transition-colors ${locale === 'en' ? 'text-primary-500' : 'text-(--color-text-secondary) hover:text-primary-500'}`}
-    aria-current={locale === 'en' ? 'true' : undefined}
-    data-lang-switch="en"
-  >
-    EN
-  </a>
-  <span aria-hidden="true" class="text-(--color-text-secondary)">|</span>
-  <a
-    href={locale === 'sk' ? Astro.url.pathname : otherHref}
-    class={`font-medium transition-colors ${locale === 'sk' ? 'text-primary-500' : 'text-(--color-text-secondary) hover:text-primary-500'}`}
-    aria-current={locale === 'sk' ? 'true' : undefined}
-    data-lang-switch="sk"
-  >
-    SK
-  </a>
-</nav>
+<div
+  class="inline-flex items-center gap-0.5 rounded-full border border-(--color-border-subtle) bg-(--color-surface-raised) p-0.5"
+  data-language-switch
+>
+  {
+    options.map((option) => (
+      <a
+        href={
+          option.code === locale
+            ? Astro.url.pathname
+            : getAlternatePath(Astro.url, option.code)
+        }
+        aria-current={option.code === locale ? 'true' : undefined}
+        aria-label={option.name}
+        title={option.name}
+        data-locale={option.code}
+        class="inline-flex h-8 min-w-8 items-center justify-center rounded-full px-2 font-mono text-sm font-medium text-(--color-text-secondary) transition-colors hover:text-primary-500 aria-[current]:bg-(--color-surface-sunken) aria-[current]:font-semibold aria-[current]:text-primary-500"
+      >
+        {option.label}
+      </a>
+    ))
+  }
+</div>
 
-<script is:inline>
-  // Persist language choice to override auto-detection
-  document.querySelectorAll('[data-lang-switch]').forEach(function (link) {
-    link.addEventListener('click', function () {
-      try {
-        var lang = link.getAttribute('data-lang-switch');
-        if (lang) localStorage.setItem('i18n-choice', lang);
-      } catch (e) {
-        /* ignore */
-      }
-    });
+<script>
+  // Delegated on `document` (not per-instance) — this component can render
+  // more than once per page (header desktop + mobile panel + footer); Astro
+  // dedupes the identical inline script to one copy, and delegation still
+  // catches clicks from every rendered instance.
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const link = target.closest<HTMLAnchorElement>(
+      '[data-language-switch] a[data-locale]',
+    );
+    if (!link) return;
+    const targetLocale = link.dataset.locale;
+    if (!targetLocale) return;
+    try {
+      localStorage.setItem('i18n-choice', targetLocale);
+    } catch {
+      // Storage unavailable (private browsing, quota) — navigation still
+      // proceeds via the plain href; only persistence is lost.
+    }
   });
 </script>
