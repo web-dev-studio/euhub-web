@@ -10,7 +10,8 @@ the EUHUB engineering ecosystem. Fast, secure, conversion-focused, GDPR-aware.
 - **React 19** — islands only (form, hero interactive elements)
 - **TypeScript** — strict mode
 - **Tailwind CSS v4** — via `@tailwindcss/vite`
-- **Inter** — self-hosted via Fontsource (no Google Fonts CDN)
+- **Plus Jakarta Sans / DM Sans / JetBrains Mono** — self-hosted via Fontsource
+  (no Google Fonts CDN); the shared EUHUB type system (grow + deploy + build)
 - **Zod 4** — shared validation schema (client + server)
 - **Bun** — package manager (`bun install`)
 - **Node 22+** — Astro runtime (Bun's runtime doesn't support `module.registerHooks`)

@@ -26,11 +26,11 @@ const { eyebrow, problems } = getContent(locale).problem;
     <div class="mx-auto max-w-3xl text-center" data-reveal>
       <Eyebrow index={2} label={eyebrow} class="mb-4" />
       <h2
-        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+        class="font-heading text-h2 font-extrabold tracking-tight text-(--color-text-primary)"
       >
         Your website is probably not the real problem. The system behind it is.
       </h2>
-      <p class="mt-6 text-lg leading-relaxed text-(--color-text-secondary)">
+      <p class="mt-6 text-lead leading-relaxed text-(--color-text-secondary)">
         Most companies don't need a redesign. They need a rebuild of the
         structure, integrations, and processes the website is supposed to
         support. A new coat of paint on a fragile foundation is still a fragile
@@ -47,7 +47,7 @@ const { eyebrow, problems } = getContent(locale).problem;
             <p class="font-mono text-sm font-semibold text-primary-500">
               {String(i + 1).padStart(2, '0')}
             </p>
-            <h3 class="text-base font-semibold text-(--color-text-primary)">
+            <h3 class="font-heading text-base font-semibold text-(--color-text-primary)">
               {problem.title}
             </h3>
             <p class="text-sm leading-relaxed text-(--color-text-secondary)">

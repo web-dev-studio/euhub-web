@@ -36,7 +36,8 @@ npm run format:check   # check only
 - GCP Cloud Run deployment via `@astrojs/node` adapter (standalone mode).
 - Secrets via `astro:env` (`access: "secret"`) — never `import.meta.env` for runtime secrets.
 - `PUBLIC_` prefix required for client-exposed env vars (Turnstile site key, Umami).
-- Inter self-hosted via Fontsource (no Google Fonts CDN — GDPR exposure).
+- Plus Jakarta Sans / DM Sans / JetBrains Mono self-hosted via Fontsource (no
+  Google Fonts CDN — GDPR exposure). Shared with grow + deploy.
 - No MDX, no GSAP-global, no 3D. React islands only where interactivity is necessary.
 - Security headers via Astro middleware (`src/middleware.ts`), not a static `_headers` file.
 

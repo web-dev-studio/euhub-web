@@ -42,7 +42,7 @@ const homeHref = locale === 'sk' ? '/sk/' : '/';
 <div
   class="border-b border-(--color-border-subtle) font-mono text-[11px] tracking-[0.12em]"
 >
-  <Container size="xl" class="flex h-9 items-center justify-between">
+  <Container class="flex h-9 items-center justify-between">
     <span class="hidden uppercase text-(--color-text-secondary) sm:inline">
       {trustLine}
     </span>
@@ -57,7 +57,6 @@ const homeHref = locale === 'sk' ? '/sk/' : '/';
   class="sticky top-0 z-50 h-(--spacing-header-height) border-b border-(--color-border-subtle) bg-(--color-surface-page)/80 backdrop-blur-md"
 >
   <Container
-    size="xl"
     class="grid h-full grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4"
   >
     <a
@@ -139,7 +138,7 @@ const homeHref = locale === 'sk' ? '/sk/' : '/';
     id="mobile-menu"
     class="hidden border-t border-(--color-border-subtle) bg-(--color-surface-raised) md:hidden"
   >
-    <Container size="xl" class="flex flex-col gap-4 py-4">
+    <Container class="flex flex-col gap-4 py-4">
       <nav
         aria-label="Mobile navigation"
         class="flex flex-col gap-3"

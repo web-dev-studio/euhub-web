@@ -21,14 +21,14 @@ const { primaryCta } = getContent(locale).site;
 ---
 
 <Section id="pricing" bg="surface-2">
-  <Container size="xl">
+  <Container>
     <div class="mx-auto max-w-3xl text-center" data-reveal>
       <h2
-        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+        class="font-heading text-h2 font-extrabold tracking-tight text-(--color-text-primary)"
       >
         How you can work with us
       </h2>
-      <p class="mt-4 text-lg text-(--color-text-secondary)">
+      <p class="mt-4 text-lead text-(--color-text-secondary)">
         {pricingOrientationCopy}
       </p>
     </div>
@@ -58,7 +58,7 @@ const { primaryCta } = getContent(locale).site;
               {i === 0 ? 'Entry point' : i === 1 ? 'Project' : 'Ongoing'}
             </div>
 
-            <h3 class="mt-4 text-xl font-bold text-(--color-text-primary)">
+            <h3 class="mt-4 font-heading text-xl font-bold text-(--color-text-primary)">
               {model.shape}
             </h3>
 

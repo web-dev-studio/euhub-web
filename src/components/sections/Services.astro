@@ -24,11 +24,11 @@ const { eyebrow, services } = getContent(locale).services;
 ---
 
 <Section id="services" bg="canvas">
-  <Container size="xl">
+  <Container>
     <div class="mx-auto max-w-3xl text-center" data-reveal>
       <Eyebrow index={3} label={eyebrow} class="mb-4" />
       <h2
-        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+        class="font-heading text-h2 font-extrabold tracking-tight text-(--color-text-primary)"
       >
         Each service is engineered for a specific business need — not a template
         filled with your logo.
@@ -51,7 +51,7 @@ const { eyebrow, services } = getContent(locale).services;
               <p class="font-mono text-sm font-semibold tracking-[0.1em] text-primary-500 uppercase">
                 {String(i + 1).padStart(2, '0')} // {service.tag}
               </p>
-              <h3 class="mt-4 text-lg font-semibold text-(--color-text-primary)">
+              <h3 class="mt-4 font-heading text-lg font-semibold text-(--color-text-primary)">
                 {service.title}
               </h3>
               <p class="mt-2 text-sm leading-relaxed text-(--color-text-secondary)">

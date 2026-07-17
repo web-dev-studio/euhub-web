@@ -18,15 +18,15 @@ const { eyebrow, techStack } = getContent(locale).techStack;
 ---
 
 <Section id="tech" bg="surface-2">
-  <Container size="xl">
+  <Container>
     <div class="mx-auto max-w-3xl text-center" data-reveal>
       <Eyebrow index={6} label={eyebrow} class="mb-4" />
       <h2
-        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+        class="font-heading text-h2 font-extrabold tracking-tight text-(--color-text-primary)"
       >
         Built with modern engineering standards
       </h2>
-      <p class="mt-4 text-lg text-(--color-text-secondary)">
+      <p class="mt-4 text-lead text-(--color-text-secondary)">
         We choose tools based on what your project needs, not what is trending.
         Here is the stack we reach for most often.
       </p>
@@ -40,7 +40,7 @@ const { eyebrow, techStack } = getContent(locale).techStack;
               <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-500">
                 <Icon name={category.icon} size={20} />
               </div>
-              <h3 class="text-base font-semibold text-(--color-text-primary)">
+              <h3 class="font-heading text-base font-semibold text-(--color-text-primary)">
                 {category.title}
               </h3>
             </div>

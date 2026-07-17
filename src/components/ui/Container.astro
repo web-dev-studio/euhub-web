@@ -1,9 +1,19 @@
 ---
 /**
  * Container — max-width wrapper with consistent horizontal padding.
+ *
+ * The default (`lg` = max-w-6xl) and the responsive gutters
+ * (px-4 -> sm:px-6 -> lg:px-8) match grow's and deploy's Container exactly,
+ * so build's page sits on the same frame as its sibling sites. Page-level
+ * sections should take the default rather than passing a size.
+ *
+ * The size variants remain for the narrower reading columns that genuinely
+ * want one (`md` = max-w-4xl: legal pages, 404, FAQ — grow does the same via
+ * `<Container class="max-w-4xl">`). `xl` (max-w-7xl) is intentionally NOT a
+ * value here: it was what made build 128px wider than grow/deploy.
  */
 interface Props {
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  size?: 'sm' | 'md' | 'lg' | 'full';
   class?: string;
 }
 
@@ -13,11 +23,12 @@ const maxW = {
   sm: 'max-w-2xl',
   md: 'max-w-4xl',
   lg: 'max-w-6xl',
-  xl: 'max-w-7xl',
   full: 'max-w-none',
 };
 ---
 
-<div class={`mx-auto px-6 ${maxW[size]} ${className}`}>
+<div
+  class:list={['mx-auto w-full px-4 sm:px-6 lg:px-8', maxW[size], className]}
+>
   <slot />
 </div>

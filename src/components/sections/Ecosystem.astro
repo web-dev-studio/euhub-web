@@ -22,15 +22,15 @@ const { eyebrow, ecosystem } = getContent(locale).ecosystem;
 ---
 
 <Section id="ecosystem" bg="surface-2">
-  <Container size="xl">
+  <Container>
     <div class="mx-auto max-w-3xl text-center" data-reveal>
       <Eyebrow index={9} label={eyebrow} class="mb-4" />
       <h2
-        class="text-3xl font-bold tracking-tight text-(--color-text-primary) md:text-4xl"
+        class="font-heading text-h2 font-extrabold tracking-tight text-(--color-text-primary)"
       >
         Part of the EUHUB engineering ecosystem
       </h2>
-      <p class="mt-4 text-lg text-(--color-text-secondary)">
+      <p class="mt-4 text-lead text-(--color-text-secondary)">
         Web Dev Studio is the web engineering unit. The wider ecosystem covers
         AI, consulting, and community — so your project has depth behind it.
       </p>
@@ -58,7 +58,7 @@ const { eyebrow, ecosystem } = getContent(locale).ecosystem;
                   class="text-(--color-text-secondary) transition-colors group-hover:text-primary-500"
                 />
               </div>
-              <h3 class="mt-4 text-base font-semibold text-(--color-text-primary)">
+              <h3 class="mt-4 font-heading text-base font-semibold text-(--color-text-primary)">
                 {brand.name}
               </h3>
               <div class="mt-1 text-xs font-medium uppercase tracking-wider text-(--color-text-secondary)">
@@ -78,7 +78,7 @@ const { eyebrow, ecosystem } = getContent(locale).ecosystem;
                   <Icon name="layers" size={20} />
                 </div>
               </div>
-              <h3 class="mt-4 text-base font-semibold text-(--color-text-primary)">
+              <h3 class="mt-4 font-heading text-base font-semibold text-(--color-text-primary)">
                 {brand.name}
               </h3>
               <div class="mt-1 text-xs font-medium uppercase tracking-wider text-(--color-text-secondary)">
