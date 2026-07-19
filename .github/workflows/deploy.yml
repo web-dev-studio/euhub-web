@@ -1,8 +1,8 @@
 name: Deploy to Cloud Run
 
+# GCP Cloud Run fallback during the Azure soak window — no longer auto-triggers
+# on push-to-main (azure-deploy.yml is now the primary path). Manual dispatch only.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
