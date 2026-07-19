@@ -5,7 +5,7 @@
 
 /*
  * Design tokens (redesign/grow-theme — ported from Marketing Studio's
- * current reskin, see /incubator/web/euhub-marketing/src/styles/global.css).
+ * current reskin, see /incubator/web/euhub-grow/src/styles/global.css).
  * Tailwind v4 is CSS-first: all tokens live in this @theme block — there is
  * no tailwind.config.js. The light values are the default; `html[data-theme
  * ='dark']` below overrides the same semantic tokens.
