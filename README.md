@@ -1,4 +1,4 @@
-# Web Dev Studio by EUHUB
+# Build with EUHub
 
 Premium web development studio landing page for `web-dev-studio.com`, part of
 the EUHUB engineering ecosystem. Fast, secure, conversion-focused, GDPR-aware.

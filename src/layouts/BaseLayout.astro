@@ -1,6 +1,6 @@
 ---
 /**
- * BaseLayout — HTML shell for Web Dev Studio by EUHUB.
+ * BaseLayout — HTML shell for Build with EUHub.
  * Plus Jakarta Sans / DM Sans / JetBrains Mono via Fontsource (self-hosted, no
  * Google Fonts) — the shared EUHUB type system.
  * SEO metadata, OG/Twitter, JSON-LD, Umami, skip link, and global styles.
@@ -38,9 +38,7 @@ const siteUrl = Astro.site ?? new URL('https://build.euhub.co');
 const canonical = new URL(path, siteUrl).href;
 const ogImageUrl = new URL(ogImage, siteUrl).href;
 const fullTitle =
-  title === 'Web Dev Studio by EUHUB'
-    ? title
-    : `${title} — Web Dev Studio by EUHUB`;
+  title === 'Build with EUHub' ? title : `${title} — Build with EUHub`;
 
 // hreflang alternate URLs
 const alternateEn = new URL(
@@ -69,8 +67,9 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'Organization',
-      name: 'Web Dev Studio by EUHUB',
+      name: 'Build with EUHub',
       url: siteUrl.href,
+      logo: new URL('/favicon.svg', siteUrl).href,
       inLanguage: locale,
       parentOrganization: {
         '@type': 'Organization',
@@ -88,7 +87,7 @@ const jsonLd = {
     },
     {
       '@type': 'ProfessionalService',
-      name: 'Web Dev Studio by EUHUB',
+      name: 'Build with EUHub',
       url: siteUrl.href,
       areaServed: 'EU',
       serviceType: 'Web development, web applications, AI-ready interfaces',
@@ -192,7 +191,7 @@ const jsonLd = {
 
     {/* Open Graph */}
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Web Dev Studio by EUHUB" />
+    <meta property="og:site_name" content="Build with EUHub" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />

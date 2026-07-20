@@ -1,5 +1,5 @@
 # ===========================================================================
-# Web Dev Studio by EUHUB — Dockerfile for GCP Cloud Run
+# Build with EUHub — Dockerfile for GCP Cloud Run
 # Multi-stage build: Bun + Node for build, Node slim for runtime.
 # ===========================================================================
 

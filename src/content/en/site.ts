@@ -1,8 +1,8 @@
 import type { SiteContent, NavItem, HeroStat } from '../types';
 
 const site: SiteContent = {
-  wordmark: 'Web Dev Studio',
-  tagline: 'by EUHUB',
+  wordmark: 'Build',
+  tagline: 'with EUHub',
   nav: [
     { label: 'Services', href: '#services' },
     { label: 'Examples', href: '#examples' },
@@ -12,14 +12,17 @@ const site: SiteContent = {
     { label: 'Contact', href: '#contact' },
   ],
   ecosystemLinks: [
-    { label: 'EUHUB.CO', href: 'https://euhub.co' },
-    { label: 'EUHUB AI', href: 'https://ai.euhub.co' },
+    { label: 'Grow with EUHub', href: 'https://grow.euhub.co' },
+    { label: 'EUHub AI', href: 'https://ai.euhub.co' },
+    { label: 'EUHub', href: 'https://euhub.co' },
+    { label: 'EUHub Community', href: 'https://community.euhub.co' },
+    { label: 'Deploy with EUHub', href: 'https://deploy.euhub.co' },
   ],
   contactEmail: 'hello@euhub-ai.com',
   location: 'Slovakia · European Union',
-  footerRights: 'Web Dev Studio by EUHUB · EU-based · GDPR-aware',
+  footerRights: 'Build with EUHub · EU-based · GDPR-aware',
   seo: {
-    title: 'Web Dev Studio by EUHUB',
+    title: 'Build with EUHub',
     description:
       'We build fast, secure, conversion-focused web platforms, web apps, and AI-ready interfaces for European businesses. Engineering-led, GDPR-aware, maintained long-term.',
     ogImage: '/og.png',

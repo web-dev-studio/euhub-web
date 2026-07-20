@@ -3,6 +3,12 @@
  * FAQ — native <details>/<summary> accordion.
  * Per plan v3: no React island for FAQ; native HTML is accessible by default.
  * 12 items (10 from prompt + 2 engagement/pricing orientation).
+ *
+ * Also emits FAQPage JSON-LD (a second `application/ld+json` block,
+ * separate from BaseLayout's Organization/ProfessionalService graph) built
+ * directly from the same `faq` array that renders the visible
+ * <details>/<summary> markup below, so the structured data always matches
+ * the on-page content exactly — a hard requirement for FAQPage rich results.
  */
 import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
@@ -15,6 +21,19 @@ interface Props {
 }
 const { locale = 'en' } = Astro.props;
 const { faq } = getContent(locale).faq;
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
 ---
 
 <Section id="faq" bg="canvas">
@@ -52,4 +71,10 @@ const { faq } = getContent(locale).faq;
       }
     </div>
   </Container>
+
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(faqJsonLd)}
+  />
 </Section>

@@ -1,5 +1,5 @@
 /**
- * Shared content types for Web Dev Studio by EUHUB.
+ * Shared content types for Build with EUHub.
  * Content is structured as per-locale bundle objects (src/content/en/, src/content/sk/).
  * EN is canonical; SK is a full translation.
  */

@@ -1,6 +1,6 @@
 {
-  "name": "Web Dev Studio by EUHUB",
-  "short_name": "Web Dev Studio",
+  "name": "Build with EUHub",
+  "short_name": "Build",
   "description": "Fast, secure, conversion-focused web platforms for European businesses.",
   "start_url": "/",
   "display": "standalone",

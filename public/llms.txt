@@ -1,0 +1,38 @@
+# Build with EUHub
+
+> Web engineering studio. We design and build modern websites, landing pages, custom web applications, and AI-integrated interfaces for European businesses, with performance, security, and business logic built in from day one.
+
+## What we do
+
+Build with EUHub (build.euhub.co) is the web engineering unit of the EUHUB group. We build fast, secure, conversion-focused web platforms, web apps, and AI-ready interfaces — engineering-led, GDPR-aware, and maintained long-term. We are based in Slovakia and work with companies across the EU.
+
+## Services
+
+- **Modern business websites** — fast, responsive, SEO-ready websites for companies that need credibility and lead generation.
+- **Landing pages** — conversion-focused campaign pages for services, products, events, and audits.
+- **Custom web applications** — internal tools, dashboards, booking systems, portals, and operational interfaces.
+- **AI-integrated web interfaces** — frontends for AI assistants, RAG systems, automation workflows, and internal copilots.
+- **Website redesign and migration** — rebuilding outdated websites into modern, maintainable, high-performance systems.
+- **API and business integrations** — CRM, ERP, payment, email, analytics, logistics, and internal database integrations (REST, GraphQL, legacy SOAP).
+- **Maintenance and DevOps** — hosting, CI/CD, monitoring, security updates, backups, and long-term care.
+
+## Part of the EUHub group
+
+- **euhub.co** — EUHub. Corporate parent: European AI and software consulting, GDPR-first, EU-resident infrastructure, custom engineering.
+- **ai.euhub.co** — EUHub AI. Agentic AI implementation, automation, workflow audits, AI systems, and custom web apps.
+- **grow.euhub.co** — Grow with EUHub. Full-funnel marketing systems — paid media, SEO, content, and automation — with GDPR-aware tracking and real attribution.
+- **deploy.euhub.co** — Deploy with EUHub. DevOps, FinOps & DevSecOps agency: automated delivery pipelines, cloud cost control, and security in every release, with EU data residency.
+- **community.euhub.co** — EUHub Community. Slovak IT community, incubator, coworking, business support, relocation, and legal/accounting support.
+
+## Languages
+
+English, Slovak.
+
+## Contact
+
+- hello@euhub-ai.com
+- Slovakia (EU)
+
+## Allowed for AI training
+
+Yes — public marketing pages may be indexed and cited by AI engines and LLM training pipelines.

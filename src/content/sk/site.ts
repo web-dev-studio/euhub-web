@@ -1,8 +1,8 @@
 import type { SiteContent, NavItem, HeroStat } from '../types';
 
 const site: SiteContent = {
-  wordmark: 'Web Dev Studio',
-  tagline: 'by EUHUB',
+  wordmark: 'Build',
+  tagline: 'with EUHub',
   nav: [
     { label: 'Služby', href: '#services' },
     { label: 'Príklady', href: '#examples' },
@@ -12,14 +12,17 @@ const site: SiteContent = {
     { label: 'Kontakt', href: '#contact' },
   ],
   ecosystemLinks: [
-    { label: 'EUHUB.CO', href: 'https://euhub.co' },
-    { label: 'EUHUB AI', href: 'https://ai.euhub.co' },
+    { label: 'Grow with EUHub', href: 'https://grow.euhub.co' },
+    { label: 'EUHub AI', href: 'https://ai.euhub.co' },
+    { label: 'EUHub', href: 'https://euhub.co' },
+    { label: 'EUHub Community', href: 'https://community.euhub.co' },
+    { label: 'Deploy with EUHub', href: 'https://deploy.euhub.co' },
   ],
   contactEmail: 'hello@euhub-ai.com',
   location: 'Slovensko · Európska únia',
-  footerRights: 'Web Dev Studio by EUHUB · Sídlo v EÚ · GDPR-aware',
+  footerRights: 'Build with EUHub · Sídlo v EÚ · GDPR-aware',
   seo: {
-    title: 'Web Dev Studio by EUHUB',
+    title: 'Build with EUHub',
     description:
       'Staviame rýchle, bezpečné, konverzné webové platformy, webové aplikácie a AI-ready rozhrania pre európske firmy. Engineering-led, GDPR-aware, dlhodobo udržiavané.',
     ogImage: '/sk/og.png',
