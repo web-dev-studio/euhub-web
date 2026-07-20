@@ -404,7 +404,7 @@ def main():
             [("for European businesses.", False)],
         ],
         trust_line="Based in Slovakia · Built for EU businesses · GDPR-aware by default",
-        domain_text="build.euhub-ai.com",
+        domain_text="build.euhub.co",
     )
 
     # SK — eyebrow is Hero.astro's `heroEyebrow` for locale 'sk' (line 40).
@@ -427,7 +427,7 @@ def main():
             [("pre európske firmy.", False)],
         ],
         trust_line="Sídlo na Slovensku · Postavené pre firmy v EÚ · GDPR-aware v základe",
-        domain_text="build.euhub-ai.com/sk",
+        domain_text="build.euhub.co/sk",
     )
 
 

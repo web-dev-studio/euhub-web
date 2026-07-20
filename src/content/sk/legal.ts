@@ -12,7 +12,7 @@ const privacyPolicy: LegalContent = {
   title: 'Ochrana osobných údajov',
   lastUpdated,
   body: [
-    'Web Dev Studio by EUHUB („my", „nás") prevádzkuje web-dev-studio.com. Tento dokument vysvetľuje, ako zaobchádzame s osobnými údajmi, keď používate tento web alebo odošlete požiadavku cez kontaktný formulár.',
+    'Web Dev Studio by EUHUB („my", „nás") prevádzkuje build.euhub.co. Tento dokument vysvetľuje, ako zaobchádzame s osobnými údajmi, keď používate tento web alebo odošlete požiadavku cez kontaktný formulár.',
     'Dáta, ktoré zbierame: Keď odošlete formulár „Vyžiadať web audit", zbierame informácie, ktoré poskytnete — meno, email, firma, detaily projektu a voliteľné polia, ktoré vyplníte. Nezbierame viac dát, než je potrebné na odpoveď na vašu požiadavku.',
     'Analytika: Používame Umami Analytics, cookieless analytickú platformu hostovanú v EU (Frankfurt region). Umami nenastavuje cookies a nesleduje jednotlivcov naprieč webmi. Zbierame agregované metriky — page views, referrery a počty eventov — aby sme pochopili, ako sa web používa. Consent banner nie je potrebný, pretože sa nenastavujú non-essential cookies.',
     'Tretie strany (processors): Keď odošlete formulár, vaše dáta sa prenášajú do Google Cloud Platform (náš hosting provider) a do webhook destinácie, ktorá smeruje submission do našich interných systémov. Analytické dáta spracováva Umami Cloud (EU/Frankfurt). Každý processor operuje pod GDPR-compatible podmienkami.',
@@ -39,7 +39,7 @@ const terms: LegalContent = {
   title: 'Podmienky použitia',
   lastUpdated,
   body: [
-    'Tieto podmienky upravujú vaše používanie web-dev-studio.com, ktorý prevádzkuje Web Dev Studio by EUHUB („my", „nás").',
+    'Tieto podmienky upravujú vaše používanie build.euhub.co, ktorý prevádzkuje Web Dev Studio by EUHUB („my", „nás").',
     'Účel webu: Tento web je marketingová a lead-generation stránka. Odoslanie kontaktného formulára predstavuje požiadavku na informácie o našich službách. Nepredstavuje zmluvu, ponuku ani záväzok dodať službu.',
     'Form submissions: Keď odošlete formulár „Vyžiadať web audit", súhlasíte, že vás môžeme kontaktovať ohľadom vašej požiadavky. Zodpovedáte za presnosť informácií, ktoré poskytnete. Neodosielajte dôverné alebo citlivé informácie cez formulár.',
     'Intelektuálne vlastníctvo: Obsah, dizajn a kód tohto webu sú naším vlastníctvom. Nemôžete kopírovať, reprodukovať alebo redistribuovať web bez povolenia.',

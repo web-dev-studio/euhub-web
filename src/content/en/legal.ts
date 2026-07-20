@@ -11,7 +11,7 @@ const privacyPolicy: LegalContent = {
   title: 'Privacy Policy',
   lastUpdated,
   body: [
-    'Web Dev Studio by EUHUB ("we", "us") operates web-dev-studio.com. This policy explains how we handle personal data when you use this website or submit a request through our contact form.',
+    'Web Dev Studio by EUHUB ("we", "us") operates build.euhub.co. This policy explains how we handle personal data when you use this website or submit a request through our contact form.',
     'Data we collect: When you submit the "Request Web Audit" form, we collect the information you provide — name, email, company, project details, and any optional fields you fill in. We do not collect more data than is necessary to respond to your request.',
     'Analytics: We use Umami Analytics, a cookieless analytics platform hosted in the EU (Frankfurt region). Umami does not set cookies and does not track individuals across sites. We collect aggregate metrics — page views, referrers, and event counts — to understand how the site is used. No consent banner is required because no non-essential cookies are set.',
     'Third-party processors: When you submit a form, your data is transmitted to Google Cloud Platform (our hosting provider) and to a webhook destination that routes the submission to our internal systems. Analytics data is processed by Umami Cloud (EU/Frankfurt). Each processor operates under GDPR-compatible terms.',
@@ -38,7 +38,7 @@ const terms: LegalContent = {
   title: 'Terms of Service',
   lastUpdated,
   body: [
-    'These terms govern your use of web-dev-studio.com, operated by Web Dev Studio by EUHUB ("we", "us").',
+    'These terms govern your use of build.euhub.co, operated by Web Dev Studio by EUHUB ("we", "us").',
     'Purpose of this website: This website is a marketing and lead-generation page. Submitting the contact form constitutes a request for information about our services. It does not constitute a contract, offer, or commitment to deliver any service.',
     'Form submissions: When you submit the "Request Web Audit" form, you agree that we may contact you about your request. You are responsible for the accuracy of the information you provide. Do not submit confidential or sensitive information in the form.',
     'Intellectual property: The content, design, and code of this website are owned by us. You may not copy, reproduce, or redistribute the site without permission.',

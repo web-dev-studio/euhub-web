@@ -13,7 +13,7 @@ const site: SiteContent = {
   ],
   ecosystemLinks: [
     { label: 'EUHUB.CO', href: 'https://euhub.co' },
-    { label: 'EUHUB AI', href: 'https://euhub-ai.com' },
+    { label: 'EUHUB AI', href: 'https://ai.euhub.co' },
   ],
   contactEmail: 'hello@euhub-ai.com',
   location: 'Slovensko · Európska únia',
@@ -38,7 +38,7 @@ const secondaryCta: NavItem = {
 
 const tertiaryCta: NavItem = {
   label: 'Preskúmať EUHUB AI',
-  href: 'https://euhub-ai.com',
+  href: 'https://ai.euhub.co',
 };
 
 const trustLine =

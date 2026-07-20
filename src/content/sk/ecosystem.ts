@@ -9,7 +9,7 @@ const ecosystem: EcosystemBrand[] = [
     role: 'Marketing a rast',
     description:
       'Full-funnel marketingové systémy — platená reklama, SEO, obsah a automatizácia — postavené inžinierskym štúdiom, s GDPR-aware trackingom a reálnou atribúciou.',
-    url: 'https://grow.euhub-ai.com',
+    url: 'https://grow.euhub.co',
   },
   {
     id: 'euhub-ai',
@@ -17,7 +17,7 @@ const ecosystem: EcosystemBrand[] = [
     role: 'AI implementácia',
     description:
       'Agentic AI implementácia, automatizácia, workflow audity, AI systémy a custom web appky.',
-    url: 'https://euhub-ai.com',
+    url: 'https://ai.euhub.co',
   },
   {
     id: 'euhub-co',
@@ -33,7 +33,7 @@ const ecosystem: EcosystemBrand[] = [
     role: 'Slovenská komunita',
     description:
       'Slovenská IT komunita, inkubátor, coworking, biznis podpora, relocácia a právne/účtovné služby.',
-    url: 'https://euhub.sk',
+    url: 'https://community.euhub.co',
   },
 ];
 

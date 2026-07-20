@@ -34,7 +34,7 @@ const {
   ogImage = locale === 'sk' ? '/sk/og.png' : '/og.png',
 } = Astro.props;
 
-const siteUrl = Astro.site ?? new URL('https://build.euhub-ai.com');
+const siteUrl = Astro.site ?? new URL('https://build.euhub.co');
 const canonical = new URL(path, siteUrl).href;
 const ogImageUrl = new URL(ogImage, siteUrl).href;
 const fullTitle =

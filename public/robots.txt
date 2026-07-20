@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://build.euhub-ai.com/sitemap-index.xml
+Sitemap: https://build.euhub.co/sitemap-index.xml
