@@ -30,7 +30,7 @@ const site: SiteContent = {
 };
 
 const primaryCta: NavItem = {
-  label: 'Request Web Audit',
+  label: 'Request an audit',
   href: '#contact',
 };
 

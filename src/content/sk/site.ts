@@ -30,7 +30,7 @@ const site: SiteContent = {
 };
 
 const primaryCta: NavItem = {
-  label: 'Vyžiadať web audit',
+  label: 'Vyžiadať audit',
   href: '#contact',
 };
 
